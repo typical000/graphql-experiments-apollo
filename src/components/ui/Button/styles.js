@@ -150,7 +150,7 @@ export default theme => ({
    * For buttons, that must be NOT BIGGER than stadart BB button
    * WARNING: Don't use with size modifications
    */
-  'fixedHeight': {
+  fixedHeight: {
     height: 40,
     padding: [2, 10],
     lineHeight: 'normal',

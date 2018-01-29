@@ -1,10 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
-import {has} from './propTypeHelper'
 import styles from './styles.js'
 import Icon from '../Icon'
-import Ripple, {createRippleHandler} from '../Ripple'
 import injectSheet from '../../../utils/jss'
 
 class Button extends Component {
@@ -21,9 +19,11 @@ class Button extends Component {
   }
 
   renderIcon() {
-    <span className={this.props.classes.icon}>
-      <Icon type={this.props.type} />
-    </span>
+    return (
+      <span className={this.props.classes.icon}>
+        <Icon type={this.props.type} />
+      </span>
+    )
   }
 
   render() {
@@ -48,30 +48,32 @@ class Button extends Component {
 
     const classNames = cn(
       classes.default,
+      className,
       type && this.getClassesFromData(type),
       inverse && classes.inverse,
       disabled && classes.disabled,
       big && classes.big,
       small && classes.small,
-      round && classes.round
+      round && classes.round,
+      loading && classes.loading
     )
 
     return (
-        <button
-          className={classNames}
-          tabIndex={tabIndex}
-          onBlur={onBlur}
-          onFocus={onFocus}
-          onClick={onClick}
-        >
-          <span className={classes.wrap}>
-            {icon && iconPosition === 'left' && renderIcon()}
-            <span className={classes.text}>
-              {children}
-            </span>
-            {icon && iconPosition === 'right' && renderIcon()}
+      <button
+        className={classNames}
+        tabIndex={tabIndex}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onClick={onClick}
+      >
+        <span className={classes.wrap}>
+          {icon && iconPosition === 'left' && this.renderIcon()}
+          <span className={classes.text}>
+            {children}
           </span>
-        </button>
+          {icon && iconPosition === 'right' && this.renderIcon()}
+        </span>
+      </button>
     )
   }
 }
@@ -95,7 +97,7 @@ Button.propTypes = {
     PropTypes.arrayOf(PropTypes.string),
   ]),
   icon: PropTypes.string,
-  iconPositon: PropTypes.oneOf(['left', 'right']),
+  iconPosition: PropTypes.oneOf(['left', 'right']),
 }
 
 Button.defaultProps = {

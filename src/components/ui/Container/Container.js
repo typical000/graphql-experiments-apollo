@@ -18,8 +18,7 @@ const Container = ({children, classes}) => (
   <div className={classes.container}>
     {children}
   </div>
-);
-
+)
 
 Container.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,

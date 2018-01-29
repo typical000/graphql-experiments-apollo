@@ -28,6 +28,8 @@ const Icon = ({className, classes, type, inverse, standart, inherit}) => (
   <i
     className={cn(
       classes.default,
+      className,
+      small && classes.small,
       inverse && classes.inverse,
       standart && classes.standart,
       inherit && classes.inherit,

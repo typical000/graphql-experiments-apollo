@@ -12,7 +12,6 @@ const styles = theme => ({
     background: theme.common.header,
     color: theme.text.inverse,
     boxShadow: theme.shadow.level2,
-    textAlign: 'center',
     boxSizing: 'border-box',
     height: 60,
     padding: [10, 20],
@@ -29,7 +28,7 @@ const Header = ({children, classes}) => (
   <div className={classes.header}>
     {children}
   </div>
-);
+)
 
 
 Header.propTypes = {

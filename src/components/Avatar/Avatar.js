@@ -34,7 +34,7 @@ const styles = theme => ({
   },
 })
 
-const Avatar = ({children, classes, src, small, medium, large, round}) => (
+const Avatar = ({classes, src, small, medium, large, round}) => (
   <div className={cn(classes.avatar, round && classes.round)}>
     <img
       className={cn(
@@ -44,10 +44,10 @@ const Avatar = ({children, classes, src, small, medium, large, round}) => (
         large && classes.large,
       )}
       src={src}
+      role="presentation"
     />
   </div>
-);
-
+)
 
 Avatar.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,

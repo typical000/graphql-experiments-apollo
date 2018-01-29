@@ -46,7 +46,7 @@ export default {
 
   button: {
     default: {
-      color:  transparentize(0.3, base.dark),
+      color: transparentize(0.3, base.dark),
       background: darken(0.08, base.light),
       hoverBackground: darken(0.12, base.light),
       icon: transparentize(0.5, base.dark),

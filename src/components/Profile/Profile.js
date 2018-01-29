@@ -56,7 +56,7 @@ const styles = {
   }
 }
 
-const Profile = ({classes, screenname, avatar, gender, city, ...props}) => (
+const Profile = ({classes, screenname, avatar, gender, city}) => (
   <Card className={classes.profile}>
     <div className={classes.avatar}>
       <Avatar src={avatar} medium round />
@@ -64,8 +64,8 @@ const Profile = ({classes, screenname, avatar, gender, city, ...props}) => (
     <div className={classes.content}>
       <div className={classes.screenname}>{screenname}</div>
       <div>
-      {gender && <div className={classes.inline}>{getGenderTranslation(gender)}</div>}
-      {city && <div className={classes.inline}>from {city}</div>}
+        {gender && <div className={classes.inline}>{getGenderTranslation(gender)}</div>}
+        {city && <div className={classes.inline}>from {city}</div>}
       </div>
       <div className={classes.actions}>
         <div className={classes.action}>

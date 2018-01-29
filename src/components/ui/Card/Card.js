@@ -21,8 +21,7 @@ const Card = ({children, classes, className, inverse}) => (
   <div className={cn(inverse ? classes.inverse : classes.card, className)}>
     {children}
   </div>
-);
-
+)
 
 Card.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
