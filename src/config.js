@@ -16,6 +16,7 @@ module.exports = {
       title: 'GraphQL Experiments',
       description: 'Experimenting with Relay and Apollo',
       type: 'website',
+      image: '',
       url: 'https://typical000.github.io/graphql-experiments/'
     }
   }

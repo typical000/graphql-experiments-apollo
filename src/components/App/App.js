@@ -1,11 +1,22 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import GlobalStyles from '../GlobalStyles'
+import Container from '../ui/Container'
+import Header from '../Header'
+import Profile from '../Profile'
 import injectSheet from '../../utils/jss'
 
 const styles = theme => ({
   app: {
-
+    background: theme.common.page,
+    color: theme.text.default,
+    minHeight: '100vh',
+    paddingTop: 80,
+    font: {
+      family: theme.typography.fontFamily,
+      size: theme.typography.fontSize,
+      lineHeight: theme.typography.lineHeight,
+    }
   }
 })
 
@@ -20,7 +31,17 @@ class App extends PureComponent {
     return (
       <GlobalStyles>
         <div className={classes.app}>
-          Application
+          <Header>
+            Test GraphQL application
+          </Header>
+          <Container>
+            <Profile
+              avatar={'http://bezkota.ru/wp-content/uploads/2016/03/dzhimo-kot-s-samymi-bolshimi-glazami-v-mire-08.jpg'}
+              screenname={'SomeUser'}
+              gender={1}
+              city={'New York'}
+            />
+          </Container>
         </div>
       </GlobalStyles>
     )

@@ -48,9 +48,6 @@ module.exports = {
     new CopyFilesPlugin([{
       from: './src/images',
       to: './images'
-    }, {
-      from: './src/fonts',
-      to: './fonts'
     }]),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.SourceMapDevToolPlugin({

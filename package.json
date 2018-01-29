@@ -5,7 +5,7 @@
   "description": "Experimenting with frontend (Relay Modern, Apollo)",
   "author": "Pavel Davydov",
   "scripts": {
-    "start": "cross-env NODE_ENV=development PORT=3000 node ./bin/webpack-dev-server.js",
+    "start": "cross-env NODE_ENV=development PORT=4000 node ./bin/webpack-dev-server.js",
     "build:dev": "cross-env NODE_ENV=development webpack --config ./webpack.config.dev",
     "build:prod": "cross-env NODE_ENV=production webpack --config ./webpack.config.prod",
     "build:analyze": "cross-env NODE_ENV=production webpack --config ./webpack.config.analyze",
@@ -63,6 +63,7 @@
     "jss": "^9.3.3",
     "jss-preset-default": "^4.0.1",
     "normalize-jss": "^4.0.0",
+    "polished": "^1.9.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
