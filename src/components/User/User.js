@@ -14,7 +14,7 @@ const getGenderTranslation = (gender) => {
 }
 
 const styles = {
-  profile: {
+  user: {
     padding: 20,
     display: 'flex',
     alignItems: 'flex-start',
@@ -56,8 +56,8 @@ const styles = {
   }
 }
 
-const Profile = ({classes, screenname, avatar, gender, city}) => (
-  <Card className={classes.profile}>
+const User = ({classes, screenname, avatar, gender, city}) => (
+  <Card className={classes.user}>
     <div className={classes.avatar}>
       <Avatar src={avatar} medium round />
     </div>
@@ -79,7 +79,7 @@ const Profile = ({classes, screenname, avatar, gender, city}) => (
   </Card>
 )
 
-Profile.propTypes = {
+User.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   avatar: PropTypes.string.isRequired,
   screenname: PropTypes.string.isRequired,
@@ -87,9 +87,9 @@ Profile.propTypes = {
   city: PropTypes.string,
 }
 
-Profile.defaultProps = {
+User.defaultProps = {
   gender: 0,
   city: null,
 }
 
-export default injectSheet(styles)(Profile)
+export default injectSheet(styles)(User)

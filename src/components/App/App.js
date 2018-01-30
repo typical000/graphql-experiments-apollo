@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import GlobalStyles from '../GlobalStyles'
 import Container from '../ui/Container'
 import Header from '../Header'
-import Profile from '../Profile'
+import User from '../User'
 import injectSheet from '../../utils/jss'
 
 const styles = theme => ({
@@ -35,7 +35,7 @@ class App extends PureComponent {
             Test GraphQL application
           </Header>
           <Container>
-            <Profile
+            <User
               avatar={'http://bezkota.ru/wp-content/uploads/2016/03/dzhimo-kot-s-samymi-bolshimi-glazami-v-mire-08.jpg'}
               screenname={'SomeUser'}
               gender={1}
