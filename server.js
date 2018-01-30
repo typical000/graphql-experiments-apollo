@@ -1,6 +1,7 @@
 const {find} = require('lodash')
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const {graphqlExpress, graphiqlExpress} = require('apollo-server-express')
 const {makeExecutableSchema} = require('graphql-tools')
 
@@ -202,7 +203,9 @@ const schema = makeExecutableSchema({
 // Initialize the app
 const app = express()
 
-// The GraphQL endpoint
+// Enable cors, to void make requests from 4000 port to 4001
+app.use(cors())
+
 app.use('/graphql', bodyParser.json(), graphqlExpress({
   schema
 }))
@@ -213,6 +216,10 @@ app.use('/graphiql', graphiqlExpress({
 }))
 
 // Start the server
-app.listen(PORT, () => {
+app.listen(PORT, (error) => {
+  if (error) {
+    return error
+  }
+
   console.log(`Go to http://localhost:${PORT}/graphiql to run queries!`)
 })

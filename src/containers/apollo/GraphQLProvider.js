@@ -7,7 +7,13 @@ import {InMemoryCache} from 'apollo-cache-inmemory'
 import {GRAPHQL_SERVER} from '../../constants/url'
 
 const client = new ApolloClient({
-  link: new HttpLink({url: GRAPHQL_SERVER}),
+  link: new HttpLink({
+    /**
+     * By default all requests are directed to '/graphql'
+     * but we have server on other port of localhost
+     */
+    fetch: (uri, options) => fetch(GRAPHQL_SERVER + uri, options),
+  }),
   cache: new InMemoryCache()
 })
 

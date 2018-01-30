@@ -6,6 +6,8 @@ import Header from '../Header'
 import User from '../User'
 import injectSheet from '../../utils/jss'
 
+import {UserListWithData} from '../../containers/apollo/User'
+
 const styles = theme => ({
   app: {
     background: theme.common.page,
@@ -35,12 +37,15 @@ class App extends PureComponent {
             Test GraphQL application
           </Header>
           <Container>
-            <User
-              avatar={'http://bezkota.ru/wp-content/uploads/2016/03/dzhimo-kot-s-samymi-bolshimi-glazami-v-mire-08.jpg'}
-              screenname={'SomeUser'}
-              gender={1}
-              city={'New York'}
-            />
+            <UserListWithData />
+            {/*
+              <User
+                avatar={'http://bezkota.ru/wp-content/uploads/2016/03/dzhimo-kot-s-samymi-bolshimi-glazami-v-mire-08.jpg'}
+                screenname={'SomeUser'}
+                gender={1}
+                city={'New York'}
+              />
+            */ }
           </Container>
         </div>
       </GlobalStyles>
