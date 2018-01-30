@@ -1,13 +1,13 @@
-import {lg, md, sm, xs} from './sizes'
+import {LG, MD, SM, XS} from './sizes'
 
-export const mediaLg = `@media (max-width: ${lg}px)`
-export const mediaMd = `@media (max-width: ${md}px)`
-export const mediaSm = `@media (max-width: ${sm}px)`
-export const mediaXs = `@media (max-width: ${xs}px)`
+export const MEDIA_LG = `@media (max-width: ${LG}px)`
+export const MEDIA_MD = `@media (max-width: ${MD}px)`
+export const MEDIA_SM = `@media (max-width: ${SM}px)`
+export const MEDIA_XS = `@media (max-width: ${XS}px)`
 
 export default {
-  mediaLg,
-  mediaMd,
-  mediaSm,
-  mediaXs
+  MEDIA_LG,
+  MEDIA_MD,
+  MEDIA_SM,
+  MEDIA_XS,
 }

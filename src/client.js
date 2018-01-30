@@ -5,12 +5,16 @@ import {jss, ThemeProvider, JssProvider} from './utils/jss'
 import theme from './theme'
 import App from './components/App'
 
+import GraphQLProvider from './containers/apollo/GraphQLProvider'
+
 hydrate(
-  <ThemeProvider theme={theme}>
-    <JssProvider jss={jss}>
-      <App />
-    </JssProvider>
-  </ThemeProvider>,
+  <GraphQLProvider>
+    <ThemeProvider theme={theme}>
+      <JssProvider jss={jss}>
+        <App />
+      </JssProvider>
+    </ThemeProvider>
+  </GraphQLProvider>,
   document.getElementById('app')
 )
 
