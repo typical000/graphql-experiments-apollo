@@ -16,11 +16,18 @@ Starts client dev-server on `localhost:4000`
 
 # TODO
 
-- [ ] Configure environment
+- [x] Configure environment
 - [ ] Setup server
-  - [ ] Appollo support
+  - [x] Appollo support
   - [ ] Relay support
 - [ ] Create skeleton for future site
+  - [x] Layout for logged in or guest user
+  - [x] Header
+  - [x] Search results with 'Load more'
+  - [ ] Search filters (form)
+- [ ] General GraphQL patterns
+  - [x] Query batching
+  - [ ] Limit query request
 - [ ] Apollo on frontend
   - [ ] Query on server
   - [ ] Fragments usage (and check if we can directly mutate only one fragment)
