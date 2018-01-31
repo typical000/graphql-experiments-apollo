@@ -2,6 +2,18 @@
 
 Created by Pavel Davydov
 
+# HOWTO
+
+```
+npm run server
+```
+Starts server on `localhost:4001` and enabled online GraphQL editor on `http://localhost:4001/graphiql`
+
+```
+npm run start
+```
+Starts client dev-server on `localhost:4000`
+
 # TODO
 
 - [ ] Configure environment
