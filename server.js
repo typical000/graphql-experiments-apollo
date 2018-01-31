@@ -57,21 +57,27 @@ const typeDefs = `
     geo(id: Int!): Geo
     actions: [Actions]
     likes: [Like]
+    offsetUsers(offset: Int!, limit: Int!): [User]
   }
 `
 
-// The resolvers
+/**
+ * Resolvers. For more info see:
+ * https://www.apollographql.com/docs/graphql-tools/resolvers.html#Resolver-function-signature
+ */
 const resolvers = {
   Query: {
     // Main application data
     appData: () => appData,
     // Request just ALL users
     users: () => users,
+    // Request users with offset and limit
+    offsetUsers: (obj, {offset, limit}) => users.slice(offset, offset + limit),
     // Request single user by ID
     user: (obj, args, context, info) => find(users, {id: args.id}), // eslint-disable-line
     // Get geolocation info for single user by ID
     geo: (obj, args) => find(users, {id: args.id}).geo,
-  }
+  },
 }
 
 // Put together a schema
@@ -87,7 +93,17 @@ const app = express()
 app.use(cors())
 
 app.use('/graphql', bodyParser.json(), graphqlExpress({
-  schema
+  schema,
+  debug: true,
+  tracing: true,
+  logFunction: ({action, step, key, data}) => {
+    console.log('')
+    console.log('> Performed request:')
+    console.log(`action code: ${action}`)
+    console.log(`step code: ${step}`)
+    console.log(`action key: ${key}`)
+    console.log(`data: ${data}`)
+  }
 }))
 
 // GraphiQL, a visual editor for queries

@@ -27,6 +27,7 @@ Starts client dev-server on `localhost:4000`
   - [ ] Search filters (form)
 - [ ] General GraphQL patterns
   - [x] Query batching
+  - [ ] Using fragments
   - [ ] Limit query request
 - [ ] Apollo on frontend
   - [ ] Query on server
