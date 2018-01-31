@@ -52,7 +52,10 @@ const styles = {
     alignItems: 'center',
   },
   action: {
-    marginRight: 20,
+    marginRight: 10,
+    '&:last-child': {
+      marginRight: 0,
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import {transitionDuration} from '../constants/animations'
+import {TRANSITION_DURATION} from '../constants/animations'
 
 /**
  * Border mixin
@@ -15,7 +15,7 @@ export const border = (borderColor = '#000') => ({
  * @param {number} transition
  * @param {number} delay
  */
-export const transition = (duration = `${transitionDuration}ms`, delay = '0ms') => ({
+export const transition = (duration = `${TRANSITION_DURATION}ms`, delay = '0ms') => ({
   property: 'all',
   timingFunction: 'cubic-bezier(0.77, 0, 0.175, 1)',
   duration,

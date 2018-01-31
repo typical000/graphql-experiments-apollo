@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import GlobalStyles from '../GlobalStyles'
 import Container from '../ui/Container'
 import Header from '../Header'
-import User from '../User'
 import injectSheet from '../../utils/jss'
 
 import {UserListWithData} from '../../containers/apollo/User'
@@ -14,6 +13,7 @@ const styles = theme => ({
     color: theme.text.default,
     minHeight: '100vh',
     paddingTop: 80,
+    paddingBottom: 40,
     font: {
       family: theme.typography.fontFamily,
       size: theme.typography.fontSize,
@@ -29,6 +29,9 @@ class App extends PureComponent {
 
   render() {
     const {classes} = this.props
+
+    // TODO: Add 'my user info' loading before bootstrapping
+    // entire application
 
     return (
       <GlobalStyles>

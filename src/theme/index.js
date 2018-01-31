@@ -11,7 +11,7 @@ export default {
 
   typography: {
     fontFamily: 'Helvetica, Arial, sans-serif',
-    fontSize: 16,
+    fontSize: 14,
     lineHeight: 1.2,
   },
 
@@ -27,6 +27,13 @@ export default {
   icon: {
     default: transparentize(0.5, base.dark),
     inverse: transparentize(0.1, base.light),
+  },
+
+  loader: {
+    foreground: transparentize(0.4, base.dark),
+    background: transparentize(0.8, base.dark),
+    inverseForeground: transparentize(0.1, base.light),
+    inverseBackground: transparentize(0.9, base.light),
   },
 
   text: {

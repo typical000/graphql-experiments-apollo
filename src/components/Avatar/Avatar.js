@@ -5,26 +5,32 @@ import injectSheet from '../../utils/jss'
 
 const styles = theme => ({
   avatar: {
-    width: '100%',
-    height: 'auto',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     verticalAlign: 'middle',
     borderRadius: theme.common.radius,
+    background: theme.common.border // TODO: Replace with cardMuted
   },
   img: {
+    width: '100%',
+    height: 'auto',
     display: 'inline-block',
     verticalAlign: 'middle',
-    background: theme.common.border // TODO: Replace with cardMuted
   },
 
   // Sizes
   small: {
     width: 40,
+    height: 40,
   },
   medium: {
     width: 100,
+    height: 100,
   },
   large: {
     width: 240,
+    height: 240,
   },
 
   // Other modifications
@@ -35,14 +41,17 @@ const styles = theme => ({
 })
 
 const Avatar = ({classes, src, small, medium, large, round}) => (
-  <div className={cn(classes.avatar, round && classes.round)}>
+  <div
+    className={cn(
+      classes.avatar,
+      round && classes.round,
+      small && classes.small,
+      medium && classes.medium,
+      large && classes.large,
+    )}
+  >
     <img
-      className={cn(
-        classes.img,
-        small && classes.small,
-        medium && classes.medium,
-        large && classes.large,
-      )}
+      className={classes.img}
       src={src}
       role="presentation"
     />
