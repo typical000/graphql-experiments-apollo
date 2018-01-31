@@ -5,7 +5,7 @@ import injectSheet from '../../utils/jss'
 
 const styles = {
   paragraph: {
-    margin: [0, 0, 30, 0],
+    margin: [0, 0, 20, 0],
     '&:last-child': {
       margin: 0,
     },

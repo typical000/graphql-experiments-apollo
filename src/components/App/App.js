@@ -1,11 +1,10 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import GlobalStyles from '../GlobalStyles'
-import Container from '../ui/Container'
-import Header from '../Header'
 import injectSheet from '../../utils/jss'
-
-import {UserListWithData} from '../../containers/apollo/User'
+import GlobalStyles from '../GlobalStyles'
+import Loader from '../ui/Loader'
+import AppData from '../../containers/apollo/AppData'
+import {InternalContent, ExternalContent} from '../Content'
 
 const styles = theme => ({
   app: {
@@ -27,29 +26,46 @@ class App extends PureComponent {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      isClient: false,
+    }
+  }
+
+  /**
+   * Setting state in componentDidMount is an antipattern,
+   * and causes double component render on client.
+   *
+   * But it's only one solution to avoid render something
+   * in SSR (in this case some GraphQL component will break deployment)
+   */
+  componentDidMount() {
+    // eslint-disable-next-line
+    this.setState({isClient: true})
+  }
+
   render() {
     const {classes} = this.props
-
-    // TODO: Add 'my user info' loading before bootstrapping
-    // entire application
+    const {isClient} = this.state
 
     return (
       <GlobalStyles>
         <div className={classes.app}>
-          <Header>
-            Test GraphQL application
-          </Header>
-          <Container>
-            <UserListWithData />
-            {/*
-              <User
-                avatar={'http://bezkota.ru/wp-content/uploads/2016/03/dzhimo-kot-s-samymi-bolshimi-glazami-v-mire-08.jpg'}
-                screenname={'SomeUser'}
-                gender={1}
-                city={'New York'}
-              />
-            */ }
-          </Container>
+          {isClient && (
+            <AppData>
+              {({data, loading}) => {
+                // Data can be 'undefined' if query isn't already fetched from server
+                if (!data || loading) return <Loader fullScreen active />
+
+                // If we have any data - we can destructure data object
+                const {appData: {guest, user}} = data
+
+                if (guest) return <ExternalContent />
+                return <InternalContent user={user} />
+              }}
+            </AppData>
+          )}
         </div>
       </GlobalStyles>
     )

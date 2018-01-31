@@ -16,7 +16,6 @@ const styles = {
     justifyContent: 'center',
   },
   item: {
-    // marginBottom: 20,
     display: 'inline-block',
     textAlign: 'left',
     verticalAlign: 'top',
@@ -24,9 +23,6 @@ const styles = {
     margin: [0, 10, 20],
   },
 }
-
-// TODO: Map all childrens and wrap
-// them with item
 
 const UserList = ({children, classes, loading, onLoadMoreClick}) => {
   const showAction = !loading && onLoadMoreClick
@@ -52,7 +48,6 @@ const UserList = ({children, classes, loading, onLoadMoreClick}) => {
     </Loader>
   )
 }
-
 
 UserList.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,

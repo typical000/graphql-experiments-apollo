@@ -112,9 +112,8 @@ const styles = theme => ({
     },
   },
 
-  // Main container loader
-  main: {
-    position: 'relative',
+  // Fullscreen loader. Used before app was bootstrapped
+  fullScreen: {
     '&$active': {
       position: 'static',
     },
@@ -144,7 +143,17 @@ const styles = theme => ({
   },
 })
 
-const Loader = ({children, classes, className, small, inverse, active, transparent, withText}) => {
+const Loader = ({
+  children,
+  classes,
+  className,
+  small,
+  inverse,
+  active,
+  fullScreen,
+  transparent,
+  withText
+}) => {
   const classNames = cn(
     classes.loader,
     active && classes.active,
@@ -152,6 +161,7 @@ const Loader = ({children, classes, className, small, inverse, active, transpare
     inverse && classes.inverse,
     withText && classes.withText,
     transparent && classes.transparent,
+    fullScreen && classes.fullScreen,
     className
   )
 
@@ -178,22 +188,25 @@ const Loader = ({children, classes, className, small, inverse, active, transpare
 
 Loader.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   className: PropTypes.string,
   active: PropTypes.bool,
   small: PropTypes.bool,
   inverse: PropTypes.bool,
   withText: PropTypes.bool,
   transparent: PropTypes.bool,
+  fullScreen: PropTypes.bool,
 }
 
 Loader.defaultProps = {
+  children: null,
   className: null,
   active: false,
   small: false,
   inverse: false,
   withText: false,
   transparent: false,
+  fullScreen: false,
 }
 
 export default injectSheet(styles)(Loader)

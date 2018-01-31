@@ -5,13 +5,19 @@ const cors = require('cors')
 const {graphqlExpress, graphiqlExpress} = require('apollo-server-express')
 const {makeExecutableSchema} = require('graphql-tools')
 
+const appData = require('./__mocks__/appData')
 const users = require('./__mocks__/users')
-const actions = require('./__mocks__/actions')
+const actions = require('./__mocks__/actions') // eslint-disable-line
 
 const PORT = process.env.PORT
 
 // The GraphQL schema in string form
 const typeDefs = `
+  type AppData {
+    guest: Boolean!
+    user: User
+  }
+
   type User {
     id: Int!
     avatar: String
@@ -45,6 +51,7 @@ const typeDefs = `
   }
 
   type Query {
+    appData: AppData
     users: [User]
     user(id: Int!): User
     geo(id: Int!): Geo
@@ -56,10 +63,12 @@ const typeDefs = `
 // The resolvers
 const resolvers = {
   Query: {
+    // Main application data
+    appData: () => appData,
     // Request just ALL users
     users: () => users,
     // Request single user by ID
-    user: (obj, args, context, info) => find(users, {id: args.id}),
+    user: (obj, args, context, info) => find(users, {id: args.id}), // eslint-disable-line
     // Get geolocation info for single user by ID
     geo: (obj, args) => find(users, {id: args.id}).geo,
   }
@@ -92,5 +101,7 @@ app.listen(PORT, (error) => {
     return error
   }
 
+  // eslint-disable-next-line
   console.log(`Go to http://localhost:${PORT}/graphiql to run queries!`)
+  return null
 })
