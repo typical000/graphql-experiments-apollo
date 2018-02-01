@@ -28,9 +28,10 @@ Starts client dev-server on `localhost:4000`
 - [ ] General GraphQL patterns
   - [x] Query batching
   - [ ] Using fragments
-  - [ ] Limit query request
+  - [x] Using variables in GraphQL. Passing params
+  - [x] Load more, pagination
 - [ ] Apollo on frontend
-  - [ ] Query on server
+  - [x] Query on server
   - [ ] Fragments usage (and check if we can directly mutate only one fragment)
   - [ ] Send mutations on server
   - [ ] Directly change data in cache

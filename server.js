@@ -27,6 +27,11 @@ const typeDefs = `
     actions: [Actions!]!
   }
 
+  type OffsetUsers {
+    users: [User]
+    limitReached: Boolean!
+  }
+
   type Geo {
     city: String
     country: String
@@ -57,7 +62,7 @@ const typeDefs = `
     geo(id: Int!): Geo
     actions: [Actions]
     likes: [Like]
-    offsetUsers(offset: Int!, limit: Int!): [User]
+    offsetUsers(offset: Int!, limit: Int!): OffsetUsers
   }
 `
 
@@ -72,7 +77,13 @@ const resolvers = {
     // Request just ALL users
     users: () => users,
     // Request users with offset and limit
-    offsetUsers: (obj, {offset, limit}) => users.slice(offset, offset + limit),
+    offsetUsers: (obj, {offset, limit}) => {
+      const result = users.slice(offset, offset + limit)
+      return {
+        users: result,
+        limitReached: result.length < limit,
+      }
+    },
     // Request single user by ID
     user: (obj, args, context, info) => find(users, {id: args.id}), // eslint-disable-line
     // Get geolocation info for single user by ID
@@ -97,12 +108,14 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({
   debug: true,
   tracing: true,
   logFunction: ({action, step, key, data}) => {
+    /* eslint-disable */
     console.log('')
     console.log('> Performed request:')
     console.log(`action code: ${action}`)
     console.log(`step code: ${step}`)
     console.log(`action key: ${key}`)
     console.log(`data: ${data}`)
+    /* eslint-enable */
   }
 }))
 

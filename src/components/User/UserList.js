@@ -28,20 +28,27 @@ class UserList extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     children: PropTypes.node,
+    limitReached: PropTypes.bool,
     loading: PropTypes.bool,
     onLoadMoreClick: PropTypes.func,
   }
 
+  static defaultProps = {
+    children: null,
+    limitReached: false,
+    loading: false,
+    onLoadMoreClick: null,
+  }
+
   constructor(props) {
     super(props)
-
-    this.defaultProps = {
-      children: null,
-      loading: false,
-      onLoadMoreClick: null,
-    }
-
     this.handleLoadMoreClick = this.handleLoadMoreClick.bind(this)
+  }
+
+  get isLoadMoreAvailable() {
+    return !this.props.limitReached &&
+      !this.props.loading &&
+      this.props.onLoadMoreClick
   }
 
   /**
@@ -52,8 +59,7 @@ class UserList extends PureComponent {
   }
 
   render() {
-    const {children, classes, loading, onLoadMoreClick} = this.props
-    const showAction = !loading && onLoadMoreClick
+    const {children, classes, loading} = this.props
 
     return (
       <Loader transparent active={loading}>
@@ -62,7 +68,7 @@ class UserList extends PureComponent {
             <div className={classes.item}>{child}</div>
           ))}
         </div>
-        {showAction && (
+        {this.isLoadMoreAvailable && (
           <div className={classes.action}>
             <ButtonPrimary
               onClick={this.handleLoadMoreClick}
