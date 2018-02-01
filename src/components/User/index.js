@@ -1,2 +1,2 @@
-export UserList from './UserList'
-export default from './User'
+export {default as UserList} from './UserList'
+export {default as User} from './User'

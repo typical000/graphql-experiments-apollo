@@ -1,7 +1,7 @@
 import React from 'react'
 import {Query} from 'react-apollo'
 import gql from 'graphql-tag'
-import User, {UserList} from '../../../components/User'
+import {User, UserList} from '../../../components/User'
 
 const ITEMS_PER_LOAD = 5
 
