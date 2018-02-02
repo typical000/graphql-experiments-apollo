@@ -1,34 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
-import gql from 'graphql-tag'
+import {APP_DATA_FULL_QUERY} from '../../../graphql/AppData/queries'
 
 /**
  * Just a wrapping component, created
  * for avoiding mixing presentation (markup, styles)
  * and backend connection with GraphQL
  */
-
-const QUERY = gql`
-  query AppData {
-    appData {
-      guest
-      user {
-        id
-        gender
-        screenname
-        avatar
-        geo {
-          city
-          country
-        }
-      }
-    }
-  }
-`
-
 const AppData = ({children}) => (
-  <Query query={QUERY}>
+  <Query query={APP_DATA_FULL_QUERY}>
     {result => children(result)}
   </Query>
 )

@@ -33,7 +33,7 @@ Starts client dev-server on `localhost:4000`
   - [x] Mutations
 - [ ] Apollo on frontend
   - [x] Query on server
-  - [ ] Fragments usage
+  - [x] Fragments usage
   - [x] Send mutations on server
   - [x] Directly change data in cache
   - [ ] Optimistic updates

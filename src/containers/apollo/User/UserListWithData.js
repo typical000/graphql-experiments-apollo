@@ -1,30 +1,13 @@
 import React from 'react'
 import {Query} from 'react-apollo'
-import gql from 'graphql-tag'
 import {User, UserList} from '../../../components/User'
+import {OFFSET_USERS_QUERY} from '../../../graphql/User/queries'
 
 const ITEMS_PER_LOAD = 5
 
-const QUERY = gql`
-  query OffsetUsers($offset: Int!, $limit: Int!) {
-    offsetUsers(offset: $offset, limit: $limit) {
-      limitReached
-      users {
-        id
-        avatar
-        screenname
-        gender
-        geo {
-          city
-        }
-      }
-    }
-  }
-`
-
 const UserListWithData = () => (
   <Query
-    query={QUERY}
+    query={OFFSET_USERS_QUERY}
     variables={{
       offset: 0,
       limit: ITEMS_PER_LOAD

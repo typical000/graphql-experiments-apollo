@@ -1,40 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withApollo} from 'react-apollo'
-import gql from 'graphql-tag'
 import {ButtonPrimary} from '../../../components/ui/Button'
-
-const APPDATA_QUERY = gql`
-  query AppData {
-    appData {
-      guest
-      user {
-        id
-        gender
-        screenname
-        avatar
-        geo {
-          city
-          country
-        }
-      }
-    }
-  }
-`
-
-const MUTATION = gql`
-  mutation {
-    logout {
-      guest
-    }
-  }
-`
+import {APP_DATA_FULL_QUERY} from '../../../graphql/AppData/queries'
+import {LOGOUT_MUTATION} from '../../../graphql/Logout/mutations'
 
 const LogoutButton = ({children, client: {mutate}}) => (
   <ButtonPrimary
     onClick={() => {
       mutate({
-        mutation: MUTATION,
+        mutation: LOGOUT_MUTATION,
 
         /**
          * The esiest way - after mutation call 'refetchQueries' property
@@ -44,13 +19,13 @@ const LogoutButton = ({children, client: {mutate}}) => (
          * that we need to change directly in cache.
          * Anyway, if you want to try, uncomment this code:
          *
-         * refetchQueries: [{query: APPDATA_QUERY}]
+         * refetchQueries: [{query: APP_DATA_FULL_QUERY}]
          *
          * The more correct way is to update cache
          * with your hande like here:
          */
         update: (proxy, {data: {logout}}) => {
-          const data = proxy.readQuery({query: APPDATA_QUERY})
+          const data = proxy.readQuery({query: APP_DATA_FULL_QUERY})
 
           /**
            * Yep, I'll like spread operators instead of this assign hell:
@@ -62,7 +37,7 @@ const LogoutButton = ({children, client: {mutate}}) => (
            * })
            */
           proxy.writeQuery({
-            query: APPDATA_QUERY,
+            query: APP_DATA_FULL_QUERY,
             data: {
               ...data,
               appData: {
