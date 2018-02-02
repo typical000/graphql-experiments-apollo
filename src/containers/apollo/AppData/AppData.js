@@ -10,7 +10,7 @@ import gql from 'graphql-tag'
  */
 
 const QUERY = gql`
-  query {
+  query AppData {
     appData {
       guest
       user {

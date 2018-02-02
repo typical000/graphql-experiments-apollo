@@ -1,5 +1,4 @@
 module.exports = {
-  // guest: true,
   guest: false,
   user: {
     id: 1,

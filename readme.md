@@ -30,15 +30,16 @@ Starts client dev-server on `localhost:4000`
   - [ ] Using fragments
   - [x] Using variables in GraphQL. Passing params
   - [x] Load more, pagination
+  - [x] Mutations
 - [ ] Apollo on frontend
   - [x] Query on server
-  - [ ] Fragments usage (and check if we can directly mutate only one fragment)
-  - [ ] Send mutations on server
-  - [ ] Directly change data in cache
+  - [ ] Fragments usage
+  - [x] Send mutations on server
+  - [x] Directly change data in cache
   - [ ] Optimistic updates
 - [ ] Relay on frontend
   - [ ] Query on server
-  - [ ] Fragments usage (and check if we can directly mutate only one fragment)
+  - [ ] Fragments usage
   - [ ] Send mutations on server
   - [ ] Directly change data in cache
   - [ ] Optimistic updates

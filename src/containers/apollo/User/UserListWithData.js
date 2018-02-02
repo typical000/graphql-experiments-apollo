@@ -6,7 +6,7 @@ import {User, UserList} from '../../../components/User'
 const ITEMS_PER_LOAD = 5
 
 const QUERY = gql`
-  query ($offset: Int!, $limit: Int!) {
+  query OffsetUsers($offset: Int!, $limit: Int!) {
     offsetUsers(offset: $offset, limit: $limit) {
       limitReached
       users {

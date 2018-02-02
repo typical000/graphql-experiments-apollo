@@ -64,6 +64,10 @@ const typeDefs = `
     likes: [Like]
     offsetUsers(offset: Int!, limit: Int!): OffsetUsers
   }
+
+  type Mutation {
+    logout: AppData
+  }
 `
 
 /**
@@ -89,6 +93,13 @@ const resolvers = {
     // Get geolocation info for single user by ID
     geo: (obj, args) => find(users, {id: args.id}).geo,
   },
+  Mutation: {
+    // Just return logged-out data
+    logout: () => ({
+      guest: true,
+      user: null
+    })
+  }
 }
 
 // Put together a schema

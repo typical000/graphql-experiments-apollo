@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import UserListWithData from '../../containers/apollo/User'
-
 import Container from '../ui/Container'
 import Header from '../Header'
 

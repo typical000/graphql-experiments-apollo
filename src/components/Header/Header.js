@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import injectSheet from '../../utils/jss'
+import LogoutButton from '../../containers/apollo/Logout'
 import Avatar from '../Avatar'
 
 const styles = theme => ({
@@ -42,7 +43,10 @@ const styles = theme => ({
     textTransform: 'none',
     fontWeight: 'bold',
     marginRight: 10,
-  }
+  },
+  actions: {
+    marginLeft: 20,
+  },
 })
 
 const Header = ({children, classes, user}) => {
@@ -57,6 +61,9 @@ const Header = ({children, classes, user}) => {
           <div className={classes.user}>
             <div className={classes.screenname}>{user.screenname}</div>
             <Avatar src={user.avatar} small round />
+          </div>
+          <div className={classes.actions}>
+            <LogoutButton />
           </div>
         </div>
       </div>
