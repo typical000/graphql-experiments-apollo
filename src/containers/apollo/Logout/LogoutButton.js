@@ -8,6 +8,20 @@ import {LOGOUT_MUTATION} from '../../../graphql/Logout/mutations'
 const LogoutButton = ({children, client: {mutate}}) => (
   <ButtonPrimary
     onClick={() => {
+      /**
+       * TODO: Maybe we can move entire object
+       * passed in 'mutate' method to
+       *
+       * src/graphql/mutations
+       *
+       * Instead of passing only mutation query. Like here:
+       * https://github.com/relayjs/relay-examples/tree/master/todo/js/mutations
+       *
+       * OR
+       *
+       * Add loader and rename all 'graphql' frolder files to *.graphql. Like here:
+       * https://github.com/staylor/graphql-wordpress/tree/master/packages/apollo-wordpress/src/graphql
+       */
       mutate({
         mutation: LOGOUT_MUTATION,
 

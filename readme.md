@@ -31,6 +31,7 @@ Starts client dev-server on `localhost:4000`
   - [x] Using variables in GraphQL. Passing params
   - [x] Load more, pagination
   - [x] Mutations
+  - [ ] Use loader for *.graphql files (https://github.com/apollographql/graphql-tag#webpack-preprocessing-with-graphql-tagloader)
 - [ ] Apollo on frontend
   - [x] Query on server
   - [x] Fragments usage
