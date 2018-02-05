@@ -1,0 +1,10 @@
+#import "../../User/fragments/defaultFields.graphql"
+
+query AppData {
+  appData {
+    guest
+    user {
+      ...defaultFields
+    }
+  }
+}

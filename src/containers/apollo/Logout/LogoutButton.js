@@ -2,26 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {withApollo} from 'react-apollo'
 import {ButtonPrimary} from '../../../components/ui/Button'
-import {APP_DATA_FULL_QUERY} from '../../../graphql/AppData/queries'
-import {LOGOUT_MUTATION} from '../../../graphql/Logout/mutations'
+import APP_DATA_FULL_QUERY from '../../../graphql/AppData/queries/fullData.graphql'
+import LOGOUT_MUTATION from '../../../graphql/Logout/mutations/logout.graphql'
 
 const LogoutButton = ({children, client: {mutate}}) => (
   <ButtonPrimary
     onClick={() => {
-      /**
-       * TODO: Maybe we can move entire object
-       * passed in 'mutate' method to
-       *
-       * src/graphql/mutations
-       *
-       * Instead of passing only mutation query. Like here:
-       * https://github.com/relayjs/relay-examples/tree/master/todo/js/mutations
-       *
-       * OR
-       *
-       * Add loader and rename all 'graphql' frolder files to *.graphql. Like here:
-       * https://github.com/staylor/graphql-wordpress/tree/master/packages/apollo-wordpress/src/graphql
-       */
       mutate({
         mutation: LOGOUT_MUTATION,
 

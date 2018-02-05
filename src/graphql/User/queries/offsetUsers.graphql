@@ -1,0 +1,10 @@
+#import "../fragments/defaultFields.graphql"
+
+query OffsetUsers($offset: Int!, $limit: Int!) {
+  offsetUsers(offset: $offset, limit: $limit) {
+    limitReached
+    users {
+      ...defaultFields
+    }
+  }
+}

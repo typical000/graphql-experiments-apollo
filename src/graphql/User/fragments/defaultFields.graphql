@@ -1,0 +1,10 @@
+fragment defaultFields on User {
+  id
+  screenname
+  avatar
+  gender
+  geo {
+    city
+    country
+  }
+}
