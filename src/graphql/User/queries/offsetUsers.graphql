@@ -5,6 +5,16 @@ query OffsetUsers($offset: Int!, $limit: Int!) {
     limitReached
     users {
       ...defaultFields
+      actions {
+        like {
+          available
+          active
+        }
+        favorite {
+          available
+          active
+        }
+      }
     }
   }
 }

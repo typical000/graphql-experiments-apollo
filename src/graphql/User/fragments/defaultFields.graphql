@@ -1,10 +1,11 @@
+#import "../../Geo/fragments/locationData.graphql"
+
 fragment defaultFields on User {
   id
   screenname
   avatar
   gender
   geo {
-    city
-    country
+    ...locationData
   }
 }

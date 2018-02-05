@@ -24,7 +24,7 @@ const typeDefs = `
     screenname: String
     gender: Int
     geo: Geo
-    actions: [Actions!]!
+    actions: Actions
   }
 
   type OffsetUsers {
@@ -40,19 +40,21 @@ const typeDefs = `
   }
 
   type Actions {
-    user: User!,
-    like: Like!,
+    userId: Int!
+    like: Like!
     favorite: Favorite!
   }
 
   type Like {
-    available: Boolean!,
-    active: Boolean!,
+    userId: Int!
+    available: Boolean!
+    active: Boolean!
   }
 
   type Favorite {
-    available: Boolean!,
-    active: Boolean!,
+    userId: Int!
+    available: Boolean!
+    active: Boolean!
   }
 
   type Query {
@@ -60,9 +62,11 @@ const typeDefs = `
     users: [User]
     user(id: Int!): User
     geo(id: Int!): Geo
-    actions: [Actions]
-    likes: [Like]
     offsetUsers(offset: Int!, limit: Int!): OffsetUsers
+
+    actions(id: Int): Actions
+    like(id: Int): Like
+    favorite(id: Int): Favorite
   }
 
   type Mutation {
@@ -92,7 +96,23 @@ const resolvers = {
     user: (obj, args, context, info) => find(users, {id: args.id}), // eslint-disable-line
     // Get geolocation info for single user by ID
     geo: (obj, args) => find(users, {id: args.id}).geo,
+    // Actions
+    like: (obj, {id}) => find(actions, {userId: id}).like,
+    favorite: (obj, {id}) => find(actions, {userId: id}).favorite,
   },
+
+  User: {
+    actions: (obj) => find(actions, {userId: obj.id})
+  },
+
+  Like: {
+    userId: (obj, args) => find(users, {id: obj.userId}).id
+  },
+
+  Favorite: {
+    userId: (obj) => find(users, {id: obj.userId}).id
+  },
+
   Mutation: {
     // Just return logged-out data
     logout: () => ({

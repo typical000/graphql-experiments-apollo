@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import Card from '../ui/Card'
 import {Button, ButtonPrimary} from '../ui/Button'
 import Avatar from '../Avatar'
+import {LikeButton, FavoriteButton} from '../../containers/apollo/Activity'
 import injectSheet from '../../utils/jss'
 
 /**
@@ -59,40 +60,77 @@ const styles = {
   }
 }
 
-const User = ({classes, screenname, avatar, gender, city}) => (
-  <Card className={classes.user}>
-    <div className={classes.avatar}>
-      <Avatar src={avatar} medium round />
-    </div>
-    <div className={classes.content}>
-      <div className={classes.screenname}>{screenname}</div>
-      <div>
-        {gender && <div className={classes.inline}>{getGenderTranslation(gender)}</div>}
-        {city && <div className={classes.inline}>from {city}</div>}
-      </div>
-      <div className={classes.actions}>
-        <div className={classes.action}>
-          <ButtonPrimary>Like</ButtonPrimary>
-        </div>
-        <div className={classes.action}>
-          <Button>Add to friends</Button>
-        </div>
-      </div>
-    </div>
-  </Card>
-)
+class User extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    avatar: PropTypes.string.isRequired,
+    screenname: PropTypes.string.isRequired,
+    gender: PropTypes.oneOf([1, 2]), // 1 - male, 2 - female
+    city: PropTypes.string,
+    actions: PropTypes.shape({
+      like: PropTypes.objectOf(PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.number,
+        PropTypes.string,
+      ])),
+      favorite: PropTypes.objectOf(PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.number,
+        PropTypes.string,
+      ])),
+    }),
+  }
 
-User.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  avatar: PropTypes.string.isRequired,
-  screenname: PropTypes.string.isRequired,
-  gender: PropTypes.oneOf([1, 2]), // 1 - male, 2 - female
-  city: PropTypes.string,
-}
+  static defaultProps = {
+    gender: 0,
+    city: null,
+    actions: null,
+  }
 
-User.defaultProps = {
-  gender: 0,
-  city: null,
+  renderLikeAction() {
+    const {classes, actions} = this.props
+    return (
+      <div className={classes.action}>
+        <LikeButton active={actions.like.active}>
+          Like
+        </LikeButton>
+      </div>
+    )
+  }
+
+  renderFavoriteAction() {
+    const {classes, actions} = this.props
+    return (
+      <div className={classes.action}>
+        <FavoriteButton active={actions.like.active}>
+          Add to friends
+        </FavoriteButton>
+      </div>
+    )
+  }
+
+  render() {
+    const {classes, screenname, avatar, gender, city, actions} = this.props
+
+    return (
+      <Card className={classes.user}>
+        <div className={classes.avatar}>
+          <Avatar src={avatar} medium round />
+        </div>
+        <div className={classes.content}>
+          <div className={classes.screenname}>{screenname}</div>
+          <div>
+            {gender && <div className={classes.inline}>{getGenderTranslation(gender)}</div>}
+            {city && <div className={classes.inline}>from {city}</div>}
+          </div>
+          <div className={classes.actions}>
+            {actions.like && actions.like.available && this.renderLikeAction()}
+            {actions.favorite && actions.favorite.available && this.renderFavoriteAction()}
+          </div>
+        </div>
+      </Card>
+    )
+  }
 }
 
 export default injectSheet(styles)(User)

@@ -1,0 +1,4 @@
+fragment geopositionData on Geo {
+  lat
+  lng
+}

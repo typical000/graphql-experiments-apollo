@@ -44,3 +44,6 @@ Starts client dev-server on `localhost:4000`
   - [ ] Send mutations on server
   - [ ] Directly change data in cache
   - [ ] Optimistic updates
+- [ ] Additional, but important
+  - [ ] Setup tests on frontend
+  - [ ] Setup tests on backend

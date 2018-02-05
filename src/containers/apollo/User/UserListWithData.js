@@ -52,12 +52,13 @@ const UserListWithData = () => (
             })
           }}
         >
-          {data.offsetUsers.users.map(({id, avatar, screenname, gender, geo: {city}}) => (
+          {data.offsetUsers.users.map(({id, avatar, screenname, gender, geo: {city}, actions}) => (
             <User
               key={id}
               avatar={avatar}
               screenname={screenname}
               gender={gender}
+              actions={actions}
               city={city}
             />
           ))}
