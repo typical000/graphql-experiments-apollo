@@ -1,0 +1,5 @@
+fragment favoriteFields on Favorite {
+  id
+  available
+  active
+}

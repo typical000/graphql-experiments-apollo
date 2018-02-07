@@ -1,0 +1,6 @@
+query Like($id: Int!) {
+  like(id: $id) {
+    available
+    active
+  }
+}

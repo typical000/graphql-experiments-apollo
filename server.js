@@ -1,3 +1,5 @@
+const fs = require('fs')
+const fetch = require('node-fetch')
 const {find} = require('lodash')
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -40,19 +42,19 @@ const typeDefs = `
   }
 
   type Actions {
-    userId: Int!
+    id: Int!
     like: Like!
     favorite: Favorite!
   }
 
   type Like {
-    userId: Int!
+    id: Int!
     available: Boolean!
     active: Boolean!
   }
 
   type Favorite {
-    userId: Int!
+    id: Int!
     available: Boolean!
     active: Boolean!
   }
@@ -71,6 +73,8 @@ const typeDefs = `
 
   type Mutation {
     logout: AppData
+    like(id: Int!): Like
+    favorite(id: Int!): Favorite
   }
 `
 
@@ -97,20 +101,20 @@ const resolvers = {
     // Get geolocation info for single user by ID
     geo: (obj, args) => find(users, {id: args.id}).geo,
     // Actions
-    like: (obj, {id}) => find(actions, {userId: id}).like,
-    favorite: (obj, {id}) => find(actions, {userId: id}).favorite,
+    like: (obj, {id}) => find(actions, {id: id}).like,
+    favorite: (obj, {id}) => find(actions, {id: id}).favorite,
   },
 
   User: {
-    actions: (obj) => find(actions, {userId: obj.id})
+    actions: (obj) => find(actions, {id: obj.id})
   },
 
   Like: {
-    userId: (obj, args) => find(users, {id: obj.userId}).id
+    id: (obj, args) => find(users, {id: obj.id}).id
   },
 
   Favorite: {
-    userId: (obj) => find(users, {id: obj.userId}).id
+    id: (obj) => find(users, {id: obj.id}).id
   },
 
   Mutation: {
@@ -118,7 +122,20 @@ const resolvers = {
     logout: () => ({
       guest: true,
       user: null
-    })
+    }),
+
+    like: (obj, args) => ({
+      id: args.id,
+      active: true,
+      available: true,
+    }),
+
+    favorite: (obj, args) => ({
+      id: args.id,
+      active: true,
+      available: true,
+    }),
+
   }
 }
 
@@ -165,3 +182,42 @@ app.listen(PORT, (error) => {
   console.log(`Go to http://localhost:${PORT}/graphiql to run queries!`)
   return null
 })
+
+/**
+ * Make some additional work to passing fragment types to client
+ * for making fragment matching work fine
+ *
+ * https://www.apollographql.com/docs/react/recipes/fragment-matching.html
+ */
+fetch(`http://localhost:${PORT}/graphql`, {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({
+    query: `
+      {
+        __schema {
+          types {
+            kind
+            name
+            possibleTypes {
+              name
+            }
+          }
+        }
+      }
+    `,
+  }),
+})
+  .then(result => result.json())
+  .then(result => {
+    // here we're filtering out any type information unrelated to unions or interfaces
+    const filteredData = result.data.__schema.types.filter((type) => {
+      return type.possibleTypes !== null
+    })
+
+    result.data.__schema.types = filteredData
+
+    fs.writeFile('./src/fragmentTypes.json', JSON.stringify(result.data), err => {
+      if (err) console.error('Error writing fragmentTypes file', err)
+    })
+  })

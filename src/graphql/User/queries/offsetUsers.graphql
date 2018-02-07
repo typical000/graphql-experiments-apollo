@@ -1,4 +1,6 @@
 #import "../fragments/defaultFields.graphql"
+#import "../../Activity/fragments/likeFields.graphql"
+#import "../../Activity/fragments/favoriteFields.graphql"
 
 query OffsetUsers($offset: Int!, $limit: Int!) {
   offsetUsers(offset: $offset, limit: $limit) {
@@ -6,13 +8,12 @@ query OffsetUsers($offset: Int!, $limit: Int!) {
     users {
       ...defaultFields
       actions {
+        id
         like {
-          available
-          active
+          ...likeFields
         }
         favorite {
-          available
-          active
+          ...favoriteFields
         }
       }
     }

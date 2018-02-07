@@ -12,6 +12,7 @@
       ]
     }],
     "object-curly-spacing": "off",
+    "no-underscore-dangle": "off",
     "babel/object-curly-spacing": 2,
   },
   "parserOptions": {

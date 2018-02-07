@@ -1,0 +1,7 @@
+mutation Like($id: Int!) {
+  like(id: $id) {
+    id
+    active
+    available
+  }
+}

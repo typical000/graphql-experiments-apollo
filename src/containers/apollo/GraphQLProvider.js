@@ -3,8 +3,17 @@ import PropTypes from 'prop-types'
 import {ApolloProvider} from 'react-apollo'
 import {ApolloClient} from 'apollo-client'
 import {BatchHttpLink} from 'apollo-link-batch-http'
-import {InMemoryCache} from 'apollo-cache-inmemory'
+import {InMemoryCache, IntrospectionFragmentMatcher} from 'apollo-cache-inmemory'
 import {GRAPHQL_SERVER} from '../../constants/url'
+import introspectionQueryResultData from '../../fragmentTypes.json'
+
+/**
+ * Need to use for fragment matching (UNIONS and INTERFACES)
+ * https://www.apollographql.com/docs/react/recipes/fragment-matching.html
+ */
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData,
+})
 
 const client = new ApolloClient({
   /**
@@ -17,7 +26,17 @@ const client = new ApolloClient({
     uri: `${GRAPHQL_SERVER}/graphql`,
   }),
 
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    fragmentMatcher,
+    // dataIdFromObject: object => object.id,
+    dataIdFromObject: (obj) => {
+      if (obj.id) {
+        if (obj.__typename) return obj.__typename + obj.id
+        return obj.id
+      }
+      return null
+    }
+  }),
 
   /**
    * Enable Server-side rendering. But need testing
@@ -30,6 +49,8 @@ const client = new ApolloClient({
    * But it steel doesn't work on both DEV and PROD envs, don't know why :D
    */
   connectToDevTools: process.env.NODE_ENV === 'production',
+
+  addTypeName: true,
 })
 
 const GraphQLProvider = ({children}) => (

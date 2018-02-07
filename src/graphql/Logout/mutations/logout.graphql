@@ -1,4 +1,4 @@
-mutation {
+mutation Logout {
   logout {
     guest
   }

@@ -1,7 +1,6 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import Card from '../ui/Card'
-import {Button, ButtonPrimary} from '../ui/Button'
 import Avatar from '../Avatar'
 import {LikeButton, FavoriteButton} from '../../containers/apollo/Activity'
 import injectSheet from '../../utils/jss'
@@ -91,7 +90,10 @@ class User extends PureComponent {
     const {classes, actions} = this.props
     return (
       <div className={classes.action}>
-        <LikeButton active={actions.like.active}>
+        <LikeButton
+          active={actions.like.active}
+          userId={actions.id}
+        >
           Like
         </LikeButton>
       </div>
@@ -102,7 +104,10 @@ class User extends PureComponent {
     const {classes, actions} = this.props
     return (
       <div className={classes.action}>
-        <FavoriteButton active={actions.like.active}>
+        <FavoriteButton
+          active={actions.favorite.active}
+          userId={actions.id}
+        >
           Add to friends
         </FavoriteButton>
       </div>

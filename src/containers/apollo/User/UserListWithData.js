@@ -3,7 +3,7 @@ import {Query} from 'react-apollo'
 import {User, UserList} from '../../../components/User'
 import OFFSET_USERS_QUERY from '../../../graphql/User/queries/offsetUsers.graphql'
 
-const ITEMS_PER_LOAD = 5
+const ITEMS_PER_LOAD = 6
 
 const UserListWithData = () => (
   <Query

@@ -1,0 +1,6 @@
+query Favorite($id: Int!) {
+  favorite(id: $id) {
+    available
+    active
+  }
+}
