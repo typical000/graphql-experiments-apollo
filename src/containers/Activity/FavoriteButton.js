@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {withApollo} from 'react-apollo'
-import {ButtonPrimary} from '../../../components/ui/Button'
-import LIKE_MUTATION from '../../../graphql/Activity/mutations/like.graphql'
+import {Button} from '../../components/ui/Button'
+import FAVORITE_MUTATION from '../../graphql/Activity/mutations/favorite.graphql'
 
-const LikeButton = ({children, active, userId, client: {mutate}}) => (
-  <ButtonPrimary
+const FavoriteButton = ({children, active, userId, client: {mutate}}) => (
+  <Button
     disabled={active}
     onClick={() => {
       mutate({
-        mutation: LIKE_MUTATION,
+        mutation: FAVORITE_MUTATION,
         variables: {id: userId},
 
         /**
@@ -17,30 +17,30 @@ const LikeButton = ({children, active, userId, client: {mutate}}) => (
          * This data will be passed to update method above.
          */
         optimisticResponse: {
-          like: {
+          favorite: {
             id: userId,
             active: true,
             available: true,
-            __typename: 'Like',
+            __typename: 'Favorite',
           },
         },
       })
     }}
   >
     {children}
-  </ButtonPrimary>
+  </Button>
 )
 
-LikeButton.propTypes = {
+FavoriteButton.propTypes = {
   client: PropTypes.object.isRequired, // eslint-disable-line
   children: PropTypes.node,
   active: PropTypes.bool,
   userId: PropTypes.number.isRequired,
 }
 
-LikeButton.defaultProps = {
-  children: 'Like',
+FavoriteButton.defaultProps = {
+  children: 'Add to friends',
   active: false,
 }
 
-export default withApollo(LikeButton)
+export default withApollo(FavoriteButton)

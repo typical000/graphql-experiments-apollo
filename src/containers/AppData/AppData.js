@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Query} from 'react-apollo'
-import APP_DATA_FULL_QUERY from '../../../graphql/AppData/queries/fullData.graphql'
+import APP_DATA_FULL_QUERY from '../../graphql/AppData/queries/fullData.graphql'
 
 /**
  * Just a wrapping component, created

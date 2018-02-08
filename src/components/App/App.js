@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import injectSheet from '../../utils/jss'
 import GlobalStyles from '../GlobalStyles'
 import Loader from '../ui/Loader'
-import AppData from '../../containers/apollo/AppData'
+import AppData from '../../containers/AppData'
 import {InternalContent, ExternalContent} from '../Content'
 
 const styles = theme => ({

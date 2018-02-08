@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {ApolloConsumer} from 'react-apollo'
-import {ButtonPrimary} from '../../../components/ui/Button'
-import APP_DATA_FULL_QUERY from '../../../graphql/AppData/queries/fullData.graphql'
-import LOGOUT_MUTATION from '../../../graphql/Logout/mutations/logout.graphql'
+import {ButtonPrimary} from '../../components/ui/Button'
+import APP_DATA_FULL_QUERY from '../../graphql/AppData/queries/fullData.graphql'
+import LOGOUT_MUTATION from '../../graphql/Logout/mutations/logout.graphql'
 
 const LogoutButton = ({children}) => (
   <ApolloConsumer>

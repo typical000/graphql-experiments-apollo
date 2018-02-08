@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import injectSheet from '../../utils/jss'
-import LogoutButton from '../../containers/apollo/Logout'
+import LogoutButton from '../../containers/Logout'
 import Avatar from '../Avatar'
 
 const styles = theme => ({

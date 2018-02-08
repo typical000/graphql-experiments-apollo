@@ -4,8 +4,8 @@ import {ApolloProvider} from 'react-apollo'
 import {ApolloClient} from 'apollo-client'
 import {BatchHttpLink} from 'apollo-link-batch-http'
 import {InMemoryCache, IntrospectionFragmentMatcher} from 'apollo-cache-inmemory'
-import {GRAPHQL_SERVER} from '../../constants/url'
-import introspectionQueryResultData from '../../fragmentTypes.json'
+import {GRAPHQL_SERVER} from '../constants/url'
+import introspectionQueryResultData from '../fragmentTypes.json'
 
 /**
  * Need to use for fragment matching (UNIONS and INTERFACES)

@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import Card from '../ui/Card'
 import Avatar from '../Avatar'
-import {LikeButton, FavoriteButton} from '../../containers/apollo/Activity'
+import {LikeButton, FavoriteButton} from '../../containers/Activity'
 import injectSheet from '../../utils/jss'
 
 /**

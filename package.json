@@ -1,8 +1,8 @@
 {
-  "name": "qraphql-experiments",
+  "name": "qraphql-experiments-apollo",
   "private": true,
   "version": "0.1.0",
-  "description": "Experimenting with frontend (Relay Modern, Apollo)",
+  "description": "Experimenting with Apollo",
   "author": "Pavel Davydov",
   "scripts": {
     "server": "cross-env PORT=4001 node ./server.js",
