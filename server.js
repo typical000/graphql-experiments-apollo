@@ -6,22 +6,27 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const {graphqlExpress, graphiqlExpress} = require('apollo-server-express')
 const {makeExecutableSchema} = require('graphql-tools')
+const GraphQLDate = require('graphql-iso-date')
 
 const appData = require('./__mocks__/appData')
 const users = require('./__mocks__/users')
-const actions = require('./__mocks__/actions') // eslint-disable-line
+const actions = require('./__mocks__/actions')
+const feedbacks = require('./__mocks__/feedbacks')
 
 const PORT = process.env.PORT
 
 // The GraphQL schema in string form
 const typeDefs = `
+
+  scalar Date
+
   type AppData {
     guest: Boolean!
     user: User
   }
 
   type User {
-    id: Int!
+    id: ID!
     avatar: String
     screenname: String
     gender: Int
@@ -42,39 +47,47 @@ const typeDefs = `
   }
 
   type Actions {
-    id: Int!
+    id: ID!
     like: Like!
     favorite: Favorite!
   }
 
   type Like {
-    id: Int!
+    id: ID!
     available: Boolean!
     active: Boolean!
   }
 
   type Favorite {
-    id: Int!
+    id: ID!
     available: Boolean!
     active: Boolean!
+  }
+
+  type Feedback {
+    id: ID!
+    user: User!
+    date: Date!
+    title: String
+    content: String
   }
 
   type Query {
     appData: AppData
     users: [User]
-    user(id: Int!): User
-    geo(id: Int!): Geo
+    user(id: ID!): User
+    geo(id: ID!): Geo
     offsetUsers(offset: Int!, limit: Int!): OffsetUsers
-
-    actions(id: Int): Actions
-    like(id: Int): Like
-    favorite(id: Int): Favorite
+    actions(id: ID): Actions
+    like(id: ID): Like
+    favorite(id: ID): Favorite
+    latestFeedback(limit: Int!): [Feedback]
   }
 
   type Mutation {
     logout: AppData
-    like(id: Int!): Like
-    favorite(id: Int!): Favorite
+    like(id: ID!): Like
+    favorite(id: ID!): Favorite
   }
 `
 
@@ -83,6 +96,8 @@ const typeDefs = `
  * https://www.apollographql.com/docs/graphql-tools/resolvers.html#Resolver-function-signature
  */
 const resolvers = {
+  Date: GraphQLDate,
+
   Query: {
     // Main application data
     appData: () => appData,
@@ -103,6 +118,18 @@ const resolvers = {
     // Actions
     like: (obj, {id}) => find(actions, {id: id}).like,
     favorite: (obj, {id}) => find(actions, {id: id}).favorite,
+
+    // Retrive latest feedbacks
+    latestFeedback: (obj, {limit}) => {
+      let result = feedbacks.sort((a, b) => a.date < b.date).slice(0, limit)
+      // Add user data to sorted feedbacks
+      result = result.map((item) => {
+        item.user = find(users, {id: item.userId})
+        return item
+      })
+
+      return result
+    }
   },
 
   User: {

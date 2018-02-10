@@ -1,4 +1,4 @@
-mutation Like($id: Int!) {
+mutation Like($id: ID!) {
   like(id: $id) {
     id
     active

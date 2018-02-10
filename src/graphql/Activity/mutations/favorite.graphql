@@ -1,4 +1,4 @@
-mutation Favorite($id: Int!) {
+mutation Favorite($id: ID!) {
   favorite(id: $id) {
     id
     active

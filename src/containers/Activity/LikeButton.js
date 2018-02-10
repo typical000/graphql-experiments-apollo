@@ -35,7 +35,7 @@ LikeButton.propTypes = {
   client: PropTypes.object.isRequired, // eslint-disable-line
   children: PropTypes.node,
   active: PropTypes.bool,
-  userId: PropTypes.number.isRequired,
+  userId: PropTypes.string.isRequired,
 }
 
 LikeButton.defaultProps = {

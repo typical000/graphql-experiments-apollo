@@ -1,7 +1,7 @@
 module.exports = {
   guest: false,
   user: {
-    id: 1,
+    id: '1',
     avatar: 'http://actual-names.com/wp-content/uploads/2016/01/black-cat-names.jpg',
     screenname: 'MyUser',
     gender: 1,

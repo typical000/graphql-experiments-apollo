@@ -17,6 +17,7 @@ const Feedback = ({classes}) => (
     <div className={classes.item}>
       <Item
         title={'Some title'}
+        avatar={'http://bezkota.ru/wp-content/uploads/2016/03/dzhimo-kot-s-samymi-bolshimi-glazami-v-mire-08.jpg'}
         screenname={'%username%'}
         date={'11.11.11'}
         content={'Wow, it was amazing!!!'}

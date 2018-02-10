@@ -1,16 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import injectSheet from '../../utils/jss'
+import Avatar from '../Avatar'
 import Card from '../ui/Card'
 
 const styles = theme => ({
   item: {
-    padding: [20, 40]
+    padding: [20, 40],
+    display: 'flex',
   },
   header: {
     display: 'flex',
-    alignItem: 'center',
+    alignItems: 'center',
     marginBottom: 10,
+  },
+  container: {
+    flexGrow: 1,
+  },
+  avatar: {
+    marginRight: 10,
+    flexShrink: 0,
   },
   title: {
     fontWeight: 'bold',
@@ -29,21 +38,26 @@ const styles = theme => ({
   },
 })
 
-const FeedbackItem = ({classes, title, screenname, date, content}) => (
+const FeedbackItem = ({classes, avatar, title, screenname, date, content}) => (
   <Card className={classes.item}>
-    <div className={classes.header}>
-      <div className={classes.title}>
-        {title}
-        <span className={classes.user}>
-          by {screenname}
-        </span>
-      </div>
-      <div className={classes.date}>
-        {date}
-      </div>
+    <div className={classes.avatar}>
+      <Avatar small round src={avatar} />
     </div>
-    <div className={classes.content}>
-      {content}
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <div className={classes.title}>
+          {title}
+          <span className={classes.user}>
+            by {screenname}
+          </span>
+        </div>
+        <div className={classes.date}>
+          {date}
+        </div>
+      </div>
+      <div className={classes.content}>
+        {content}
+      </div>
     </div>
   </Card>
 )
@@ -51,6 +65,7 @@ const FeedbackItem = ({classes, title, screenname, date, content}) => (
 FeedbackItem.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   title: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
   screenname: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   content: PropTypes.string.isRequired,

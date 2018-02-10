@@ -1,4 +1,4 @@
-#import "../fragments/defaultFields.graphql"
+#import "../fragments/userDefaultFields.graphql"
 #import "../../Activity/fragments/likeFields.graphql"
 #import "../../Activity/fragments/favoriteFields.graphql"
 
@@ -6,7 +6,7 @@ query OffsetUsers($offset: Int!, $limit: Int!) {
   offsetUsers(offset: $offset, limit: $limit) {
     limitReached
     users {
-      ...defaultFields
+      ...userDefaultFields
       actions {
         id
         like {

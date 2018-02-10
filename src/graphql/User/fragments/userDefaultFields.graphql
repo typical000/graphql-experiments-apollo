@@ -1,10 +1,10 @@
+#import "./userInfoFields.graphql"
 #import "../../Geo/fragments/locationData.graphql"
 
-fragment defaultFields on User {
+fragment userDefaultFields on User {
   id
-  screenname
-  avatar
   gender
+  ...userInfoFields
   geo {
     ...locationData
   }
