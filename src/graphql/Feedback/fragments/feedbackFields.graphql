@@ -1,0 +1,11 @@
+#import "../../User/fragments/userInfoFields.graphql"
+
+fragment feedbackFields on Feedback {
+  id
+  date
+  title
+  content
+  user {
+    ...userInfoFields
+  }
+}

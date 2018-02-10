@@ -1,0 +1,7 @@
+#import "../fragments/feedbackFields.graphql"
+
+mutation Feedback($title: String!, $content: String!) {
+  feedback(title: $title, content: $content) {
+    ...feedbackFields
+  }
+}

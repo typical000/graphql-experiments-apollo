@@ -1,12 +1,7 @@
-#import "../fragments/userInfoFields.graphql"
+#import "../fragments/feedbackFields.graphql"
 
 query LatestFeedback($limit: Int!) {
   latestFeedback(limit: $limit) {
-    date
-    title
-    content
-    user {
-      ...userInfoFields
-    }
+    ...feedbackFields
   }
 }

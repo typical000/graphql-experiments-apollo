@@ -18,6 +18,14 @@ class Input extends PureComponent {
     this.handleBlur = this.handleBlur.bind(this)
   }
 
+  componentWillReceiveProps(nextProps) {
+    // If value changes from above - update internal data
+    // TODO: Check additionally if input receive error. In this case avoi clearing
+    if (this.state.value !== nextProps.value) {
+      this.setState({value: nextProps.value})
+    }
+  }
+
   handleInput() {
     const value = (this.input.textarea && this.input.textarea.value) || this.input.value
     this.setState({value})

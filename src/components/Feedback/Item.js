@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import injectSheet from '../../utils/jss'
 import Avatar from '../Avatar'
 import Card from '../ui/Card'
+import {getUserReadableDate} from '../../utils/date'
 
 const styles = theme => ({
   item: {
+    marginTop: 20,
     padding: [20, 40],
     display: 'flex',
   },
@@ -38,7 +40,7 @@ const styles = theme => ({
   },
 })
 
-const FeedbackItem = ({classes, avatar, title, screenname, date, content}) => (
+const FeedbackItem = ({children, classes, avatar, title, screenname, date}) => (
   <Card className={classes.item}>
     <div className={classes.avatar}>
       <Avatar small round src={avatar} />
@@ -52,11 +54,11 @@ const FeedbackItem = ({classes, avatar, title, screenname, date, content}) => (
           </span>
         </div>
         <div className={classes.date}>
-          {date}
+          {getUserReadableDate(date)}
         </div>
       </div>
       <div className={classes.content}>
-        {content}
+        {children}
       </div>
     </div>
   </Card>
@@ -64,11 +66,11 @@ const FeedbackItem = ({classes, avatar, title, screenname, date, content}) => (
 
 FeedbackItem.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
   screenname: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 }
 
 export default injectSheet(styles)(FeedbackItem)

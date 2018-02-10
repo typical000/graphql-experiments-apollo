@@ -88,6 +88,7 @@ const typeDefs = `
     logout: AppData
     like(id: ID!): Like
     favorite(id: ID!): Favorite
+    feedback(title: String!, content: String!): Feedback
   }
 `
 
@@ -163,6 +164,13 @@ const resolvers = {
       available: true,
     }),
 
+    feedback: (obj, args) => ({
+      id: Math.round(Math.random() * 1000), // Just get random ID
+      date: Date.now(),
+      title: args.title,
+      content: args.content,
+      user: appData.user, // Retrive user data from server. In this case just use mocks
+    })
   }
 }
 
@@ -186,10 +194,7 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({
     /* eslint-disable */
     console.log('')
     console.log('> Performed request:')
-    console.log(`action code: ${action}`)
-    console.log(`step code: ${step}`)
-    console.log(`action key: ${key}`)
-    console.log(`data: ${data}`)
+    console.log(data)
     /* eslint-enable */
   }
 }))
