@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
+import {BrowserRouter} from 'react-router-dom' // TODO: Move to client.js
 import injectSheet from '../../utils/jss'
 import GlobalStyles from '../GlobalStyles'
 import Loader from '../ui/Loader'
@@ -50,24 +51,26 @@ class App extends PureComponent {
     const {isClient} = this.state
 
     return (
-      <GlobalStyles>
-        <div className={classes.app}>
-          {isClient && (
-            <AppData>
-              {({data, loading}) => {
-                // Data can be 'undefined' if query isn't already fetched from server
-                if (!data || loading) return <Loader fullScreen active />
+      <BrowserRouter>
+        <GlobalStyles>
+          <div className={classes.app}>
+            {isClient && (
+              <AppData>
+                {({data, loading}) => {
+                  // Data can be 'undefined' if query isn't already fetched from server
+                  if (!data || loading) return <Loader fullScreen active />
 
-                // If we have any data - we can destructure data object
-                const {appData: {guest, user}} = data
+                  // If we have any data - we can destructure data object
+                  const {appData: {guest, user}} = data
 
-                if (guest) return <ExternalContent />
-                return <InternalContent user={user} />
-              }}
-            </AppData>
-          )}
-        </div>
-      </GlobalStyles>
+                  if (guest) return <ExternalContent />
+                  return <InternalContent user={user} />
+                }}
+              </AppData>
+            )}
+          </div>
+        </GlobalStyles>
+      </BrowserRouter>
     )
   }
 }

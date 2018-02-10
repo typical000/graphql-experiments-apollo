@@ -9,6 +9,9 @@ const base = {
 export default {
   brand: base.brand,
 
+  success: '#69b32d',
+  danger: '#f1462f',
+
   typography: {
     fontFamily: 'Helvetica, Arial, sans-serif',
     fontSize: 14,
@@ -70,5 +73,10 @@ export default {
       hoverBackground: darken(0.04, base.brand),
       icon: transparentize(0.1, base.light),
     },
+  },
+
+  input: {
+    label: transparentize(0.5, base.dark),
+    border: transparentize(0.85, base.dark),
   },
 }

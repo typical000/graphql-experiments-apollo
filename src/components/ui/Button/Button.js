@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 import cn from 'classnames'
 import styles from './styles.js'
 import Icon from '../Icon'
@@ -26,17 +27,27 @@ class Button extends Component {
     )
   }
 
+  renderContent() {
+    const {classes, icon, iconPosition, children} = this.props
+    return (
+      <span className={classes.wrap}>
+        {icon && iconPosition === 'left' && this.renderIcon()}
+        <span className={classes.text}>
+          {children}
+        </span>
+        {icon && iconPosition === 'right' && this.renderIcon()}
+      </span>
+    )
+  }
+
   render() {
     const {
-      children,
       classes,
       className,
       inverse,
       disabled,
       tabIndex,
       type,
-      icon,
-      iconPosition,
       onBlur,
       onFocus,
       onClick,
@@ -44,6 +55,7 @@ class Button extends Component {
       big,
       loading,
       round,
+      to,
     } = this.props
 
     const classNames = cn(
@@ -58,22 +70,16 @@ class Button extends Component {
       loading && classes.loading
     )
 
-    return (
-      <button
-        className={classNames}
-        tabIndex={tabIndex}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        onClick={onClick}
-      >
-        <span className={classes.wrap}>
-          {icon && iconPosition === 'left' && this.renderIcon()}
-          <span className={classes.text}>
-            {children}
-          </span>
-          {icon && iconPosition === 'right' && this.renderIcon()}
-        </span>
-      </button>
+    /**
+     * In case if 'url' exists we render pure react-router link with button appearance.
+     * See: LinkButton
+     */
+
+    const props = {className: classNames, tabIndex, onBlur, onFocus, onClick}
+    if (to) props.to = to
+
+    return React.createElement(
+      to ? Link : 'button', props, this.renderContent()
     )
   }
 }
@@ -98,6 +104,7 @@ Button.propTypes = {
   ]),
   icon: PropTypes.string,
   iconPosition: PropTypes.oneOf(['left', 'right']),
+  to: PropTypes.string,
 }
 
 Button.defaultProps = {
@@ -113,6 +120,7 @@ Button.defaultProps = {
   onFocus: () => {},
   onClick: () => {},
   type: null,
+  to: null,
   icon: null,
   iconPosition: 'left',
 }

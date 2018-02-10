@@ -4,7 +4,7 @@ import injectSheet from '../../../utils/jss'
 
 const styles = {
   container: {
-    maxWidth: 1000,
+    maxWidth: 830,
     width: '100%',
     padding: [0, 10],
     marginLeft: 'auto',

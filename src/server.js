@@ -29,6 +29,7 @@ const renderChunks = () => {
 
 const renderApp = () => {
   const sheets = new SheetsRegistry()
+  // TODO: Sync server with client
   const app = renderToString(
     <ThemeProvider theme={theme}>
       <JssProvider registry={sheets} jss={jss}>

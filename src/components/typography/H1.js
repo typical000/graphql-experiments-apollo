@@ -5,12 +5,11 @@ import injectSheet from '../../utils/jss'
 
 const styles = theme => ({
   heading: {
-    fontSize: 54,
+    fontSize: 24,
     lineHeight: 1.2,
     fontWeight: 'bold',
     margin: [0, 0, 20, 0],
-    letterSpacing: 4,
-    textTransform: 'uppercase',
+    textTransform: 'none',
     color: theme.text.default
   },
   light: {

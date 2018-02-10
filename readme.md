@@ -22,6 +22,7 @@ Starts client dev-server on `localhost:4000`
   - [x] Layout for logged in or guest user
   - [x] Header
   - [x] Search results with 'Load more'
+  - [x] Feedback form with feedbacks
 - [x] General GraphQL patterns
   - [x] Query batching
   - [x] Using fragments
@@ -35,6 +36,9 @@ Starts client dev-server on `localhost:4000`
   - [x] Send mutations on server
   - [x] Directly change data in cache
   - [x] Optimistic updates
+- [x] Routing
+  - [x] Create 2 pages
+  - [ ] Add animation
 - [ ] Tests
   - [ ] Setup tests on frontend
   - [ ] Setup tests on backend

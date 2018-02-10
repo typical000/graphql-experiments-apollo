@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import injectSheet from '../../utils/jss'
+import {LinkButton} from '../ui/Button'
 import LogoutButton from '../../containers/Logout'
 import Avatar from '../Avatar'
 
@@ -45,8 +46,20 @@ const styles = theme => ({
     marginRight: 10,
   },
   actions: {
+    display: 'flex',
+    alignItems: 'center',
     marginLeft: 20,
+    '&:first-child': {
+      marginLeft: 0,
+      marginRight: 20,
+    }
   },
+  action: {
+    marginLeft: 10,
+    '&:first-child': {
+      marginLeft: 0,
+    }
+  }
 })
 
 const Header = ({children, classes, user}) => {
@@ -54,6 +67,14 @@ const Header = ({children, classes, user}) => {
     return (
       <div className={classes.header}>
         <div className={classes.container}>
+          <div className={classes.actions}>
+            <div className={classes.action}>
+              <LinkButton to={'/'}>Search</LinkButton>
+            </div>
+            <div className={classes.action}>
+              <LinkButton to={'/feedback'}>Feedback</LinkButton>
+            </div>
+          </div>
           <div className={classes.content}>
             {children}
           </div>

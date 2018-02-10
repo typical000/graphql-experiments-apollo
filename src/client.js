@@ -6,6 +6,10 @@ import theme from './theme'
 import App from './components/App'
 import GraphQLProvider from './containers/GraphQLProvider'
 
+/**
+ * TODO: Move BrowserRouter from nested App component
+ * and find problem why it doesn't work
+ */
 hydrate(
   <GraphQLProvider>
     <ThemeProvider theme={theme}>
