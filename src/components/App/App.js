@@ -58,7 +58,7 @@ class App extends PureComponent {
     if (!isClient || loading) return <Loader fullScreen active />
     if (appData.guest) return <ExternalContent />
     // TODO: Remove user from passing down
-    return <InternalContent user={appData.user} />
+    return <InternalContent />
   }
 
   render() {

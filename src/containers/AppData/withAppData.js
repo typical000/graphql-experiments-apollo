@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import PropTypes from 'prop-types'
+import CONTEXT_TYPES from './contextTypes'
 
 /**
  * Helper method for connecting application data to any component.
@@ -11,10 +11,7 @@ import PropTypes from 'prop-types'
 const withAppData = ComponentToWrap => (
   class WithAppData extends PureComponent {
 
-    static contextTypes = {
-      appData: PropTypes.object,
-      loading: PropTypes.bool.isRequired,
-    }
+    static contextTypes = CONTEXT_TYPES
 
     componentWillReceiveProps() {
       /**
@@ -27,11 +24,13 @@ const withAppData = ComponentToWrap => (
     }
 
     render() {
+      const {appData, loading} = this.context
+
       return (
         <ComponentToWrap
           {...this.props}
-          appData={this.context.appData}
-          loading={this.context.loading}
+          appData={appData}
+          loading={loading}
         />
       )
     }
