@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {graphql, compose} from 'react-apollo'
 import {Form, Item} from '../../components/Feedback'
 import Loader from '../../components/ui/Loader'
+import Row from '../../components/ui/Row'
 import LATEST_FEEDBACK_QUERY from '../../graphql/Feedback/queries/latestFeedback.graphql'
 import FEEDBACK_MUTATION from '../../graphql/Feedback/mutations/feedback.graphql'
 
@@ -65,16 +66,19 @@ class FeedbackWithData extends PureComponent {
     // Sort by date, to make new written entries goes first
     return data
       .sort((prev, next) => prev.date < next.date)
+      // "Row" components was added to take care about leaving
+      // our components indipendent from their rendering context.
       .map(({id, title, date, content, user}) => (
-        <Item
-          key={id}
-          title={title}
-          date={date}
-          screenname={user.screenname}
-          avatar={user.avatar}
-        >
-          {content}
-        </Item>
+        <Row key={id}>
+          <Item
+            title={title}
+            date={date}
+            screenname={user.screenname}
+            avatar={user.avatar}
+          >
+            {content}
+          </Item>
+        </Row>
     ))
   }
 

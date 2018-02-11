@@ -7,7 +7,6 @@ import {getUserReadableDate} from '../../utils/date'
 
 const styles = theme => ({
   item: {
-    marginTop: 20,
     padding: [20, 40],
     display: 'flex',
   },
