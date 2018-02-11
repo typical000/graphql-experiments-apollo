@@ -1,10 +1,11 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import {BrowserRouter} from 'react-router-dom' // TODO: Move to client.js
+import {compose} from 'react-apollo'
 import injectSheet from '../../utils/jss'
 import GlobalStyles from '../GlobalStyles'
 import Loader from '../ui/Loader'
-import AppData from '../../containers/AppData'
+import {withAppData} from '../../containers/AppData'
 import {InternalContent, ExternalContent} from '../Content'
 
 const styles = theme => ({
@@ -25,6 +26,8 @@ const styles = theme => ({
 class App extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    appData: PropTypes.object, // eslint-disable-line
+    loading: PropTypes.bool.isRequired,
   }
 
   constructor(props) {
@@ -46,28 +49,26 @@ class App extends PureComponent {
     this.setState({isClient: true})
   }
 
+  renderContent() {
+    const {loading, appData} = this.props
+    const {isClient} = this.state
+
+    // Indicates, that query isn't already fetched from server
+    // @see AppDataProvider
+    if (!isClient || loading) return <Loader fullScreen active />
+    if (appData.guest) return <ExternalContent />
+    // TODO: Remove user from passing down
+    return <InternalContent user={appData.user} />
+  }
+
   render() {
     const {classes} = this.props
-    const {isClient} = this.state
 
     return (
       <BrowserRouter>
         <GlobalStyles>
           <div className={classes.app}>
-            {isClient && (
-              <AppData>
-                {({data, loading}) => {
-                  // Data can be 'undefined' if query isn't already fetched from server
-                  if (!data || loading) return <Loader fullScreen active />
-
-                  // If we have any data - we can destructure data object
-                  const {appData: {guest, user}} = data
-
-                  if (guest) return <ExternalContent />
-                  return <InternalContent user={user} />
-                }}
-              </AppData>
-            )}
+            {this.renderContent()}
           </div>
         </GlobalStyles>
       </BrowserRouter>
@@ -75,4 +76,7 @@ class App extends PureComponent {
   }
 }
 
-export default injectSheet(styles)(App)
+export default compose(
+  withAppData,
+  injectSheet(styles),
+)(App)
