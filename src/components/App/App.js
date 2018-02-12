@@ -53,11 +53,19 @@ class App extends PureComponent {
     const {loading, appData} = this.props
     const {isClient} = this.state
 
-    // Indicates, that query isn't already fetched from server
-    // @see AppDataProvider
+    /**
+     * Indicates, that query isn't already fetched from server
+     * @see AppDataProvider
+     */
     if (!isClient || loading) return <Loader fullScreen active />
     if (appData.guest) return <ExternalContent />
-    // TODO: Remove user from passing down
+
+    /**
+     * Here data is already availble and we can pass appData.user data down
+     * in this component for showing logged-in header (and it will be good).
+     * But, for presentation of AppDataConsumer we don't pass data and
+     * retrive data in inner component from consumer.
+     */
     return <InternalContent />
   }
 
