@@ -38,7 +38,6 @@ Starts client dev-server on `localhost:4000`
   - [x] Optimistic updates
 - [x] Routing
   - [x] Create 2 pages
-  - [ ] Add animation
 - [ ] Tests
   - [ ] Setup tests on frontend
   - [ ] Setup tests on backend

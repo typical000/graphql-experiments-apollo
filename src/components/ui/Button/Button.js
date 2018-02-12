@@ -59,7 +59,7 @@ class Button extends Component {
     } = this.props
 
     const classNames = cn(
-      classes.default,
+      classes.button,
       className,
       type && this.getClassesFromData(type),
       inverse && classes.inverse,

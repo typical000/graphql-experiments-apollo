@@ -20,5 +20,8 @@
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
     }
+  },
+  "env": {
+    "jest": true
   }
 }

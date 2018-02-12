@@ -1,7 +1,7 @@
 import {transition} from '../../../utils/css'
 
 export default theme => ({
-  default: {
+  button: {
     display: 'flex',
     position: 'relative',
     padding: [10, 15],
@@ -85,7 +85,7 @@ export default theme => ({
 
   // Inverse default button
   inverse: {
-    composes: '$default',
+    composes: '$button',
     background: theme.button.inverse.background,
     color: theme.button.inverse.color,
     '&:hover, &:active, &:focus': {
@@ -98,7 +98,7 @@ export default theme => ({
 
   // Primary button
   primary: {
-    composes: '$default',
+    composes: '$button',
     color: theme.button.primary.color,
     background: theme.button.primary.background,
     '&:hover, &:active, &:focus': {
@@ -111,7 +111,7 @@ export default theme => ({
 
   /* Rounded button */
   round: {
-    composes: '$default',
+    composes: '$button',
     width: 40,
     height: 40,
     padding: 0,
@@ -132,7 +132,7 @@ export default theme => ({
 
   // Special modifications
   textLeft: {
-    composes: '$default',
+    composes: '$button',
     justifyContent: 'flex-start',
   },
   '$textLeft $text': {
