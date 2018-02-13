@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {create as createJss} from 'jss'
 import preset from 'jss-preset-default'
 import {JssProvider, ThemeProvider} from 'react-jss'
@@ -25,11 +26,12 @@ const jss = createJss({
 })
 
 /**
- * IMPORTANT: Find a solution to not pass theme provider
- * inside testing suites. Because any change of theme WILL break
- * all snapshots
+ * Create helper component on top of enzyme render
+ * methods due to fact, that we are using JSS and it
+ * can't work without initialized of "theme" and "jss"
+ * providers in root from application.
  */
-const renderComponentWithJss = children => (
+const WrappedWithJss = ({children}) => (
   <ThemeProvider theme={theme}>
     <JssProvider jss={jss}>
       {children}
@@ -37,6 +39,18 @@ const renderComponentWithJss = children => (
   </ThemeProvider>
 )
 
-export const shallow = children => enzymeShallow(renderComponentWithJss(children))
-export const render = children => enzymeRender(renderComponentWithJss(children))
-export const mount = children => enzymeMount(renderComponentWithJss(children))
+WrappedWithJss.propTypes = {
+  children: PropTypes.node.isRequired
+}
+
+export const shallow = children => enzymeShallow(
+  <WrappedWithJss>{children}</WrappedWithJss>
+)
+
+export const render = children => enzymeRender(
+  <WrappedWithJss>{children}</WrappedWithJss>
+)
+
+export const mount = children => enzymeMount(
+  <WrappedWithJss>{children}</WrappedWithJss>
+)

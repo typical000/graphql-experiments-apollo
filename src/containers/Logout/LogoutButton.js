@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {ApolloConsumer} from 'react-apollo'
 import {ButtonPrimary} from '../../components/ui/Button'
-import APP_DATA_FULL_QUERY from '../../graphql/AppData/queries/fullData.graphql'
+import APP_DATA_GUEST_QUERY from '../../graphql/AppData/queries/guestData.graphql'
 import LOGOUT_MUTATION from '../../graphql/Logout/mutations/logout.graphql'
 
 const LogoutButton = ({children}) => (
@@ -27,7 +27,7 @@ const LogoutButton = ({children}) => (
              * with your hande like here:
              */
             update: (proxy, {data: {logout}}) => {
-              const data = proxy.readQuery({query: APP_DATA_FULL_QUERY})
+              const data = proxy.readQuery({query: APP_DATA_GUEST_QUERY})
 
               /**
                * Yep, I'll like spread operators instead of this assign hell:
@@ -39,7 +39,7 @@ const LogoutButton = ({children}) => (
                * })
                */
               proxy.writeQuery({
-                query: APP_DATA_FULL_QUERY,
+                query: APP_DATA_GUEST_QUERY,
                 data: {
                   ...data,
                   appData: {

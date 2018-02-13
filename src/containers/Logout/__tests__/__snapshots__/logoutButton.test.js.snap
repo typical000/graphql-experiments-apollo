@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogoutButton User must became guest after click 1`] = `
+Object {
+  "appData": Object {
+    "guest": true,
+    Symbol(id): "$ROOT_QUERY.appData",
+  },
+  Symbol(id): "ROOT_QUERY",
+}
+`;
