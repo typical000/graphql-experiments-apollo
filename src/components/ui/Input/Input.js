@@ -3,6 +3,6 @@ import BaseInput from './BaseInput'
 
 export default props => (
   <BaseInput {...props}>
-    <input />
+    <input type="text" />
   </BaseInput>
 )

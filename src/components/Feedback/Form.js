@@ -66,6 +66,7 @@ class FeedbackForm extends PureComponent {
 
   handleSubmit() {
     const {title, content} = this.state
+
     this.props.onSubmit({
       title,
       content
