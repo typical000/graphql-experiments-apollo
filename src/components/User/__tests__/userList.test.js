@@ -1,11 +1,23 @@
 import React from 'react'
-import {shallow, mount} from '../../../utils/testSuite'
+import {shallow, render, mount} from '../../../utils/testSuite'
 import UserList from '../UserList'
 
 describe('UserList', () => {
   it('Should render correctly', () => {
-    const userList = shallow(<UserList onLoadMoreClick={() => {}} />)
+    // Call InnerComponent for making snapshot of real component
+    // instead of JSS-wrapped one
+    const userList = render(
+      <UserList.InnerComponent classes={{}} />
+    )
+    const userListWithLoadMore = render(
+      <UserList.InnerComponent
+        classes={{}}
+        onLoadMoreClick={() => {}}
+      />
+    )
+
     expect(userList).toMatchSnapshot()
+    expect(userListWithLoadMore).toMatchSnapshot()
   })
 
   it('Should render correct number of children', () => {

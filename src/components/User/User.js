@@ -128,10 +128,10 @@ class User extends PureComponent {
             {gender && <div className={classes.inline}>{getGenderTranslation(gender)}</div>}
             {city && <div className={classes.inline}>from {city}</div>}
           </div>
-          <div className={classes.actions}>
+          {actions && <div className={classes.actions}>
             {actions.like && actions.like.available && this.renderLikeAction()}
             {actions.favorite && actions.favorite.available && this.renderFavoriteAction()}
-          </div>
+          </div>}
         </div>
       </Card>
     )

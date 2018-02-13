@@ -1,12 +1,20 @@
 import React from 'react'
-import {shallow} from '../../../utils/testSuite'
+import {render} from '../../../utils/testSuite'
 import User from '../User'
 
 describe('User', () => {
   it('Should render correctly', () => {
-    const userList = shallow(<User />)
-    expect(userList).toMatchSnapshot()
-  })
+    // Call InnerComponent for making snapshot of real component
+    // instead of JSS-wrapped one
+    const user = render(
+      <User.InnerComponent
+        classes={{}}
+        avatar={'someUrl.jpg'}
+        screenname={'Username'}
+        gender={1}
+      />
+    )
 
-  // TODO: Write more tests
+    expect(user).toMatchSnapshot()
+  })
 })
