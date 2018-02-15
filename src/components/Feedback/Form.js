@@ -6,6 +6,7 @@ import Loader from '../ui/Loader'
 import {ButtonPrimary} from '../ui/Button'
 import {Input, Textarea} from '../ui/Input'
 import {H2, P} from '../typography'
+import {getErrorByField} from '../../utils/validator'
 
 const styles = {
   container: {
@@ -27,6 +28,7 @@ class FeedbackForm extends PureComponent {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     title: PropTypes.string,
     content: PropTypes.string,
+    errors: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
     onSubmit: PropTypes.func.isRequired,
     sending: PropTypes.bool,
   }
@@ -74,7 +76,7 @@ class FeedbackForm extends PureComponent {
   }
 
   render() {
-    const {classes, sending} = this.props
+    const {classes, sending, errors} = this.props
     const {title, content} = this.state
 
     return (
@@ -86,6 +88,7 @@ class FeedbackForm extends PureComponent {
             <Input
               label="Title"
               value={title}
+              error={getErrorByField(errors, 'title')}
               onInput={(value) => {
                 this.handleTitleInput(value)
               }}
@@ -95,6 +98,7 @@ class FeedbackForm extends PureComponent {
             <Textarea
               label="Body"
               value={content}
+              error={getErrorByField(errors, 'content')}
               onInput={(value) => {
                 this.handleContentInput(value)
               }}

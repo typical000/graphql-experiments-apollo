@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Validate Should return errors in correct format 1`] = `
+Object {
+  "bar": Array [
+    "ERROR2",
+    "ERROR3",
+  ],
+  "foo": Array [
+    "ERROR1",
+  ],
+}
+`;

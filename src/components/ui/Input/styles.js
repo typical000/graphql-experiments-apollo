@@ -72,6 +72,7 @@ export default theme => ({
   },
 
   errorText: {
+    composes: '$additionalText',
     visibility: 'hidden',
     maxMeight: 0,
     marginTop: 3, // As on BB - bigger spacing

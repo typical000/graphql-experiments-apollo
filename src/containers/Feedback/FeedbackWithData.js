@@ -6,13 +6,33 @@ import Loader from '../../components/ui/Loader'
 import Row from '../../components/ui/Row'
 import LATEST_FEEDBACK_QUERY from '../../graphql/Feedback/queries/latestFeedback.graphql'
 import FEEDBACK_MUTATION from '../../graphql/Feedback/mutations/feedback.graphql'
+import {validate, StringValidator, RequiredValidator} from '../../utils/validator'
 
 const LAST_ITEM_COUNT = 3
 
-// Move to variable identical code
 const PROXY_DATA = {
   query: LATEST_FEEDBACK_QUERY,
   variables: {limit: LAST_ITEM_COUNT},
+}
+
+const MIN_CONTENT_LENGTH = 10
+const MAX_CONTENT_LENGTH = 500
+const VALIDATION_RULES = {
+  title: [
+    new RequiredValidator({
+      message: 'Title should not be empty',
+    })
+  ],
+  content: [
+    new RequiredValidator({
+      message: 'Message should not be empty',
+    }),
+    new StringValidator({
+      message: `Message must be at least ${MIN_CONTENT_LENGTH} and not more than ${MAX_CONTENT_LENGTH} characters`,
+      min: MIN_CONTENT_LENGTH,
+      max: MAX_CONTENT_LENGTH,
+    })
+  ]
 }
 
 /**
@@ -30,13 +50,17 @@ class FeedbackWithData extends PureComponent {
 
     this.state = {
       sending: false,
+      errors: null,
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit({title, content}) {
-    this.setState({sending: true})
+  submitData({title, content}) {
+    this.setState({
+      sending: true,
+      errors: null, // Clear any possible error
+    })
 
     this.props.mutate({
       mutation: FEEDBACK_MUTATION,
@@ -55,6 +79,12 @@ class FeedbackWithData extends PureComponent {
       // After sendung data to server
       this.setState({sending: false})
     })
+  }
+
+  handleSubmit({title, content}) {
+    validate({title, content}, VALIDATION_RULES)
+      .then(data => this.submitData(data))
+      .catch(errors => this.setState({errors}))
   }
 
   renderLastEntries() {
@@ -83,15 +113,15 @@ class FeedbackWithData extends PureComponent {
   }
 
   render() {
+    const {errors, sending} = this.state
+
     return (
       <Loader transparent active={this.props.data.loading}>
-
-        {/* TODO: Wrap with validator */}
         <Form
           onSubmit={this.handleSubmit}
-          sending={this.state.sending}
+          sending={sending}
+          errors={errors}
         />
-
         {this.renderLastEntries()}
       </Loader>
     )
