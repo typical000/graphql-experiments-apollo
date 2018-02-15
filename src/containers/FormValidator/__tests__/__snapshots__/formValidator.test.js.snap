@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormValidator Should do nothing if props wasn't changed (do nothing on init) 1`] = `
+<FormValidator
+  data={
+    Object {
+      "foo": "foo",
+    }
+  }
+  rules={
+    Object {
+      "foo": Array [
+        RequiredValidator {
+          "options": Object {
+            "message": "Foo should not be empty",
+          },
+        },
+      ],
+    }
+  }
+>
+  <div>
+    Default behaviour
+  </div>
+</FormValidator>
+`;
+
+exports[`FormValidator Should render correcty in case of error validation 1`] = `
+<FormValidator
+  data={
+    Object {
+      "foo": "",
+    }
+  }
+  rules={
+    Object {
+      "foo": Array [
+        RequiredValidator {
+          "options": Object {
+            "message": "Foo should not be empty",
+          },
+        },
+      ],
+    }
+  }
+>
+  <div>
+    Error
+  </div>
+</FormValidator>
+`;
+
+exports[`FormValidator Should render correcty in case of successfull validation 1`] = `
+<FormValidator
+  data={
+    Object {
+      "foo": "foo",
+    }
+  }
+  rules={
+    Object {
+      "foo": Array [
+        RequiredValidator {
+          "options": Object {
+            "message": "Foo should not be empty",
+          },
+        },
+      ],
+    }
+  }
+>
+  <div>
+    Success
+  </div>
+</FormValidator>
+`;
+
+exports[`FormValidator Should return success, error and data as callback params 1`] = `
+<FormValidator
+  data={
+    Object {
+      "foo": "bar",
+    }
+  }
+  rules={Object {}}
+>
+  <div>
+    Success: foo
+    Errors: bar
+    Input data doesn't mutate: true
+  </div>
+</FormValidator>
+`;

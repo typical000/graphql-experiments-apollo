@@ -1,5 +1,6 @@
 module.exports = {
   verbose: true,
+  snapshotSerializers: ['enzyme-to-json/serializer'],
   transform: {
     '\\.(gql|graphql)$': 'jest-transform-graphql',
     '.*': 'babel-jest',

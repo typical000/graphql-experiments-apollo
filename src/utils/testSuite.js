@@ -43,14 +43,39 @@ WrappedWithJss.propTypes = {
   children: PropTypes.node.isRequired
 }
 
-export const shallow = children => enzymeShallow(
+export const shallowWithJss = children => enzymeShallow(
   <WrappedWithJss>{children}</WrappedWithJss>
 )
 
-export const render = children => enzymeRender(
+export const renderWithJss = children => enzymeRender(
   <WrappedWithJss>{children}</WrappedWithJss>
 )
 
-export const mount = children => enzymeMount(
+export const mountWithJss = children => enzymeMount(
   <WrappedWithJss>{children}</WrappedWithJss>
 )
+
+/**
+ * Helper method for 'with JSS' render methods above.
+ * Extracts from deep nested tree needed component.
+ *
+ * All this nesting is (from above down to component):
+ * 1. ThemeProvider
+ * 2. JssProvider
+ * 3. Jss
+ * 4. Our needed component
+ */
+
+export const extractFromJssWrapper = wrap => wrap.children().children().children().children()
+
+/**
+ * Proxy methods to give access to enzyme render methods from
+ * one place. Also, they are created to avoid initalizing
+ * in all test files enzyme adapters
+ */
+
+export const shallow = children => enzymeShallow(children)
+
+export const render = children => enzymeRender(children)
+
+export const mount = children => enzymeMount(children)

@@ -1,6 +1,6 @@
 import React from 'react'
 import {MockedProvider} from 'react-apollo/test-utils'
-import {mount} from '../../../utils/testSuite'
+import {mountWithJss as mount, extractFromJssWrapper} from '../../../utils/testSuite'
 import LogoutButton from '../LogoutButton'
 import MOCKS from '../__mocks__/logoutButton.mocks'
 import APP_DATA_GUEST_QUERY from '../../../graphql/AppData/queries/guestData.graphql'
@@ -39,20 +39,8 @@ describe('LogoutButton', () => {
       </MockedProvider>
     )
 
-    /**
-     * Get access to real client object. From children down:
-     * 1. MockedProvider
-     * 2. ThemeProvider
-     * 3. JssProvider
-     * 4. ApolloConsumer
-     * 5. Button with available client
-     * And yep, it looks ike a shit. But we can't do nothing with it
-     */
-    const client = wrap.children()
-                    .children()
-                    .children()
-                    .children()
-                    .props().client
+    // Get access to real client object
+    const client = extractFromJssWrapper(wrap).props().client
 
     /**
      * Write user data to server because we can't logout

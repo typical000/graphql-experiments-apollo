@@ -1,6 +1,6 @@
 import React from 'react'
 import {spy} from 'sinon'
-import {render, mount} from '../../../utils/testSuite'
+import {renderWithJss as render, mountWithJss as mount, extractFromJssWrapper} from '../../../utils/testSuite'
 import Form from '../Form'
 
 describe('FeedbackForm', () => {
@@ -28,32 +28,36 @@ describe('FeedbackForm', () => {
    * Don't know why, but "form.setState"
    * doesn't update state in real world, and in onSubmit callback
    * arrives old data.
-   *
-   * it('Should pass field values on submit', () => {
-   *   let data = {}
-   *
-   *   const form = mount(<Form onSubmit={values => {data = values}} />)
-   *   const button = form.find('.actions').children()
-   *
-   *   button.simulate('click')
-   *   expect(data).toEqual({
-   *     title: '',
-   *     content: '',
-   *   })
-   *
-   *   // Update state with data
-   *   form.setState({
-   *     title: 'Title',
-   *     content: 'Content',
-   *   })
-   *
-   *   button.simulate('click')
-   *
-   *   expect(data).toEqual({
-   *     title: 'Title',
-   *     content: 'Content',
-   *   })
-   * })
-   *
    */
+  it('Should pass field values on submit', () => {
+    let data = {}
+
+    const form = mount(
+      <Form
+        onSubmit={(values) => {
+          data = values
+        }}
+      />
+    )
+    const button = form.find('.actions').children()
+
+    button.simulate('click')
+    expect(data).toEqual({
+      title: '',
+      content: '',
+    })
+
+    // Update state with new data
+    extractFromJssWrapper(form).instance().setState({
+      title: 'Title',
+      content: 'Content',
+    })
+
+    button.simulate('click')
+
+    expect(data).toEqual({
+      title: 'Title',
+      content: 'Content',
+    })
+  })
 })
