@@ -38,6 +38,8 @@ Starts client dev-server on `localhost:4000`
   - [x] Optimistic updates
 - [x] Routing
   - [x] Create 2 pages
-- [ ] Tests
-  - [ ] Setup tests on frontend
-  - [ ] Setup tests on backend
+- [x] Setup tests
+  - [x] Jest
+  - [x] Simple unit tests
+  - [x] Snapshots
+  - [x] Using enzyme and sinon as helper libs
