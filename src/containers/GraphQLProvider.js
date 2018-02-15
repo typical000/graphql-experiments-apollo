@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import {ApolloProvider} from 'react-apollo'
 import {ApolloClient} from 'apollo-client'
 import {BatchHttpLink} from 'apollo-link-batch-http'
-import {InMemoryCache, IntrospectionFragmentMatcher} from 'apollo-cache-inmemory'
+import {
+  InMemoryCache,
+  IntrospectionFragmentMatcher,
+} from 'apollo-cache-inmemory'
 import {GRAPHQL_SERVER} from '../constants/url'
 import introspectionQueryResultData from '../fragmentTypes.json'
 
@@ -35,7 +38,7 @@ const client = new ApolloClient({
         return obj.id
       }
       return null
-    }
+    },
   }),
 
   /**
@@ -54,9 +57,7 @@ const client = new ApolloClient({
 })
 
 const GraphQLProvider = ({children}) => (
-  <ApolloProvider client={client}>
-    {children}
-  </ApolloProvider>
+  <ApolloProvider client={client}>{children}</ApolloProvider>
 )
 
 GraphQLProvider.propTypes = {

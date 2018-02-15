@@ -8,7 +8,7 @@ import Loader from '../ui/Loader'
 import {withAppData} from '../../containers/AppData'
 import {InternalContent, ExternalContent} from '../Content'
 
-const styles = theme => ({
+const styles = (theme) => ({
   app: {
     background: theme.common.page,
     color: theme.text.default,
@@ -19,8 +19,8 @@ const styles = theme => ({
       family: theme.typography.fontFamily,
       size: theme.typography.fontSize,
       lineHeight: theme.typography.lineHeight,
-    }
-  }
+    },
+  },
 })
 
 class App extends PureComponent {
@@ -75,16 +75,11 @@ class App extends PureComponent {
     return (
       <BrowserRouter>
         <GlobalStyles>
-          <div className={classes.app}>
-            {this.renderContent()}
-          </div>
+          <div className={classes.app}>{this.renderContent()}</div>
         </GlobalStyles>
       </BrowserRouter>
     )
   }
 }
 
-export default compose(
-  withAppData,
-  injectSheet(styles),
-)(App)
+export default compose(withAppData, injectSheet(styles))(App)

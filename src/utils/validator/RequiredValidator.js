@@ -1,7 +1,6 @@
 import AbstractValidator from './AbstractValidator'
 
 export default class RequiredValidator extends AbstractValidator {
-
   static defaults = {
     message: '',
   }
@@ -10,7 +9,8 @@ export default class RequiredValidator extends AbstractValidator {
    * @param {string} value
    * @returns {bool}
    */
-  validateValue(value) { // eslint-disable-line
+  // eslint-disable-next-line
+  validateValue(value) {
     return !!value
   }
 }

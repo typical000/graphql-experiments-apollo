@@ -5,7 +5,7 @@ import {scale} from 'css-functions'
 import injectSheet from '../../utils/jss'
 import {transition} from '../../utils/css'
 
-const styles = theme => ({
+const styles = (theme) => ({
   link: {
     position: 'relative',
     display: 'inline-block',
@@ -30,11 +30,7 @@ const styles = theme => ({
 })
 
 const Link = ({href, target, classes, className, children}) => (
-  <a
-    className={cn(classes.link, className)}
-    href={href}
-    target={target}
-  >
+  <a className={cn(classes.link, className)} href={href} target={target}>
     <span className={classes.text}>{children}</span>
     <span className={classes.bar} />
   </a>
@@ -45,7 +41,7 @@ Link.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   className: PropTypes.string,
   href: PropTypes.string.isRequired,
-  target: PropTypes.string
+  target: PropTypes.string,
 }
 
 Link.defaultProps = {

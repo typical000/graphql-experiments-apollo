@@ -8,16 +8,14 @@ describe('Validate', () => {
   it('Should return original data on success validation', (done) => {
     const inputData = {
       foo: 'Foo',
-      bar: 'Bar'
+      bar: 'Bar',
     }
     const rules = {
-      foo: [
-        new RequiredValidator({message: errorMessage})
-      ],
+      foo: [new RequiredValidator({message: errorMessage})],
       bar: [
         new RequiredValidator({message: errorMessage}),
-        new StringValidator({message: errorMessage, length: 3})
-      ]
+        new StringValidator({message: errorMessage, length: 3}),
+      ],
     }
 
     validate(inputData, rules)
@@ -25,22 +23,20 @@ describe('Validate', () => {
         expect(data).toEqual(inputData)
         done()
       })
-      .catch(error => done.fail(error))
+      .catch((error) => done.fail(error))
   })
 
   it('Should return errors in correct format', (done) => {
     const inputData = {
       foo: '',
-      bar: ''
+      bar: '',
     }
     const rules = {
-      foo: [
-        new RequiredValidator({message: `${errorMessage}1`})
-      ],
+      foo: [new RequiredValidator({message: `${errorMessage}1`})],
       bar: [
         new RequiredValidator({message: `${errorMessage}2`}),
-        new StringValidator({message: `${errorMessage}3`, length: 3})
-      ]
+        new StringValidator({message: `${errorMessage}3`, length: 3}),
+      ],
     }
 
     validate(inputData, rules)
@@ -54,12 +50,10 @@ describe('Validate', () => {
   it('Should avoid validation on fields with no rules specified on them', (done) => {
     const inputData = {
       foo: '',
-      bar: 'Bar'
+      bar: 'Bar',
     }
     const rules = {
-      foo: [
-        new RequiredValidator({message: errorMessage})
-      ]
+      foo: [new RequiredValidator({message: errorMessage})],
     }
 
     validate(inputData, rules)

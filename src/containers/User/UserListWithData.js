@@ -10,7 +10,7 @@ const UserListWithData = () => (
     query={OFFSET_USERS_QUERY}
     variables={{
       offset: 0,
-      limit: ITEMS_PER_LOAD
+      limit: ITEMS_PER_LOAD,
     }}
   >
     {({data, loading, fetchMore}) => {
@@ -43,25 +43,27 @@ const UserListWithData = () => (
                   offsetUsers: Object.assign({}, prevResult.offsetUsers, {
                     users: [
                       ...prevResult.offsetUsers.users,
-                      ...fetchMoreResult.offsetUsers.users
+                      ...fetchMoreResult.offsetUsers.users,
                     ],
-                    limitReached: fetchMoreResult.offsetUsers.limitReached
-                  })
+                    limitReached: fetchMoreResult.offsetUsers.limitReached,
+                  }),
                 })
-              }
+              },
             })
           }}
         >
-          {data.offsetUsers.users.map(({id, avatar, screenname, gender, geo: {city}, actions}) => (
-            <User
-              key={id}
-              avatar={avatar}
-              screenname={screenname}
-              gender={gender}
-              actions={actions}
-              city={city}
-            />
-          ))}
+          {data.offsetUsers.users.map(
+            ({id, avatar, screenname, gender, geo: {city}, actions}) => (
+              <User
+                key={id}
+                avatar={avatar}
+                screenname={screenname}
+                gender={gender}
+                actions={actions}
+                city={city}
+              />
+            ),
+          )}
         </UserList>
       )
     }}

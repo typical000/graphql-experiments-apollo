@@ -15,9 +15,7 @@ const styles = {
 }
 
 const Container = ({children, classes}) => (
-  <div className={classes.container}>
-    {children}
-  </div>
+  <div className={classes.container}>{children}</div>
 )
 
 Container.propTypes = {

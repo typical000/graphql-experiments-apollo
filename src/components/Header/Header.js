@@ -5,7 +5,7 @@ import {LinkButton} from '../ui/Button'
 import LogoutButton from '../../containers/Logout'
 import Avatar from '../Avatar'
 
-const styles = theme => ({
+const styles = (theme) => ({
   header: {
     position: 'fixed',
     zIndex: 100,
@@ -52,14 +52,14 @@ const styles = theme => ({
     '&:first-child': {
       marginLeft: 0,
       marginRight: 20,
-    }
+    },
   },
   action: {
     marginLeft: 10,
     '&:first-child': {
       marginLeft: 0,
-    }
-  }
+    },
+  },
 })
 
 const Header = ({children, classes, user}) => {
@@ -75,9 +75,7 @@ const Header = ({children, classes, user}) => {
               <LinkButton to={'/feedback'}>Feedback</LinkButton>
             </div>
           </div>
-          <div className={classes.content}>
-            {children}
-          </div>
+          <div className={classes.content}>{children}</div>
           {/* This piece of code can be moved in separated component */}
           <div className={classes.user}>
             <div className={classes.screenname}>{user.screenname}</div>
@@ -94,7 +92,6 @@ const Header = ({children, classes, user}) => {
   return <div className={classes.header}>{children}</div>
 }
 
-
 Header.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
@@ -110,7 +107,7 @@ Header.propTypes = {
 }
 
 Header.defaultProps = {
-  user: null
+  user: null,
 }
 
 export default injectSheet(styles)(Header)

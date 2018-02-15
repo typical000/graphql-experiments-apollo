@@ -15,7 +15,10 @@ export const border = (borderColor = '#000') => ({
  * @param {number} transition
  * @param {number} delay
  */
-export const transition = (duration = `${TRANSITION_DURATION}ms`, delay = '0ms') => ({
+export const transition = (
+  duration = `${TRANSITION_DURATION}ms`,
+  delay = '0ms',
+) => ({
   property: 'all',
   timingFunction: TIMING_FUNCTION,
   duration,
@@ -24,5 +27,5 @@ export const transition = (duration = `${TRANSITION_DURATION}ms`, delay = '0ms')
 
 export default {
   border,
-  transition
+  transition,
 }

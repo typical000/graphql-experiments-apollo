@@ -1,6 +1,10 @@
 import React from 'react'
 import {spy} from 'sinon'
-import {renderWithJss as render, mountWithJss as mount, extractFromJssWrapper} from '../../../utils/testSuite'
+import {
+  renderWithJss as render,
+  mountWithJss as mount,
+  extractFromJssWrapper,
+} from '../../../utils/testSuite'
 import Form from '../Form'
 
 describe('FeedbackForm', () => {
@@ -8,10 +12,7 @@ describe('FeedbackForm', () => {
     // Call InnerComponent for making snapshot of real component
     // instead of JSS-wrapped one
     const form = render(
-      <Form.InnerComponent
-        classes={{}}
-        onSubmit={() => {}}
-      />
+      <Form.InnerComponent classes={{}} onSubmit={() => {}} />,
     )
     expect(form).toMatchSnapshot()
   })
@@ -37,7 +38,7 @@ describe('FeedbackForm', () => {
         onSubmit={(values) => {
           data = values
         }}
-      />
+      />,
     )
     const button = form.find('.actions').children()
 
@@ -48,10 +49,12 @@ describe('FeedbackForm', () => {
     })
 
     // Update state with new data
-    extractFromJssWrapper(form).instance().setState({
-      title: 'Title',
-      content: 'Content',
-    })
+    extractFromJssWrapper(form)
+      .instance()
+      .setState({
+        title: 'Title',
+        content: 'Content',
+      })
 
     button.simulate('click')
 

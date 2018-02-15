@@ -44,7 +44,7 @@ class FeedbackForm extends PureComponent {
 
     this.state = {
       title: props.title,
-      content: props.content
+      content: props.content,
     }
   }
 
@@ -53,7 +53,7 @@ class FeedbackForm extends PureComponent {
     if (this.props.sending && !nextProps.sending) {
       this.setState({
         title: '',
-        content: ''
+        content: '',
       })
     }
   }
@@ -71,7 +71,7 @@ class FeedbackForm extends PureComponent {
 
     this.props.onSubmit({
       title,
-      content
+      content,
     })
   }
 

@@ -55,8 +55,8 @@ const styles = {
     marginRight: 10,
     '&:last-child': {
       marginRight: 0,
-    }
-  }
+    },
+  },
 }
 
 class User extends PureComponent {
@@ -67,16 +67,20 @@ class User extends PureComponent {
     gender: PropTypes.oneOf([1, 2]), // 1 - male, 2 - female
     city: PropTypes.string,
     actions: PropTypes.shape({
-      like: PropTypes.objectOf(PropTypes.oneOfType([
-        PropTypes.bool,
-        PropTypes.number,
-        PropTypes.string,
-      ])),
-      favorite: PropTypes.objectOf(PropTypes.oneOfType([
-        PropTypes.bool,
-        PropTypes.number,
-        PropTypes.string,
-      ])),
+      like: PropTypes.objectOf(
+        PropTypes.oneOfType([
+          PropTypes.bool,
+          PropTypes.number,
+          PropTypes.string,
+        ]),
+      ),
+      favorite: PropTypes.objectOf(
+        PropTypes.oneOfType([
+          PropTypes.bool,
+          PropTypes.number,
+          PropTypes.string,
+        ]),
+      ),
     }),
   }
 
@@ -90,10 +94,7 @@ class User extends PureComponent {
     const {classes, actions} = this.props
     return (
       <div className={classes.action}>
-        <LikeButton
-          active={actions.like.active}
-          userId={actions.id}
-        >
+        <LikeButton active={actions.like.active} userId={actions.id}>
           Like
         </LikeButton>
       </div>
@@ -104,10 +105,7 @@ class User extends PureComponent {
     const {classes, actions} = this.props
     return (
       <div className={classes.action}>
-        <FavoriteButton
-          active={actions.favorite.active}
-          userId={actions.id}
-        >
+        <FavoriteButton active={actions.favorite.active} userId={actions.id}>
           Add to friends
         </FavoriteButton>
       </div>
@@ -125,13 +123,23 @@ class User extends PureComponent {
         <div className={classes.content}>
           <div className={classes.screenname}>{screenname}</div>
           <div>
-            {gender && <div className={classes.inline}>{getGenderTranslation(gender)}</div>}
+            {gender && (
+              <div className={classes.inline}>
+                {getGenderTranslation(gender)}
+              </div>
+            )}
             {city && <div className={classes.inline}>from {city}</div>}
           </div>
-          {actions && <div className={classes.actions}>
-            {actions.like && actions.like.available && this.renderLikeAction()}
-            {actions.favorite && actions.favorite.available && this.renderFavoriteAction()}
-          </div>}
+          {actions && (
+            <div className={classes.actions}>
+              {actions.like &&
+                actions.like.available &&
+                this.renderLikeAction()}
+              {actions.favorite &&
+                actions.favorite.available &&
+                this.renderFavoriteAction()}
+            </div>
+          )}
         </div>
       </Card>
     )

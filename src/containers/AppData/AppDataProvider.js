@@ -18,13 +18,12 @@ import APP_DATA_FULL_QUERY from '../../graphql/AppData/queries/fullData.graphql'
  * to rewrite this code to the new context API.
  */
 class AppDataProvider extends PureComponent {
-
   static propTypes = {
     children: PropTypes.node.isRequired,
     data: PropTypes.shape({
       appData: PropTypes.object,
       loading: PropTypes.bool.isRequired,
-    })
+    }),
   }
 
   static childContextTypes = {

@@ -13,9 +13,7 @@ const styles = {
 }
 
 const P = ({classes, className, children}) => (
-  <p className={cn(classes.paragraph, className)}>
-    {children}
-  </p>
+  <p className={cn(classes.paragraph, className)}>{children}</p>
 )
 
 P.propTypes = {
@@ -25,7 +23,7 @@ P.propTypes = {
 }
 
 P.defaultProps = {
-  className: ''
+  className: '',
 }
 
 export default injectSheet(styles)(P)

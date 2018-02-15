@@ -5,19 +5,14 @@ module.exports = {
     head: {
       title: 'GraphQL Experiments',
       description: 'Experimenting with Relay and Apollo',
-      keywords: [
-        'graphql',
-        'relay',
-        'apollo',
-        'react'
-      ]
+      keywords: ['graphql', 'relay', 'apollo', 'react'],
     },
     og: {
       title: 'GraphQL Experiments',
       description: 'Experimenting with Relay and Apollo',
       type: 'website',
       image: '',
-      url: 'https://typical000.github.io/graphql-experiments/'
-    }
-  }
+      url: 'https://typical000.github.io/graphql-experiments/',
+    },
+  },
 }

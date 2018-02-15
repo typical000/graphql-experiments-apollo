@@ -8,7 +8,8 @@ describe('StringValidator', () => {
       message: errorMessage,
     })
 
-    validator.validate(100)
+    validator
+      .validate(100)
       .then(() => done.fail())
       .catch((error) => {
         expect(error).toEqual(errorMessage)
@@ -22,7 +23,8 @@ describe('StringValidator', () => {
       min: 5,
     })
 
-    validator.validate('foo')
+    validator
+      .validate('foo')
       .then(() => done.fail())
       .catch((error) => {
         expect(error).toEqual(errorMessage)
@@ -36,7 +38,8 @@ describe('StringValidator', () => {
       max: 5,
     })
 
-    validator.validate('foo-bar-baz')
+    validator
+      .validate('foo-bar-baz')
       .then(() => done.fail())
       .catch((error) => {
         expect(error).toEqual(errorMessage)
@@ -50,7 +53,8 @@ describe('StringValidator', () => {
       length: 5,
     })
 
-    validator.validate('foo-bar-baz')
+    validator
+      .validate('foo-bar-baz')
       .then(() => done.fail())
       .catch((error) => {
         expect(error).toEqual(errorMessage)
@@ -66,7 +70,8 @@ describe('StringValidator', () => {
       max: 5,
     })
 
-    validator.validate('foo')
+    validator
+      .validate('foo')
       .then(() => done())
       .catch(() => done.fail())
   })

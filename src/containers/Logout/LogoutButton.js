@@ -44,12 +44,11 @@ const LogoutButton = ({children}) => (
                   ...data,
                   appData: {
                     ...data.appData,
-                    guest: logout.guest
-                  }
-                }
+                    guest: logout.guest,
+                  },
+                },
               })
-            }
-
+            },
           })
         }}
       >
@@ -64,7 +63,7 @@ LogoutButton.propTypes = {
 }
 
 LogoutButton.defaultProps = {
-  children: 'Logout'
+  children: 'Logout',
 }
 
 export default LogoutButton

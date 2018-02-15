@@ -3,18 +3,21 @@ import FormValidator from '../FormValidator'
 import {RequiredValidator} from '../../../utils/validator'
 import {mount} from '../../../utils/testSuite'
 
-const renderValidator = value => mount(
-  <FormValidator
-    data={{foo: value}}
-    rules={{foo: [new RequiredValidator({message: 'Foo should not be empty'})]}}
-  >
-    {({success, errors}) => {
-      if (errors) return <div>Error</div>
-      if (success) return <div>Success</div>
-      return <div>Default behaviour</div>
-    }}
-  </FormValidator>
-)
+const renderValidator = (value) =>
+  mount(
+    <FormValidator
+      data={{foo: value}}
+      rules={{
+        foo: [new RequiredValidator({message: 'Foo should not be empty'})],
+      }}
+    >
+      {({success, errors}) => {
+        if (errors) return <div>Error</div>
+        if (success) return <div>Success</div>
+        return <div>Default behaviour</div>
+      }}
+    </FormValidator>,
+  )
 
 describe('FormValidator', () => {
   it('Should render correcty in case of successfull validation', (done) => {
@@ -43,7 +46,7 @@ describe('FormValidator', () => {
     }, 5)
   })
 
-  it('Should do nothing if props wasn\'t changed (do nothing on init)', () => {
+  it("Should do nothing if props wasn't changed (do nothing on init)", () => {
     const wrap = renderValidator('foo')
     expect(wrap).toMatchSnapshot()
   })
@@ -59,12 +62,12 @@ describe('FormValidator', () => {
             {`Input data doesn't mutate: ${data === inputData}`}
           </div>
         )}
-      </FormValidator>
+      </FormValidator>,
     )
 
     wrap.setState({
       success: 'foo',
-      errors: 'bar'
+      errors: 'bar',
     })
 
     wrap.update()

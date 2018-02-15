@@ -5,7 +5,7 @@ import Avatar from '../Avatar'
 import Card from '../ui/Card'
 import {getUserReadableDate} from '../../utils/date'
 
-const styles = theme => ({
+const styles = (theme) => ({
   item: {
     padding: [20, 40],
     display: 'flex',
@@ -48,17 +48,11 @@ const FeedbackItem = ({children, classes, avatar, title, screenname, date}) => (
       <div className={classes.header}>
         <div className={classes.title}>
           {title}
-          <span className={classes.user}>
-            by {screenname}
-          </span>
+          <span className={classes.user}>by {screenname}</span>
         </div>
-        <div className={classes.date}>
-          {getUserReadableDate(date)}
-        </div>
+        <div className={classes.date}>{getUserReadableDate(date)}</div>
       </div>
-      <div className={classes.content}>
-        {children}
-      </div>
+      <div className={classes.content}>{children}</div>
     </div>
   </Card>
 )

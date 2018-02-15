@@ -30,17 +30,9 @@ const styles = {
 }
 
 const Row = ({children, classes, small, big}) => {
-  const classNames = cn(
-    classes.row,
-    small && classes.small,
-    big && classes.big
-  )
+  const classNames = cn(classes.row, small && classes.small, big && classes.big)
 
-  return (
-    <div className={classNames}>
-      {children}
-    </div>
-  )
+  return <div className={classNames}>{children}</div>
 }
 
 Row.propTypes = {

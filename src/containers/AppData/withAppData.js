@@ -8,9 +8,8 @@ import CONTEXT_TYPES from './contextTypes'
  * If we add everywhere inside our components this HOC's it will be
  * ok in future to refactore out components, or now?
  */
-const withAppData = ComponentToWrap => (
+const withAppData = (ComponentToWrap) =>
   class WithAppData extends PureComponent {
-
     static contextTypes = CONTEXT_TYPES
 
     componentWillReceiveProps() {
@@ -27,14 +26,9 @@ const withAppData = ComponentToWrap => (
       const {appData, loading} = this.context
 
       return (
-        <ComponentToWrap
-          {...this.props}
-          appData={appData}
-          loading={loading}
-        />
+        <ComponentToWrap {...this.props} appData={appData} loading={loading} />
       )
     }
   }
-)
 
 export default withAppData

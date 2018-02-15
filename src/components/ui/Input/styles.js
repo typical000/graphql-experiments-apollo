@@ -2,7 +2,7 @@ import {translateY} from 'css-functions'
 import {transition} from '../../../utils/css'
 import {TRANSITION_DURATION} from '../../../constants/animations.js'
 
-export default theme => ({
+export default (theme) => ({
   default: {
     position: 'relative',
     textAlign: 'left', // All content inside must be left aligned, everywhere
@@ -49,7 +49,7 @@ export default theme => ({
     '&:disabled': {
       pointerEvents: 'none',
       cursor: 'default',
-    }
+    },
   },
 
   additionalText: {
@@ -119,7 +119,7 @@ export default theme => ({
       content: '""',
       background: theme.brand,
       transition: transition(),
-    }
+    },
   },
 
   icon: {
@@ -175,7 +175,7 @@ export default theme => ({
       right: 0,
       left: 0,
       background: theme.danger,
-    }
+    },
   },
 
   // Disabled state

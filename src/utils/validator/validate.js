@@ -31,31 +31,32 @@
  *
  * @returns {Promise}
  */
-export default (data = {}, rules = {}) => new Promise((resolve, reject) => {
-  const errors = {}
-  const validators = []
+export default (data = {}, rules = {}) =>
+  new Promise((resolve, reject) => {
+    const errors = {}
+    const validators = []
 
-  for (const field in rules) {
-    rules[field].forEach((rule) => {
-      // Add all rules to array for waiting for promise all (see below)
-      validators.push(rule.validate(data[field])
-        .catch((error) => {
-          if (!errors[field]) {
-            errors[field] = []
-          }
+    for (const field in rules) {
+      rules[field].forEach((rule) => {
+        // Add all rules to array for waiting for promise all (see below)
+        validators.push(
+          rule.validate(data[field]).catch((error) => {
+            if (!errors[field]) {
+              errors[field] = []
+            }
 
-          errors[field].push(error)
-        })
-      )
-    })
-  }
-
-  Promise.all(validators).then(() => {
-    // If errors have almost one key it mean that there are errors
-    if (Object.keys(errors).length) {
-      reject(errors, data)
+            errors[field].push(error)
+          }),
+        )
+      })
     }
 
-    resolve(data)
+    Promise.all(validators).then(() => {
+      // If errors have almost one key it mean that there are errors
+      if (Object.keys(errors).length) {
+        reject(errors, data)
+      }
+
+      resolve(data)
+    })
   })
-})

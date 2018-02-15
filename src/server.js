@@ -9,22 +9,25 @@ import chunks from '../dist/stats.json'
 import App from './components/App'
 
 // Get first part of name (all that goes before first '.')
-const stripFileName = name => name.split('.')[0]
+const stripFileName = (name) => name.split('.')[0]
 
 const renderChunks = () => {
   // Right order to place chunks.
   // Other chunks must be added in any order
   const order = ['manifest', 'vendor']
 
-  return Object.values(chunks).sort((a, b) => {
-    const aIndex = order.indexOf(stripFileName(a))
-    const bIndex = order.indexOf(stripFileName(b))
+  return Object.values(chunks)
+    .sort((a, b) => {
+      const aIndex = order.indexOf(stripFileName(a))
+      const bIndex = order.indexOf(stripFileName(b))
 
-    if (aIndex === -1) return order.length
-    if (aIndex < bIndex) return -1
-    if (aIndex > bIndex) return 1
-    return 0
-  }).map(value => `<script src="/${value}"></script>`).join('')
+      if (aIndex === -1) return order.length
+      if (aIndex < bIndex) return -1
+      if (aIndex > bIndex) return 1
+      return 0
+    })
+    .map((value) => `<script src="/${value}"></script>`)
+    .join('')
 }
 
 const renderApp = () => {
@@ -35,12 +38,12 @@ const renderApp = () => {
       <JssProvider registry={sheets} jss={jss}>
         <App />
       </JssProvider>
-    </ThemeProvider>
+    </ThemeProvider>,
   )
 
   return {
     app,
-    css: sheets.toString()
+    css: sheets.toString(),
   }
 }
 
@@ -51,7 +54,10 @@ const renderApp = () => {
  *
  * <div id="app">${app}</div>
  */
-const renderHTML = ({app, css, js}) => minify(stripIndents`
+// eslint-disable-next-line
+const renderHTML = ({app, css, js}) =>
+  minify(
+    stripIndents`
   <!doctype html>
   <html lang="en">
     <head>
@@ -77,13 +83,14 @@ const renderHTML = ({app, css, js}) => minify(stripIndents`
       ${js}
     </body>
   </html>
-`, {
-  minifyCSS: true,
-  minifyJS: true
-})
-
+`,
+    {
+      minifyCSS: true,
+      minifyJS: true,
+    },
+  )
 
 export default renderHTML({
   ...renderApp(),
-  js: renderChunks()
+  js: renderChunks(),
 })

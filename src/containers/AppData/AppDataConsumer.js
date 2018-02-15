@@ -10,7 +10,6 @@ import CONTEXT_TYPES from './contextTypes'
  * See: https://reactjs.org/docs/render-props.html
  */
 class AppDataConsumer extends PureComponent {
-
   static propTypes = {
     children: PropTypes.func.isRequired,
   }
@@ -21,7 +20,6 @@ class AppDataConsumer extends PureComponent {
     const {appData, loading} = this.context
     return this.props.children(appData, loading)
   }
-
 }
 
 export default AppDataConsumer

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import injectSheet from '../../../utils/jss'
 
-const styles = theme => ({
+const styles = (theme) => ({
   card: {
     color: theme.text.default,
     borderRadius: theme.common.radius,

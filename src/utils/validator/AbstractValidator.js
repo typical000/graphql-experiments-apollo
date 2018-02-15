@@ -1,5 +1,4 @@
 export default class AbstractValidator {
-
   static defaults = {
     message: '',
   }
@@ -23,7 +22,8 @@ export default class AbstractValidator {
   /**
    * @abstract
    */
-  validateValue() { // eslint-disable-line
+  // eslint-disable-next-line
+  validateValue() {
     return true
   }
 }

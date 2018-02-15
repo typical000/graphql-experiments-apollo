@@ -7,7 +7,6 @@ import Icon from '../Icon'
 import injectSheet from '../../../utils/jss'
 
 class Button extends Component {
-
   shouldComponentUpdate(nextProps) {
     if (this.props.disabled !== nextProps.disabled) return true
     return false
@@ -16,7 +15,7 @@ class Button extends Component {
   getClassesFromData(type) {
     const {classes} = this.props
     if (typeof type === 'string') return classes[type]
-    return type.map(item => ({[classes[item]]: true}))
+    return type.map((item) => ({[classes[item]]: true}))
   }
 
   renderIcon() {
@@ -32,9 +31,7 @@ class Button extends Component {
     return (
       <span className={classes.wrap}>
         {icon && iconPosition === 'left' && this.renderIcon()}
-        <span className={classes.text}>
-          {children}
-        </span>
+        <span className={classes.text}>{children}</span>
         {icon && iconPosition === 'right' && this.renderIcon()}
       </span>
     )
@@ -67,7 +64,7 @@ class Button extends Component {
       big && classes.big,
       small && classes.small,
       round && classes.round,
-      loading && classes.loading
+      loading && classes.loading,
     )
 
     /**
@@ -79,7 +76,9 @@ class Button extends Component {
     if (to) props.to = to
 
     return React.createElement(
-      to ? Link : 'button', props, this.renderContent()
+      to ? Link : 'button',
+      props,
+      this.renderContent(),
     )
   }
 }

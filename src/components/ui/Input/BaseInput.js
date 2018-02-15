@@ -27,7 +27,8 @@ class Input extends PureComponent {
   }
 
   handleInput() {
-    const value = (this.input.textarea && this.input.textarea.value) || this.input.value
+    const value =
+      (this.input.textarea && this.input.textarea.value) || this.input.value
     this.setState({value})
     this.props.onInput(value)
   }
@@ -63,28 +64,32 @@ class Input extends PureComponent {
       disabled && classes.disabled,
       focused && classes.focused,
       inverse && classes.inverse,
-      className
+      className,
     )
 
     return (
       <div className={classNames}>
         {label && <div className={classes.label}>{label}</div>}
         <div className={classes.container}>
-          {React.Children.map(children, child => React.cloneElement(child, {
-            className: classes.value,
-            name,
-            value,
-            placeholder,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
-            onInput: this.handleInput,
-            ref: (input) => {
-              this.input = input
-            }
-          }))}
+          {React.Children.map(children, (child) =>
+            React.cloneElement(child, {
+              className: classes.value,
+              name,
+              value,
+              placeholder,
+              onFocus: this.handleFocus,
+              onBlur: this.handleBlur,
+              onInput: this.handleInput,
+              ref: (input) => {
+                this.input = input
+              },
+            }),
+          )}
         </div>
         {error && <div className={classes.errorText}>{error}</div>}
-        {description && <div className={classes.description}>{description}</div>}
+        {description && (
+          <div className={classes.description}>{description}</div>
+        )}
       </div>
     )
   }

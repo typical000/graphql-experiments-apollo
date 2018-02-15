@@ -3,7 +3,7 @@ import {lighten, darken, transparentize} from 'polished'
 const base = {
   brand: '#ff5959',
   light: '#fff',
-  dark: '#000'
+  dark: '#000',
 }
 
 export default {

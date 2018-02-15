@@ -6,7 +6,11 @@ import Loader from '../../components/ui/Loader'
 import Row from '../../components/ui/Row'
 import LATEST_FEEDBACK_QUERY from '../../graphql/Feedback/queries/latestFeedback.graphql'
 import FEEDBACK_MUTATION from '../../graphql/Feedback/mutations/feedback.graphql'
-import {validate, StringValidator, RequiredValidator} from '../../utils/validator'
+import {
+  validate,
+  StringValidator,
+  RequiredValidator,
+} from '../../utils/validator'
 
 const LAST_ITEM_COUNT = 3
 
@@ -21,7 +25,7 @@ const VALIDATION_RULES = {
   title: [
     new RequiredValidator({
       message: 'Title should not be empty',
-    })
+    }),
   ],
   content: [
     new RequiredValidator({
@@ -31,8 +35,8 @@ const VALIDATION_RULES = {
       message: `Message must be at least ${MIN_CONTENT_LENGTH} and not more than ${MAX_CONTENT_LENGTH} characters`,
       min: MIN_CONTENT_LENGTH,
       max: MAX_CONTENT_LENGTH,
-    })
-  ]
+    }),
+  ],
 }
 
 /**
@@ -62,29 +66,31 @@ class FeedbackWithData extends PureComponent {
       errors: null, // Clear any possible error
     })
 
-    this.props.mutate({
-      mutation: FEEDBACK_MUTATION,
-      variables: {title, content},
-      update: (proxy, {data: {feedback}}) => {
-        const data = proxy.readQuery(PROXY_DATA)
+    this.props
+      .mutate({
+        mutation: FEEDBACK_MUTATION,
+        variables: {title, content},
+        update: (proxy, {data: {feedback}}) => {
+          const data = proxy.readQuery(PROXY_DATA)
 
-        data.latestFeedback.push(feedback)
+          data.latestFeedback.push(feedback)
 
-        proxy.writeQuery({
-          data,
-          ...PROXY_DATA,
-        })
-      }
-    }).then(() => {
-      // After sendung data to server
-      this.setState({sending: false})
-    })
+          proxy.writeQuery({
+            data,
+            ...PROXY_DATA,
+          })
+        },
+      })
+      .then(() => {
+        // After sendung data to server
+        this.setState({sending: false})
+      })
   }
 
   handleSubmit({title, content}) {
     validate({title, content}, VALIDATION_RULES)
-      .then(data => this.submitData(data))
-      .catch(errors => this.setState({errors}))
+      .then((data) => this.submitData(data))
+      .catch((errors) => this.setState({errors}))
   }
 
   renderLastEntries() {
@@ -94,22 +100,24 @@ class FeedbackWithData extends PureComponent {
     const data = latestFeedback ? [...latestFeedback] : []
 
     // Sort by date, to make new written entries goes first
-    return data
-      .sort((prev, next) => prev.date < next.date)
-      // "Row" components was added to take care about leaving
-      // our components indipendent from their rendering context.
-      .map(({id, title, date, content, user}) => (
-        <Row key={id}>
-          <Item
-            title={title}
-            date={date}
-            screenname={user.screenname}
-            avatar={user.avatar}
-          >
-            {content}
-          </Item>
-        </Row>
-    ))
+    return (
+      data
+        .sort((prev, next) => prev.date < next.date)
+        // "Row" components was added to take care about leaving
+        // our components indipendent from their rendering context.
+        .map(({id, title, date, content, user}) => (
+          <Row key={id}>
+            <Item
+              title={title}
+              date={date}
+              screenname={user.screenname}
+              avatar={user.avatar}
+            >
+              {content}
+            </Item>
+          </Row>
+        ))
+    )
   }
 
   render() {
@@ -117,11 +125,7 @@ class FeedbackWithData extends PureComponent {
 
     return (
       <Loader transparent active={this.props.data.loading}>
-        <Form
-          onSubmit={this.handleSubmit}
-          sending={sending}
-          errors={errors}
-        />
+        <Form onSubmit={this.handleSubmit} sending={sending} errors={errors} />
         {this.renderLastEntries()}
       </Loader>
     )
@@ -134,7 +138,7 @@ class FeedbackWithData extends PureComponent {
  */
 export default compose(
   graphql(LATEST_FEEDBACK_QUERY, {
-    options: {variables: {limit: LAST_ITEM_COUNT}}
+    options: {variables: {limit: LAST_ITEM_COUNT}},
   }),
-  graphql(FEEDBACK_MUTATION)
+  graphql(FEEDBACK_MUTATION),
 )(FeedbackWithData)

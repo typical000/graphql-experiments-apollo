@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import injectSheet from '../../../utils/jss'
 
-const styles = theme => ({
+const styles = (theme) => ({
   default: {
     fontSize: 24,
     display: 'inline-block',
@@ -24,7 +24,15 @@ const styles = theme => ({
   },
 })
 
-const Icon = ({className, classes, type, inverse, standart, inherit}) => (
+const Icon = ({
+  className,
+  classes,
+  type,
+  inverse,
+  standart,
+  small,
+  inherit,
+}) => (
   <i
     className={cn(
       classes.default,
@@ -34,7 +42,7 @@ const Icon = ({className, classes, type, inverse, standart, inherit}) => (
       standart && classes.standart,
       inherit && classes.inherit,
       'icon',
-      `icon__${type}`
+      `icon__${type}`,
     )}
   />
 )

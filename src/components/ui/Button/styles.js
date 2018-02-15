@@ -1,6 +1,6 @@
 import {transition} from '../../../utils/css'
 
-export default theme => ({
+export default (theme) => ({
   button: {
     display: 'flex',
     position: 'relative',
@@ -26,7 +26,7 @@ export default theme => ({
     transition: transition(),
     '&:hover, &:active, &:focus': {
       background: theme.button.default.hoverBackground,
-    }
+    },
   },
 
   // Elements
@@ -93,7 +93,7 @@ export default theme => ({
     },
     '& $icon': {
       color: theme.button.inverse.icon,
-    }
+    },
   },
 
   // Primary button
@@ -157,7 +157,7 @@ export default theme => ({
     '& $text': {
       overflow: 'hidden', // Needed to hide overflowing text from button
       maxHeight: 40,
-    }
+    },
   },
 
   // Loading state for button

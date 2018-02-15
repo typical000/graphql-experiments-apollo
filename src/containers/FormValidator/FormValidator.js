@@ -49,12 +49,10 @@ import {validate} from '../../utils/validator'
  * 3. 'data' - original data
  */
 class FormValidator extends PureComponent {
-
   static propTypes = {
-    data: PropTypes.objectOf(PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ])),
+    data: PropTypes.objectOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    ),
     rules: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
     children: PropTypes.func.isRequired,
   }
@@ -76,7 +74,10 @@ class FormValidator extends PureComponent {
     }
 
     if (!props.rules) {
-      console.error('FormValidator: no rules specified. Usage of this component doesn\'t make sense.') // eslint-disable-line
+      // eslint-disable-next-line
+      console.error(
+        "FormValidator: no rules specified. Usage of this component doesn't make sense.",
+      )
     }
   }
 
@@ -91,14 +92,18 @@ class FormValidator extends PureComponent {
     }
 
     validate(data, rules)
-      .then(() => this.setState({
-        success: true,
-        errors: null,
-      }))
-      .catch(errors => this.setState({
-        success: false,
-        errors,
-      }))
+      .then(() =>
+        this.setState({
+          success: true,
+          errors: null,
+        }),
+      )
+      .catch((errors) =>
+        this.setState({
+          success: false,
+          errors,
+        }),
+      )
   }
 
   render() {

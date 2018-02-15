@@ -17,7 +17,7 @@
     "all:prod": "npm run clean && npm run build:prod && npm run build:html:prod",
     "precommit": "lint-staged",
     "lint": "eslint ./src",
-    "prettier": "prettier --debug-check './src/**/*.js'",
+    "prettier": "prettier --write './src/**/*.js'",
     "test": "jest",
     "test:updateSnapshot": "jest --updateSnapshot",
     "coverage": "jest --coverage"
@@ -51,6 +51,7 @@
     "eslint": "^3.11.1",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-config-jss": "^3.0.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
@@ -106,6 +107,7 @@
   "lint-staged": {
     "*.js": [
       "eslint",
+      "prettier --write",
       "jest --bail --findRelatedTests",
       "git add"
     ]

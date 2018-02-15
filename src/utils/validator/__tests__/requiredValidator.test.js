@@ -6,12 +6,13 @@ describe('RequiredValidator', () => {
 
   beforeAll(() => {
     validator = new Validator({
-      message: errorMessage
+      message: errorMessage,
     })
   })
 
   it('Should throw error on empty data', (done) => {
-    validator.validate('')
+    validator
+      .validate('')
       .then(() => done.fail())
       .catch((error) => {
         expect(error).toEqual(errorMessage)
@@ -20,7 +21,8 @@ describe('RequiredValidator', () => {
   })
 
   it('Should pass when there is any data', (done) => {
-    validator.validate('foo')
+    validator
+      .validate('foo')
       .then(() => done())
       .catch(() => done.fail())
   })

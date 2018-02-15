@@ -9,11 +9,7 @@ import Header from '../Header'
 const InternalContent = () => (
   <Container>
     <AppDataConsumer>
-      {({user}) => (
-        <Header user={user}>
-          Test GraphQL application
-        </Header>
-      )}
+      {({user}) => <Header user={user}>Test GraphQL application</Header>}
     </AppDataConsumer>
     <Switch>
       <Route exact path="/" component={UserListWithData} />

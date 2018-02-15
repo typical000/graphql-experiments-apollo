@@ -6,14 +6,14 @@ import {JssProvider, ThemeProvider} from 'react-jss'
 import Enzyme, {
   render as enzymeRender,
   shallow as enzymeShallow,
-  mount as enzymeMount
+  mount as enzymeMount,
 } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import theme from '../theme'
 
 // Setup enzyme adapter for current version of React
 Enzyme.configure({
-  adapter: new Adapter()
+  adapter: new Adapter(),
 })
 
 /**
@@ -21,7 +21,7 @@ Enzyme.configure({
  * NOTE: For simplifying testing. Just return original classname
  */
 const jss = createJss({
-  createGenerateClassName: () => rule => rule.key,
+  createGenerateClassName: () => (rule) => rule.key,
   ...preset(),
 })
 
@@ -33,27 +33,22 @@ const jss = createJss({
  */
 const WrappedWithJss = ({children}) => (
   <ThemeProvider theme={theme}>
-    <JssProvider jss={jss}>
-      {children}
-    </JssProvider>
+    <JssProvider jss={jss}>{children}</JssProvider>
   </ThemeProvider>
 )
 
 WrappedWithJss.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 }
 
-export const shallowWithJss = children => enzymeShallow(
-  <WrappedWithJss>{children}</WrappedWithJss>
-)
+export const shallowWithJss = (children) =>
+  enzymeShallow(<WrappedWithJss>{children}</WrappedWithJss>)
 
-export const renderWithJss = children => enzymeRender(
-  <WrappedWithJss>{children}</WrappedWithJss>
-)
+export const renderWithJss = (children) =>
+  enzymeRender(<WrappedWithJss>{children}</WrappedWithJss>)
 
-export const mountWithJss = children => enzymeMount(
-  <WrappedWithJss>{children}</WrappedWithJss>
-)
+export const mountWithJss = (children) =>
+  enzymeMount(<WrappedWithJss>{children}</WrappedWithJss>)
 
 /**
  * Helper method for 'with JSS' render methods above.
@@ -66,7 +61,12 @@ export const mountWithJss = children => enzymeMount(
  * 4. Our needed component
  */
 
-export const extractFromJssWrapper = wrap => wrap.children().children().children().children()
+export const extractFromJssWrapper = (wrap) =>
+  wrap
+    .children()
+    .children()
+    .children()
+    .children()
 
 /**
  * Proxy methods to give access to enzyme render methods from
@@ -74,8 +74,8 @@ export const extractFromJssWrapper = wrap => wrap.children().children().children
  * in all test files enzyme adapters
  */
 
-export const shallow = children => enzymeShallow(children)
+export const shallow = (children) => enzymeShallow(children)
 
-export const render = children => enzymeRender(children)
+export const render = (children) => enzymeRender(children)
 
-export const mount = children => enzymeMount(children)
+export const mount = (children) => enzymeMount(children)

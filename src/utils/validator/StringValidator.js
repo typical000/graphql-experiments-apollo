@@ -2,7 +2,6 @@ import {isNumber, isString} from 'lodash'
 import AbstractValidator from './AbstractValidator'
 
 export default class StringValidator extends AbstractValidator {
-
   static defaults = {
     message: '',
 
@@ -30,13 +29,16 @@ export default class StringValidator extends AbstractValidator {
    * @returns {bool}
    */
   validateValue(value) {
-    return this.checkString(value) &&
-           this.checkLength(value) &&
-           this.checkMax(value) &&
-           this.checkMin(value)
+    return (
+      this.checkString(value) &&
+      this.checkLength(value) &&
+      this.checkMax(value) &&
+      this.checkMin(value)
+    )
   }
 
-  checkString(value) { // eslint-disable-line
+  // eslint-disable-next-line
+  checkString(value) {
     return isString(value)
   }
 

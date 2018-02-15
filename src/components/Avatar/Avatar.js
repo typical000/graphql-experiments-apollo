@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import cn from 'classnames'
 import injectSheet from '../../utils/jss'
 
-const styles = theme => ({
+const styles = (theme) => ({
   avatar: {
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     verticalAlign: 'middle',
     borderRadius: theme.common.radius,
-    background: theme.common.border // TODO: Replace with cardMuted
+    background: theme.common.border, // TODO: Replace with cardMuted
   },
   img: {
     width: '100%',
@@ -50,11 +50,7 @@ const Avatar = ({classes, src, small, medium, large, round}) => (
       large && classes.large,
     )}
   >
-    <img
-      className={classes.img}
-      src={src}
-      role="presentation"
-    />
+    <img className={classes.img} src={src} role="presentation" />
   </div>
 )
 

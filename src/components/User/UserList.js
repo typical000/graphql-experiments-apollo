@@ -46,9 +46,11 @@ class UserList extends PureComponent {
   }
 
   get isLoadMoreAvailable() {
-    return !this.props.limitReached &&
+    return (
+      !this.props.limitReached &&
       !this.props.loading &&
       this.props.onLoadMoreClick
+    )
   }
 
   /**
@@ -64,15 +66,13 @@ class UserList extends PureComponent {
     return (
       <Loader transparent active={loading}>
         <div className={classes.list}>
-          {Children.map(children, child => (
+          {Children.map(children, (child) => (
             <div className={classes.item}>{child}</div>
           ))}
         </div>
         {this.isLoadMoreAvailable && (
           <div className={classes.action}>
-            <ButtonPrimary
-              onClick={this.handleLoadMoreClick}
-            >
+            <ButtonPrimary onClick={this.handleLoadMoreClick}>
               Load more
             </ButtonPrimary>
           </div>

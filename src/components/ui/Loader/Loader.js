@@ -4,7 +4,7 @@ import cn from 'classnames'
 import {translate, rotateZ} from 'css-functions'
 import injectSheet from '../../../utils/jss'
 
-const loaderStyles = theme => ({
+const loaderStyles = (theme) => ({
   zIndex: 101,
   width: 60,
   height: 60,
@@ -24,7 +24,7 @@ const loaderStyles = theme => ({
   },
 })
 
-const styles = theme => ({
+const styles = (theme) => ({
   loader: {
     position: 'relative',
     borderRadius: 'inherit',
@@ -152,7 +152,7 @@ const Loader = ({
   active,
   fullScreen,
   transparent,
-  withText
+  withText,
 }) => {
   const classNames = cn(
     classes.loader,
@@ -162,7 +162,7 @@ const Loader = ({
     withText && classes.withText,
     transparent && classes.transparent,
     fullScreen && classes.fullScreen,
-    className
+    className,
   )
 
   if (withText) {
@@ -170,20 +170,14 @@ const Loader = ({
       <div className={classNames}>
         <span className={classes.wrap}>
           <span className={classes.icon} />
-          <span className={classes.text}>
-            Loading...
-          </span>
+          <span className={classes.text}>Loading...</span>
         </span>
         {children}
       </div>
     )
   }
 
-  return (
-    <div className={classNames}>
-      {children}
-    </div>
-  )
+  return <div className={classNames}>{children}</div>
 }
 
 Loader.propTypes = {

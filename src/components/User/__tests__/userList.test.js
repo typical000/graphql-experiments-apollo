@@ -3,19 +3,15 @@ import UserList from '../UserList'
 import {
   shallowWithJss as shallow,
   renderWithJss as render,
-  mountWithJss as mount
+  mountWithJss as mount,
 } from '../../../utils/testSuite'
 
 describe('UserList', () => {
   it('Should render correctly', () => {
     // Call InnerComponent for making snapshot of real component
     // instead of JSS-wrapped one
-    const userList = render(
-      <UserList />
-    )
-    const userListWithLoadMore = render(
-      <UserList onLoadMoreClick={() => {}} />
-    )
+    const userList = render(<UserList />)
+    const userListWithLoadMore = render(<UserList onLoadMoreClick={() => {}} />)
 
     expect(userList).toMatchSnapshot()
     expect(userListWithLoadMore).toMatchSnapshot()
@@ -27,7 +23,7 @@ describe('UserList', () => {
         <div className="item">1</div>
         <div className="item">2</div>
         <div className="item">3</div>
-      </UserList>
+      </UserList>,
     )
 
     expect(userList.find('.item')).toHaveLength(3)
@@ -36,18 +32,14 @@ describe('UserList', () => {
   it('Should "Load more" button be visible', () => {
     const userListWithLimitReached = mount(<UserList limitReached />)
     const userListWithLoading = mount(
-      <UserList
-        limitReached={false}
-        loading
-        onLoadMoreClick={() => {}}
-      />
+      <UserList limitReached={false} loading onLoadMoreClick={() => {}} />,
     )
     const userListWithAllNeededProps = mount(
       <UserList
         limitReached={false}
         loading={false}
         onLoadMoreClick={() => {}}
-      />
+      />,
     )
 
     expect(userListWithLimitReached.find('.action').length).toBeFalsy()
@@ -59,11 +51,11 @@ describe('UserList', () => {
     let itemCount = 0
 
     const userList = mount(
-      <UserList onLoadMoreClick={count => (itemCount = count)}>
+      <UserList onLoadMoreClick={(count) => (itemCount = count)}>
         <div className="item">1</div>
         <div className="item">2</div>
         <div className="item">3</div>
-      </UserList>
+      </UserList>,
     )
 
     // Execute click to get number of items

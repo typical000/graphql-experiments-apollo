@@ -15,12 +15,10 @@ const styles = {
 
 const ExternalContent = ({classes}) => (
   <Container>
-    <Header>
-      {'Test GraphQL application'}
-    </Header>
+    <Header>{'Test GraphQL application'}</Header>
     <Card className={classes.container}>
       <P>{'Sorry, this application works only for choosen ones.'}</P>
-      <P>{'You need to find a way to \'Log in\' without \'Log in\' button'}</P>
+      <P>{"You need to find a way to 'Log in' without 'Log in' button"}</P>
       <P>{'Have a nice day!'}</P>
     </Card>
   </Container>

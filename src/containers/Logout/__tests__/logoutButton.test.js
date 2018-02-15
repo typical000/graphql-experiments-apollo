@@ -1,6 +1,9 @@
 import React from 'react'
 import {MockedProvider} from 'react-apollo/test-utils'
-import {mountWithJss as mount, extractFromJssWrapper} from '../../../utils/testSuite'
+import {
+  mountWithJss as mount,
+  extractFromJssWrapper,
+} from '../../../utils/testSuite'
 import LogoutButton from '../LogoutButton'
 import MOCKS from '../__mocks__/logoutButton.mocks'
 import APP_DATA_GUEST_QUERY from '../../../graphql/AppData/queries/guestData.graphql'
@@ -31,12 +34,9 @@ describe('LogoutButton', () => {
      * using simplified queries (just because tests DON'T need real things)
      */
     const wrap = mount(
-      <MockedProvider
-        removeTypename
-        mocks={MOCKS}
-      >
+      <MockedProvider removeTypename mocks={MOCKS}>
         <LogoutButton />
-      </MockedProvider>
+      </MockedProvider>,
     )
 
     // Get access to real client object
