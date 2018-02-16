@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
+import {withRouter} from 'react-router'
 import {compose} from 'react-apollo'
 import injectSheet from '../../utils/jss'
 import GlobalStyles from '../GlobalStyles'
@@ -83,4 +84,4 @@ class App extends PureComponent {
   }
 }
 
-export default compose(withAppData, injectSheet(styles))(App)
+export default compose(withRouter, withAppData, injectSheet(styles))(App)

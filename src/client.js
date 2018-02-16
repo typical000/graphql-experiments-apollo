@@ -8,10 +8,6 @@ import App from './components/App'
 import {AppDataProvider} from './containers/AppData'
 import GraphQLProvider from './containers/GraphQLProvider'
 
-/**
- * TODO: Move BrowserRouter from nested App component
- * and find problem why it doesn't work
- */
 hydrate(
   <GraphQLProvider>
     <AppDataProvider>
