@@ -7,7 +7,14 @@
   ],
   "plugins": [
     "transform-runtime",
-    "transform-react-constant-elements"
+    "transform-react-constant-elements",
+    "babel-plugin-inline-import-graphql-ast",
+    ["babel-plugin-module-alias", [
+      {
+        "src": "./node_modules/react-apollo/index.js",
+        "expose": "react-apollo"
+      }
+    ]]
   ],
   "ignore": [
     "node_modules"

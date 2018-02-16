@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {withApollo} from 'react-apollo'
 import {Button} from '../../components/ui/Button'
+// eslint-disable-next-line
 import FAVORITE_MUTATION from '../../graphql/Activity/mutations/favorite.graphql'
 
 const FavoriteButton = ({children, active, userId, client: {mutate}}) => (

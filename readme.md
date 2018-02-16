@@ -4,6 +4,15 @@ Created by Pavel Davydov
 
 # HOWTO
 
+After cloning repo execute
+```
+npm run all:dev
+```
+This command will create 'dist' folder with 'pseudo-server-side' markup.
+Unfortunately, production build still won't work with `npm run all:prod` :(
+
+After that, execute commands:
+
 ```
 npm run server
 ```

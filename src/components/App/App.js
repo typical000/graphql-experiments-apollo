@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import {BrowserRouter} from 'react-router-dom' // TODO: Move to client.js
 import {compose} from 'react-apollo'
 import injectSheet from '../../utils/jss'
 import GlobalStyles from '../GlobalStyles'
@@ -27,7 +26,11 @@ class App extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     appData: PropTypes.object, // eslint-disable-line
-    loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    loading: false,
   }
 
   constructor(props) {
@@ -73,11 +76,9 @@ class App extends PureComponent {
     const {classes} = this.props
 
     return (
-      <BrowserRouter>
-        <GlobalStyles>
-          <div className={classes.app}>{this.renderContent()}</div>
-        </GlobalStyles>
-      </BrowserRouter>
+      <GlobalStyles>
+        <div className={classes.app}>{this.renderContent()}</div>
+      </GlobalStyles>
     )
   }
 }

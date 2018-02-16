@@ -1,5 +1,6 @@
 import React from 'react'
 import {hydrate} from 'react-dom'
+import {BrowserRouter} from 'react-router-dom'
 import 'whatwg-fetch'
 import {jss, ThemeProvider, JssProvider} from './utils/jss'
 import theme from './theme'
@@ -16,7 +17,9 @@ hydrate(
     <AppDataProvider>
       <ThemeProvider theme={theme}>
         <JssProvider jss={jss}>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </JssProvider>
       </ThemeProvider>
     </AppDataProvider>

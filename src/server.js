@@ -1,5 +1,6 @@
 import React from 'react'
 import {renderToString} from 'react-dom/server'
+import {StaticRouter} from 'react-router-dom'
 import {stripIndents} from 'common-tags'
 import {minify} from 'html-minifier'
 import {JssProvider, ThemeProvider, SheetsRegistry, jss} from './utils/jss'
@@ -36,7 +37,9 @@ const renderApp = () => {
   const app = renderToString(
     <ThemeProvider theme={theme}>
       <JssProvider registry={sheets} jss={jss}>
-        <App />
+        <StaticRouter context={{}}>
+          <App />
+        </StaticRouter>
       </JssProvider>
     </ThemeProvider>,
   )
@@ -79,7 +82,7 @@ const renderHTML = ({app, css, js}) =>
       </style>
     </head>
     <body>
-      <div id="app"></div>
+      <div id="app">${app}</div>
       ${js}
     </body>
   </html>
