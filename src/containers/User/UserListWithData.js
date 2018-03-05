@@ -1,5 +1,6 @@
 import React from 'react'
 import {Query} from 'react-apollo'
+import {isEmpty} from 'lodash'
 import {User, UserList} from '../../components/User'
 import OFFSET_USERS_QUERY from '../../graphql/User/queries/offsetUsers.graphql'
 
@@ -15,7 +16,7 @@ const UserListWithData = () => (
   >
     {({data, loading, fetchMore}) => {
       // If no data - just avoid rendering
-      if (!data) return <div />
+      if (isEmpty(data)) return <div />
 
       return (
         <UserList
