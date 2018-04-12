@@ -1,9 +1,9 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
-import {graphql, compose} from 'react-apollo'
-import {Form, Item} from '../../components/Feedback'
+import {Query, Mutation} from 'react-apollo'
+import {Form, SortedByDateList as List} from '../../components/Feedback'
 import Loader from '../../components/ui/Loader'
-import Row from '../../components/ui/Row'
+
 import LATEST_FEEDBACK_QUERY from '../../graphql/Feedback/queries/latestFeedback.graphql'
 import FEEDBACK_MUTATION from '../../graphql/Feedback/mutations/feedback.graphql'
 import {
@@ -43,7 +43,7 @@ const VALIDATION_RULES = {
  * Feedback page with form and rendered list of last entries.
  * Here we use HOC pattern for react-apollo
  */
-class FeedbackWithData extends PureComponent {
+export default class FeedbackWithData extends PureComponent {
   static propTypes = {
     data: PropTypes.object, // eslint-disable-line
     mutate: PropTypes.func,
@@ -60,85 +60,66 @@ class FeedbackWithData extends PureComponent {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  submitData({title, content}) {
-    this.setState({
-      sending: true,
-      errors: null, // Clear any possible error
-    })
-
-    this.props
-      .mutate({
-        mutation: FEEDBACK_MUTATION,
-        variables: {title, content},
-        update: (proxy, {data: {feedback}}) => {
-          const data = proxy.readQuery(PROXY_DATA)
-
-          data.latestFeedback.push(feedback)
-
-          proxy.writeQuery({
-            data,
-            ...PROXY_DATA,
-          })
-        },
-      })
-      .then(() => {
-        // After sendung data to server
-        this.setState({sending: false})
-      })
-  }
-
-  handleSubmit({title, content}) {
+  /**
+   * @param {Object} data
+   * @param {string} data.title
+   * @param {string} data.content
+   * @param {function} mutate
+   */
+  handleSubmit({title, content}, mutate) {
     validate({title, content}, VALIDATION_RULES)
-      .then((data) => this.submitData(data))
+      .then((validatedData) => {
+        this.setState({
+          sending: true,
+          errors: null, // Clear any possible error
+        })
+
+        mutate({
+          variables: validatedData,
+          update: (proxy, {data: {feedback}}) => {
+            const data = proxy.readQuery(PROXY_DATA)
+
+            data.latestFeedback.push(feedback)
+
+            proxy.writeQuery({
+              data,
+              ...PROXY_DATA,
+            })
+          },
+        }).then(() => {
+          // After sending data to server
+          this.setState({sending: false})
+        })
+      })
       .catch((errors) => this.setState({errors}))
   }
 
-  renderLastEntries() {
-    const {data: {latestFeedback}} = this.props
-    // Create new array due to fatal error when calling 'sort':
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Read-only
-    const data = latestFeedback ? [...latestFeedback] : []
+  renderForm() {
+    const {errors, sending} = this.state
 
-    // Sort by date, to make new written entries goes first
     return (
-      data
-        .sort((prev, next) => prev.date < next.date)
-        // "Row" components was added to take care about leaving
-        // our components indipendent from their rendering context.
-        .map(({id, title, date, content, user}) => (
-          <Row key={id}>
-            <Item
-              title={title}
-              date={date}
-              screenname={user.screenname}
-              avatar={user.avatar}
-            >
-              {content}
-            </Item>
-          </Row>
-        ))
+      <Mutation mutation={FEEDBACK_MUTATION}>
+        {(submitMutation) => (
+          <Form
+            onSubmit={(data) => this.handleSubmit(data, submitMutation)}
+            sending={sending}
+            errors={errors}
+          />
+        )}
+      </Mutation>
     )
   }
 
   render() {
-    const {errors, sending} = this.state
-
     return (
-      <Loader transparent active={this.props.data.loading}>
-        <Form onSubmit={this.handleSubmit} sending={sending} errors={errors} />
-        {this.renderLastEntries()}
-      </Loader>
+      <Query query={LATEST_FEEDBACK_QUERY} variables={{limit: LAST_ITEM_COUNT}}>
+        {({loading, data}) => (
+          <Loader transparent active={loading}>
+            {this.renderForm()}
+            {data.latestFeedback && <List items={data.latestFeedback} />}
+          </Loader>
+        )}
+      </Query>
     )
   }
 }
-
-/**
- * Strange composition of query and mutation
- * What wil happen when we need to make 2 different mutations and compose them together?
- */
-export default compose(
-  graphql(LATEST_FEEDBACK_QUERY, {
-    options: {variables: {limit: LAST_ITEM_COUNT}},
-  }),
-  graphql(FEEDBACK_MUTATION),
-)(FeedbackWithData)
