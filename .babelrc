@@ -11,7 +11,7 @@
     "babel-plugin-inline-import-graphql-ast",
     ["babel-plugin-module-alias", [
       {
-        "src": "./node_modules/react-apollo/index.js",
+        "src": "./node_modules/react-apollo/react-apollo.browser.umd.js",
         "expose": "react-apollo"
       }
     ]]
