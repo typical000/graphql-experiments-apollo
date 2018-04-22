@@ -27,7 +27,12 @@ const renderChunks = () => {
       if (aIndex > bIndex) return 1
       return 0
     })
-    .map((value) => `<script src="/${value}"></script>`)
+    .map((value) => {
+      if (value.endsWith('css')) {
+        return `<link rel="stylesheet" type="text/css" href="/${value}"></link>`
+      }
+      return `<script src="/${value}"></script>`
+    })
     .join('')
 }
 
@@ -84,6 +89,7 @@ const renderHTML = ({app, css, js}) =>
     <body>
       <div id="app">${app}</div>
       ${js}
+      <link rel="stylesheet" type="text/css" href="/vendor.css" />
     </body>
   </html>
 `,

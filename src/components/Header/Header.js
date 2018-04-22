@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import injectSheet from '../../utils/jss'
 import {LinkButton} from '../ui/Button'
+import Tooltip from '../ui/Tooltip'
+import Popover from '../ui/Popover'
 import LogoutButton from '../../containers/Logout'
 import Avatar from '../Avatar'
 
@@ -60,6 +62,12 @@ const styles = (theme) => ({
       marginLeft: 0,
     },
   },
+  avatar: {
+    cursor: 'pointer',
+  },
+  row: {
+    marginBottom: 20,
+  }
 })
 
 const Header = ({children, classes, user}) => {
@@ -79,10 +87,19 @@ const Header = ({children, classes, user}) => {
           {/* This piece of code can be moved in separated component */}
           <div className={classes.user}>
             <div className={classes.screenname}>{user.screenname}</div>
-            <Avatar src={user.avatar} small round />
+            <Popover
+              content={(
+                <div>Hello, {user.screenname}! How are you?</div>
+              )}
+              trigger={'click'}
+            >
+              <Avatar src={user.avatar} small round className={classes.avatar} />
+            </Popover>
           </div>
           <div className={classes.actions}>
-            <LogoutButton />
+            <Tooltip content={'Press this button if you really want to log-out :)'}>
+              <LogoutButton />
+            </Tooltip>
           </div>
         </div>
       </div>

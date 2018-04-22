@@ -58,13 +58,14 @@ module.exports = {
     new webpack.SourceMapDevToolPlugin({
       filename: '[name].js.map'
     }),
+    new ExtractTextPlugin('vendor.css'),
     new ManifestPlugin({
       fileName: 'stats.json',
       // Exclude sourcemaps
       filter: ({name}) => {
-        if (name.endsWith('map')) return false
+        if (name.endsWith('map') || name.endsWith('css')) return false
         return true
       }
-    })
+    }),
   ]
 }
