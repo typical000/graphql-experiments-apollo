@@ -89,7 +89,6 @@ const renderHTML = ({app, css, js}) =>
     <body>
       <div id="app">${app}</div>
       ${js}
-      <link rel="stylesheet" type="text/css" href="/vendor.css" />
     </body>
   </html>
 `,

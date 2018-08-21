@@ -2,7 +2,7 @@
 
 var webpack = require('webpack')
 var path = require('path')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+var MiniCssExtractPlugin = require('mini-css-extract-plugin')
 var CopyFilesPlugin = require('copy-webpack-plugin')
 var ManifestPlugin = require('webpack-manifest-plugin')
 
@@ -15,7 +15,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    publicPath: '/dist'
+    // publicPath: '/dist/'
   },
   module: {
     noParse: /\.min\.js/,
@@ -31,6 +31,11 @@ module.exports = {
         }
       },
       {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: 'ts-loader',
+      },
+      {
         test: /\.(graphql|gql)$/,
         exclude: /node_modules/,
         use: 'graphql-tag/loader'
@@ -43,10 +48,12 @@ module.exports = {
       { test: /\.gif$/, use: 'url-loader?limit=100000' },
       { test: /\.jpg$/, use: 'file-loader' },
       {
-        test: /\.css$/, use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: 'css-loader'
-      })}
+        test: /\.css$/,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          'css-loader',
+        ]
+      }
     ]
   },
   plugins: [
@@ -58,14 +65,28 @@ module.exports = {
     new webpack.SourceMapDevToolPlugin({
       filename: '[name].js.map'
     }),
-    new ExtractTextPlugin('vendor.css'),
+    new MiniCssExtractPlugin({
+      filename: 'vendor.css'
+    }),
     new ManifestPlugin({
       fileName: 'stats.json',
       // Exclude sourcemaps
       filter: ({name}) => {
-        if (name.endsWith('map') || name.endsWith('css')) return false
-        return true
+        if (name.endsWith('js') || name.endsWith('css')) return true
+        return false
       }
     }),
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'initial',
+          enforce: true,
+        },
+      }
+    }
+  }
 }
