@@ -15,8 +15,11 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    // publicPath: '/dist/'
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
+  },
+  devtool: 'inline-source-map',
   module: {
     noParse: /\.min\.js/,
     rules: [
@@ -33,7 +36,9 @@ module.exports = {
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        use: 'ts-loader',
+        use: {
+          loader: 'ts-loader',
+        }
       },
       {
         test: /\.(graphql|gql)$/,
