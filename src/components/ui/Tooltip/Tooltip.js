@@ -9,16 +9,12 @@ import injectSheet from '../../../utils/jss'
 const styles = {
   tooltip: {
     fontSize: 12,
-  }
+  },
 }
 
 const Tooltip = ({classes, children, content, ...props}) => (
   <Tippy
-    html={(
-      <div className={classes.tooltip}>
-        {content}
-      </div>
-    )}
+    html={<div className={classes.tooltip}>{content}</div>}
     {...props}
     theme={'dark'}
     interactive

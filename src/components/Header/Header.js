@@ -67,7 +67,7 @@ const styles = (theme) => ({
   },
   row: {
     marginBottom: 20,
-  }
+  },
 })
 
 const Header = ({children, classes, user}) => {
@@ -88,16 +88,21 @@ const Header = ({children, classes, user}) => {
           <div className={classes.user}>
             <div className={classes.screenname}>{user.screenname}</div>
             <Popover
-              content={(
-                <div>Hello, {user.screenname}! How are you?</div>
-              )}
+              content={<div>Hello, {user.screenname}! How are you?</div>}
               trigger={'click'}
             >
-              <Avatar src={user.avatar} small round className={classes.avatar} />
+              <Avatar
+                src={user.avatar}
+                small
+                round
+                className={classes.avatar}
+              />
             </Popover>
           </div>
           <div className={classes.actions}>
-            <Tooltip content={'Press this button if you really want to log-out :)'}>
+            <Tooltip
+              content={'Press this button if you really want to log-out :)'}
+            >
               <LogoutButton />
             </Tooltip>
           </div>
