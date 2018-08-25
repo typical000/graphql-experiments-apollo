@@ -1,8 +1,6 @@
-/* @flow */
-
 import React, {PureComponent} from 'react'
+import PropTypes from 'prop-types'
 import {withRouter} from 'react-router'
-import type {Classes} from 'react-jss'
 import {compose} from 'react-apollo'
 import injectSheet from '../../utils/jss'
 import GlobalStyles from '../GlobalStyles'
@@ -25,17 +23,13 @@ const styles = (theme) => ({
   },
 })
 
-type Props = {
-  classes: Classes,
-  appData: {[string]: boolean},
-  loading?: boolean,
-}
+class App extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    appData: PropTypes.object, // eslint-disable-line
+    loading: PropTypes.bool,
+  }
 
-type State = {
-  isClient: boolean,
-}
-
-class App extends PureComponent<Props, State> {
   static defaultProps = {
     loading: false,
   }

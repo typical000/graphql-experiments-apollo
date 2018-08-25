@@ -2,9 +2,11 @@
   "parser": "babel-eslint",
   "extends": [
     "eslint-config-jss",
+    "plugin:flowtype/recommended",
     "prettier"
   ],
   "plugins": [
+    "flowtype",
     "babel"
   ],
   "rules": {
@@ -16,7 +18,12 @@
     }],
     "object-curly-spacing": "off",
     "no-underscore-dangle": "off",
+    "react/prop-types": "off",
+    "no-undef": "off",
+    "no-unused-vars": [2, {vars: local}],
     "babel/object-curly-spacing": 2,
+    "flowtype/define-flow-type": 1,
+    "flowtype/use-flow-type": 1,
   },
   "parserOptions": {
     "ecmaVersion": 6,
