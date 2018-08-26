@@ -3,6 +3,7 @@
 exports[`LogoutButton User must became guest after click 1`] = `
 Object {
   "appData": Object {
+    "__typename": "AppData",
     "guest": true,
     Symbol(id): "$ROOT_QUERY.appData",
   },

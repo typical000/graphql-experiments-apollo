@@ -1,21 +1,39 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
+import posed, {PoseGroup} from 'react-pose'
 import UserListWithData from '../../containers/User'
 import FeedbackWithData from '../../containers/Feedback'
 import {AppDataConsumer} from '../../containers/AppData'
 import Container from '../ui/Container'
 import Header from '../Header'
 
+const RouteContainer = posed.div({
+  enter: {opacity: 1, delay: 300, beforeChildren: true},
+  exit: {opacity: 0},
+})
+
 const InternalContent = () => (
-  <Container>
-    <AppDataConsumer>
-      {({user}) => <Header user={user}>Test GraphQL application</Header>}
-    </AppDataConsumer>
-    <Switch>
-      <Route exact path="/" component={UserListWithData} />
-      <Route path="/feedback" component={FeedbackWithData} />
-    </Switch>
-  </Container>
+  <Route>
+    {({location}) => (
+      <Container>
+        <AppDataConsumer>
+          {({user}) => <Header user={user}>Test GraphQL application</Header>}
+        </AppDataConsumer>
+        <PoseGroup>
+          <RouteContainer key={location.pathname}>
+            <Switch location={location}>
+              <Route exact path="/" component={UserListWithData} key="search" />
+              <Route
+                path="/feedback"
+                component={FeedbackWithData}
+                key="feedback"
+              />
+            </Switch>
+          </RouteContainer>
+        </PoseGroup>
+      </Container>
+    )}
+  </Route>
 )
 
 export default InternalContent

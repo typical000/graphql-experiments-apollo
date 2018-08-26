@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import injectSheet from '../../../utils/jss'
@@ -29,22 +29,34 @@ const styles = {
   },
 }
 
-const Row = ({children, classes, small, big}) => {
-  const classNames = cn(classes.row, small && classes.small, big && classes.big)
+class Row extends PureComponent {
+  static propTypes = {
+    classes: PropTypes.objectOf(PropTypes.string).isRequired,
+    children: PropTypes.node.isRequired,
+    small: PropTypes.bool,
+    big: PropTypes.bool,
+    hostRef: PropTypes.func, // Needed for react-pose
+  }
 
-  return <div className={classNames}>{children}</div>
-}
+  static defaultProps = {
+    small: false,
+    big: false,
+    hostRef: () => {},
+  }
 
-Row.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  children: PropTypes.node.isRequired,
-  small: PropTypes.bool,
-  big: PropTypes.bool,
-}
-
-Row.defaultProps = {
-  small: false,
-  big: false,
+  render() {
+    const {children, classes, small, big, hostRef} = this.props
+    const classNames = cn(
+      classes.row,
+      small && classes.small,
+      big && classes.big,
+    )
+    return (
+      <div className={classNames} ref={hostRef}>
+        {children}
+      </div>
+    )
+  }
 }
 
 export default injectSheet(styles)(Row)

@@ -34,7 +34,7 @@ describe('LogoutButton', () => {
      * using simplified queries (just because tests DON'T need real things)
      */
     const wrap = mount(
-      <MockedProvider removeTypename mocks={MOCKS}>
+      <MockedProvider mocks={MOCKS}>
         <LogoutButton />
       </MockedProvider>,
     )
@@ -51,6 +51,7 @@ describe('LogoutButton', () => {
       data: {
         appData: {
           guest: false,
+          __typename: 'AppData',
         },
       },
     })

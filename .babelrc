@@ -10,12 +10,6 @@
     "transform-runtime",
     "transform-react-constant-elements",
     "babel-plugin-inline-import-graphql-ast",
-    ["babel-plugin-module-alias", [
-      {
-        "src": "./node_modules/react-apollo/react-apollo.browser.umd.js",
-        "expose": "react-apollo"
-      }
-    ]]
   ],
   "ignore": [
     "node_modules"

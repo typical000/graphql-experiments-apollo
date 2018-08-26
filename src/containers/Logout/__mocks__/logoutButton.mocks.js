@@ -11,6 +11,7 @@ export default [
       data: {
         appData: {
           guest: false,
+          __typename: 'AppData',
         },
       },
     },
@@ -25,6 +26,7 @@ export default [
       data: {
         logout: {
           guest: true,
+          __typename: 'AppData',
         },
       },
     },

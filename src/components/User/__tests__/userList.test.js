@@ -44,7 +44,9 @@ describe('UserList', () => {
 
     expect(userListWithLimitReached.find('.action').length).toBeFalsy()
     expect(userListWithLoading.find('.action').length).toBeFalsy()
-    expect(userListWithAllNeededProps.find('.action').length).toEqual(1)
+    expect(userListWithAllNeededProps.find('.action').hostNodes()).toHaveLength(
+      1,
+    )
   })
 
   it('Should "Load more" click pass number of children', () => {

@@ -1,5 +1,6 @@
 import React, {Children, PureComponent} from 'react'
 import PropTypes from 'prop-types'
+import posed, {PoseGroup} from 'react-pose'
 import injectSheet from '../../utils/jss'
 import Loader from '../ui/Loader'
 import {ButtonPrimary} from '../ui/Button'
@@ -8,6 +9,8 @@ const styles = {
   list: {
     textAlign: 'center',
     minHeight: 200,
+    padding: 0,
+    margin: 0,
   },
   action: {
     marginTop: 20,
@@ -23,6 +26,22 @@ const styles = {
     margin: [0, 10, 20],
   },
 }
+
+const staggerDuration = 20
+
+const Item = posed.li({
+  enter: {
+    y: 0,
+    opacity: 1,
+    delay: ({index}) => index * staggerDuration,
+  },
+  exit: {y: 50, opacity: 0},
+})
+
+const Actions = posed.div({
+  enter: {delay: 200, opacity: 1},
+  exit: {opacity: 0},
+})
 
 class UserList extends PureComponent {
   static propTypes = {
@@ -66,16 +85,20 @@ class UserList extends PureComponent {
     return (
       <Loader transparent active={loading}>
         <div className={classes.list}>
-          {Children.map(children, (child) => (
-            <div className={classes.item}>{child}</div>
-          ))}
+          <PoseGroup animateOnMount>
+            {Children.map(children, (child, key) => (
+              <Item className={classes.item} key={key} index={key}>
+                {child}
+              </Item>
+            ))}
+          </PoseGroup>
         </div>
         {this.isLoadMoreAvailable && (
-          <div className={classes.action}>
+          <Actions className={classes.action}>
             <ButtonPrimary onClick={this.handleLoadMoreClick}>
               Load more
             </ButtonPrimary>
-          </div>
+          </Actions>
         )}
       </Loader>
     )
