@@ -61,6 +61,7 @@ const UserListWithData = () => (
             ({id, avatar, screenname, gender, geo: {city}, actions}) => (
               <User
                 key={id}
+                id={id}
                 avatar={avatar}
                 screenname={screenname}
                 gender={gender}

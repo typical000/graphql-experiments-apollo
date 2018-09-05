@@ -5,6 +5,8 @@ import injectSheet from '../../utils/jss'
 
 const styles = (theme) => ({
   avatar: {
+    height: 'inherit',
+    width: 'inherit',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',

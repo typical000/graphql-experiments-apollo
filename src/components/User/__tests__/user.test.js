@@ -7,7 +7,12 @@ describe('User', () => {
     // Call InnerComponent for making snapshot of real component
     // instead of JSS-wrapped one
     const user = render(
-      <User avatar={'someUrl.jpg'} screenname={'Username'} gender={1} />,
+      <User
+        id={'100'}
+        avatar={'someUrl.jpg'}
+        screenname={'Username'}
+        gender={1}
+      />,
     )
 
     expect(user).toMatchSnapshot()

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import posed, {PoseGroup} from 'react-pose'
-import UserListWithData from '../../containers/User'
+import {UserListWithData, UserWithData} from '../../containers/User'
 import NewsfeedWithData from '../../containers/Newsfeed'
 import {AppDataConsumer} from '../../containers/AppData'
 import Container from '../ui/Container'
@@ -20,9 +20,14 @@ const InternalContent = () => (
           {({user}) => <Header user={user}>Test GraphQL application</Header>}
         </AppDataConsumer>
         <PoseGroup>
-          <RouteContainer key={location.pathname}>
+          <RouteContainer key={location.key || 'first'}>
             <Switch location={location}>
               <Route exact path="/" component={UserListWithData} key="search" />
+              <Route
+                path="/user/:id"
+                component={UserWithData}
+                key="user"
+              />
               <Route
                 path="/newsfeed"
                 component={NewsfeedWithData}

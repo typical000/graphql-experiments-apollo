@@ -46,9 +46,7 @@ const NewsfeedItem = ({children, classes, avatar, title, screenname, date}) => (
     </div>
     <div className={classes.container}>
       <div className={classes.header}>
-        <div className={classes.title}>
-          {screenname}
-        </div>
+        <div className={classes.title}>{screenname}</div>
         <div className={classes.date}>{getUserReadableDate(date)}</div>
       </div>
       <div className={classes.content}>{children}</div>

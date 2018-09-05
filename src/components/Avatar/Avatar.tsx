@@ -8,8 +8,10 @@ const styles = (theme) => ({
     background: theme.common.border, // TODO: Replace with cardMuted
     borderRadius: theme.common.radius,
     display: 'inline-flex',
+    height: 'inherit',
     justifyContent: 'center',
     verticalAlign: 'middle',
+    width: 'inherit',
   },
   img: {
     display: 'inline-block',

@@ -1,0 +1,20 @@
+#import "../fragments/userDefaultFields.graphql"
+#import "../fragments/userInfoFields.graphql"
+#import "../../Activity/fragments/likeFields.graphql"
+#import "../../Activity/fragments/favoriteFields.graphql"
+
+query User($id: ID!) {
+  user(id: $id) {
+    ...userDefaultFields
+    ...userInfoFields
+    actions {
+      id
+      like {
+        ...likeFields
+      }
+      favorite {
+        ...favoriteFields
+      }
+    }
+  }
+}
