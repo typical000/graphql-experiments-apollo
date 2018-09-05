@@ -117,8 +117,8 @@ const resolvers = {
     // Get geolocation info for single user by ID
     geo: (obj, args) => find(users, {id: args.id}).geo,
     // Actions
-    like: (obj, {id}) => find(actions, {id: id}).like,
-    favorite: (obj, {id}) => find(actions, {id: id}).favorite,
+    like: (obj, {id}) => find(actions, {id}).like,
+    favorite: (obj, {id}) => find(actions, {id}).favorite,
 
     // Retrive latest newsfeeds
     latestNewsfeed: (obj, {limit}) => {
@@ -243,9 +243,7 @@ fetch(`http://localhost:${PORT}/graphql`, {
   .then(result => result.json())
   .then(result => {
     // here we're filtering out any type information unrelated to unions or interfaces
-    const filteredData = result.data.__schema.types.filter((type) => {
-      return type.possibleTypes !== null
-    })
+    const filteredData = result.data.__schema.types.filter((type) => type.possibleTypes !== null)
 
     result.data.__schema.types = filteredData
 
