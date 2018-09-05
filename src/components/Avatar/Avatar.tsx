@@ -13,7 +13,8 @@ const styles = (theme) => ({
   },
   img: {
     display: 'inline-block',
-    height: 'auto',
+    height: '100%',
+    objectFit: 'cover',
     verticalAlign: 'middle',
     width: '100%',
   },

@@ -14,7 +14,8 @@ const styles = (theme) => ({
   },
   img: {
     width: '100%',
-    height: 'auto',
+    height: '100%',
+    objectFit: 'cover',
     display: 'inline-block',
     verticalAlign: 'middle',
   },
