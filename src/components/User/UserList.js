@@ -25,9 +25,14 @@ const styles = {
     width: 385,
     margin: [0, 10, 20],
   },
+  '@media (min-width: 1260px)': {
+    list: {
+      margin: [0, -204],
+    },
+  },
 }
 
-const staggerDuration = 20
+const staggerDuration = 5
 
 const Item = posed.li({
   enter: {

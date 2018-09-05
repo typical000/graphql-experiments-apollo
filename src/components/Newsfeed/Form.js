@@ -5,7 +5,7 @@ import Card from '../ui/Card'
 import Loader from '../ui/Loader'
 import {ButtonPrimary} from '../ui/Button'
 import {Input, Textarea} from '../ui/Input'
-import {H2, P} from '../typography'
+import {H2} from '../typography'
 import {getErrorByField} from '../../utils/validator'
 
 const styles = {
@@ -23,7 +23,7 @@ const styles = {
   },
 }
 
-class FeedbackForm extends PureComponent {
+class NewsfeedForm extends PureComponent {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     title: PropTypes.string,
@@ -82,8 +82,8 @@ class FeedbackForm extends PureComponent {
     return (
       <Loader active={sending}>
         <Card className={classes.container}>
-          <H2>Leave your feedback</H2>
-          <P>Your feedback is very important for us!</P>
+          <H2>What's on your mind?</H2>
+          {/*
           <div className={classes.row}>
             <Input
               label="Title"
@@ -94,9 +94,10 @@ class FeedbackForm extends PureComponent {
               }}
             />
           </div>
+          */}
           <div className={classes.row}>
             <Textarea
-              label="Body"
+              placeholder="Your post is very important for us!"
               value={content}
               error={getErrorByField(errors, 'content')}
               onInput={(value) => {
@@ -119,4 +120,4 @@ class FeedbackForm extends PureComponent {
   }
 }
 
-export default injectSheet(styles)(FeedbackForm)
+export default injectSheet(styles)(NewsfeedForm)

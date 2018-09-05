@@ -2,7 +2,7 @@ import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import posed, {PoseGroup} from 'react-pose'
 import UserListWithData from '../../containers/User'
-import FeedbackWithData from '../../containers/Feedback'
+import NewsfeedWithData from '../../containers/Newsfeed'
 import {AppDataConsumer} from '../../containers/AppData'
 import Container from '../ui/Container'
 import Header from '../Header'
@@ -24,9 +24,9 @@ const InternalContent = () => (
             <Switch location={location}>
               <Route exact path="/" component={UserListWithData} key="search" />
               <Route
-                path="/feedback"
-                component={FeedbackWithData}
-                key="feedback"
+                path="/newsfeed"
+                component={NewsfeedWithData}
+                key="newsfeed"
               />
             </Switch>
           </RouteContainer>

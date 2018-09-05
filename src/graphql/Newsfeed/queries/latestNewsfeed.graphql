@@ -1,0 +1,7 @@
+#import "../fragments/newsfeedFields.graphql"
+
+query LatestNewsfeed($limit: Int!) {
+  latestNewsfeed(limit: $limit) {
+    ...newsfeedFields
+  }
+}

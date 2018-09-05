@@ -1,6 +1,6 @@
 #import "../../User/fragments/userInfoFields.graphql"
 
-fragment feedbackFields on Feedback {
+fragment newsfeedFields on Newsfeed {
   id
   date
   title

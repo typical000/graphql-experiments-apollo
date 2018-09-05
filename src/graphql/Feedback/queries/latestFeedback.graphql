@@ -1,7 +1,0 @@
-#import "../fragments/feedbackFields.graphql"
-
-query LatestFeedback($limit: Int!) {
-  latestFeedback(limit: $limit) {
-    ...feedbackFields
-  }
-}

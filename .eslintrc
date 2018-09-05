@@ -10,6 +10,7 @@
     "babel"
   ],
   "rules": {
+    "strict": 0,
     "import/no-unresolved": [2, {
       "ignore": [
         "react",

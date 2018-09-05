@@ -1,0 +1,7 @@
+#import "../fragments/newsfeedFields.graphql"
+
+mutation Newsfeed($title: String!, $content: String!) {
+  newsfeed(title: $title, content: $content) {
+    ...newsfeedFields
+  }
+}

@@ -1,11 +1,11 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 import {graphql, compose} from 'react-apollo'
-import {Form, Item} from '../../components/Feedback'
+import {Form, Item} from '../../components/Newsfeed'
 import Loader from '../../components/ui/Loader'
 import Row from '../../components/ui/Row'
-import LATEST_FEEDBACK_QUERY from '../../graphql/Feedback/queries/latestFeedback.graphql'
-import FEEDBACK_MUTATION from '../../graphql/Feedback/mutations/feedback.graphql'
+import LATEST_NEWSFEED_QUERY from '../../graphql/Newsfeed/queries/latestNewsfeed.graphql'
+import NEWSFEED_MUTATION from '../../graphql/Newsfeed/mutations/newsfeed.graphql'
 import {
   validate,
   StringValidator,
@@ -15,7 +15,7 @@ import {
 const LAST_ITEM_COUNT = 3
 
 const PROXY_DATA = {
-  query: LATEST_FEEDBACK_QUERY,
+  query: LATEST_NEWSFEED_QUERY,
   variables: {limit: LAST_ITEM_COUNT},
 }
 
@@ -40,10 +40,10 @@ const VALIDATION_RULES = {
 }
 
 /**
- * Feedback page with form and rendered list of last entries.
+ * Newsfeed page with form and rendered list of last entries.
  * Here we use HOC pattern for react-apollo
  */
-class FeedbackWithData extends PureComponent {
+class NewsfeedWithData extends PureComponent {
   static propTypes = {
     data: PropTypes.object, // eslint-disable-line
     mutate: PropTypes.func,
@@ -68,12 +68,12 @@ class FeedbackWithData extends PureComponent {
 
     this.props
       .mutate({
-        mutation: FEEDBACK_MUTATION,
+        mutation: NEWSFEED_MUTATION,
         variables: {title, content},
-        update: (proxy, {data: {feedback}}) => {
+        update: (proxy, {data: {newsfeed}}) => {
           const data = proxy.readQuery(PROXY_DATA)
 
-          data.latestFeedback.push(feedback)
+          data.latestNewsfeed.push(newsfeed)
 
           proxy.writeQuery({
             data,
@@ -94,10 +94,10 @@ class FeedbackWithData extends PureComponent {
   }
 
   renderLastEntries() {
-    const {data: {latestFeedback}} = this.props
+    const {data: {latestNewsfeed}} = this.props
     // Create new array due to fatal error when calling 'sort':
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Read-only
-    const data = latestFeedback ? [...latestFeedback] : []
+    const data = latestNewsfeed ? [...latestNewsfeed] : []
 
     // Sort by date, to make new written entries goes first
     return (
@@ -137,8 +137,8 @@ class FeedbackWithData extends PureComponent {
  * What wil happen when we need to make 2 different mutations and compose them together?
  */
 export default compose(
-  graphql(LATEST_FEEDBACK_QUERY, {
+  graphql(LATEST_NEWSFEED_QUERY, {
     options: {variables: {limit: LAST_ITEM_COUNT}},
   }),
-  graphql(FEEDBACK_MUTATION),
-)(FeedbackWithData)
+  graphql(NEWSFEED_MUTATION),
+)(NewsfeedWithData)

@@ -39,7 +39,7 @@ const styles = (theme) => ({
   },
 })
 
-const FeedbackItem = ({children, classes, avatar, title, screenname, date}) => (
+const NewsfeedItem = ({children, classes, avatar, title, screenname, date}) => (
   <Card className={classes.item}>
     <div className={classes.avatar}>
       <Avatar small round src={avatar} />
@@ -47,8 +47,7 @@ const FeedbackItem = ({children, classes, avatar, title, screenname, date}) => (
     <div className={classes.container}>
       <div className={classes.header}>
         <div className={classes.title}>
-          {title}
-          <span className={classes.user}>by {screenname}</span>
+          {screenname}
         </div>
         <div className={classes.date}>{getUserReadableDate(date)}</div>
       </div>
@@ -57,7 +56,7 @@ const FeedbackItem = ({children, classes, avatar, title, screenname, date}) => (
   </Card>
 )
 
-FeedbackItem.propTypes = {
+NewsfeedItem.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
@@ -66,4 +65,4 @@ FeedbackItem.propTypes = {
   date: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 }
 
-export default injectSheet(styles)(FeedbackItem)
+export default injectSheet(styles)(NewsfeedItem)

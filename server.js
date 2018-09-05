@@ -11,7 +11,7 @@ const GraphQLDate = require('graphql-iso-date')
 const appData = require('./__mocks__/appData')
 const users = require('./__mocks__/users')
 const actions = require('./__mocks__/actions')
-const feedbacks = require('./__mocks__/feedbacks')
+const newsfeeds = require('./__mocks__/newsfeeds')
 
 const PORT = process.env.PORT
 
@@ -64,7 +64,7 @@ const typeDefs = `
     active: Boolean!
   }
 
-  type Feedback {
+  type Newsfeed {
     id: ID!
     user: User!
     date: Date!
@@ -81,14 +81,14 @@ const typeDefs = `
     actions(id: ID): Actions
     like(id: ID): Like
     favorite(id: ID): Favorite
-    latestFeedback(limit: Int!): [Feedback]
+    latestNewsfeed(limit: Int!): [Newsfeed]
   }
 
   type Mutation {
     logout: AppData
     like(id: ID!): Like
     favorite(id: ID!): Favorite
-    feedback(title: String!, content: String!): Feedback
+    newsfeed(title: String!, content: String!): Newsfeed
   }
 `
 
@@ -120,10 +120,10 @@ const resolvers = {
     like: (obj, {id}) => find(actions, {id: id}).like,
     favorite: (obj, {id}) => find(actions, {id: id}).favorite,
 
-    // Retrive latest feedbacks
-    latestFeedback: (obj, {limit}) => {
-      let result = feedbacks.sort((a, b) => a.date < b.date).slice(0, limit)
-      // Add user data to sorted feedbacks
+    // Retrive latest newsfeeds
+    latestNewsfeed: (obj, {limit}) => {
+      let result = newsfeeds.sort((a, b) => a.date < b.date).slice(0, limit)
+      // Add user data to sorted newsfeeds
       result = result.map((item) => {
         item.user = find(users, {id: item.userId})
         return item
@@ -164,7 +164,7 @@ const resolvers = {
       available: true,
     }),
 
-    feedback: (obj, args) => ({
+    newsfeed: (obj, args) => ({
       id: Math.round(Math.random() * 1000), // Just get random ID
       date: Date.now(),
       title: args.title,

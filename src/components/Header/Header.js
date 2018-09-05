@@ -80,7 +80,7 @@ const Header = ({children, classes, user}) => {
               <LinkButton to={'/'}>Search</LinkButton>
             </div>
             <div className={classes.action}>
-              <LinkButton to={'/feedback'}>Feedback</LinkButton>
+              <LinkButton to={'/newsfeed'}>Newsfeed</LinkButton>
             </div>
           </div>
           <div className={classes.content}>{children}</div>
