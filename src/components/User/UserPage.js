@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
-import posed, {PoseGroup} from 'react-pose';
+import posed, {PoseGroup} from 'react-pose'
 import Actions from './Actions'
 import Avatar from '../Avatar'
 import Card from '../ui/Card'
@@ -19,18 +19,18 @@ const USER_PHOTOS = [
 ]
 
 const Content = posed.div({
-  enter: { staggerChildren: 50 },
-  exit: { staggerChildren: 20, staggerDirection: -1 }
-});
+  enter: {staggerChildren: 50},
+  exit: {staggerChildren: 20, staggerDirection: -1},
+})
 
 const UserField = posed.div({
-  enter: { x: 0, opacity: 1 },
-  exit: { x: 50, opacity: 0 }
-});
+  enter: {x: 0, opacity: 1},
+  exit: {x: 50, opacity: 0},
+})
 
 const AnimatedPhoto = posed.div({
-  enter: { y: 0, opacity: 1 },
-  exit: { y: 50, opacity: 0 }
+  enter: {y: 0, opacity: 1},
+  exit: {y: 50, opacity: 0},
 })
 
 /**

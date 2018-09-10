@@ -23,11 +23,7 @@ const InternalContent = () => (
           <RouteContainer key={location.key || 'first'}>
             <Switch location={location}>
               <Route exact path="/" component={UserListWithData} key="search" />
-              <Route
-                path="/user/:id"
-                component={UserWithData}
-                key="user"
-              />
+              <Route path="/user/:id" component={UserWithData} key="user" />
               <Route
                 path="/newsfeed"
                 component={NewsfeedWithData}

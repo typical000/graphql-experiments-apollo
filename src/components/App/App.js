@@ -59,6 +59,12 @@ class App extends PureComponent<Props, State> {
     this.setState({isClient: true})
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      window.scrollTo(0, 0)
+    }
+  }
+
   renderContent() {
     const {loading, appData} = this.props
     const {isClient} = this.state

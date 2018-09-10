@@ -1,7 +1,8 @@
 import React from 'react'
 import {Query} from 'react-apollo'
+import InfiniteScroll from 'react-infinite-scroller'
 import {isEmpty} from 'lodash'
-import {User, UserList} from '../../components/User'
+import {User, UserList, LoadingMore} from '../../components/User'
 import OFFSET_USERS_QUERY from '../../graphql/User/queries/offsetUsers.graphql'
 
 /**
@@ -23,55 +24,106 @@ const UserListWithData = () => (
       if (isEmpty(data)) return <div />
 
       return (
-        <UserList
-          loading={loading}
-          limitReached={data.offsetUsers.limitReached}
-          onLoadMoreClick={(offset) => {
-            /**
-             * We don't place handler in separated functon
-             * due to need to pass 'fetchMore' function
-             * as param to handler.
-             */
-            fetchMore({
-              variables: {
-                offset,
-                limit: ITEMS_PER_LOAD,
-              },
-              updateQuery: (prevResult, {fetchMoreResult}) => {
-                if (!fetchMoreResult) return prevResult
-                /**
-                 * Apollo doesn't do work for you in case of updating query.
-                 * We need to manually extend previous data with new data
-                 * to make new object that will be returned as new data
-                 */
-                return Object.assign({}, prevResult, {
-                  offsetUsers: Object.assign({}, prevResult.offsetUsers, {
-                    users: [
-                      ...prevResult.offsetUsers.users,
-                      ...fetchMoreResult.offsetUsers.users,
-                    ],
-                    limitReached: fetchMoreResult.offsetUsers.limitReached,
-                  }),
-                })
-              },
-            })
+        <InfiniteScroll
+          loadMore={() => {
+            // Set timeout is just for testing loader
+            setTimeout(() => {
+              fetchMore({
+                variables: {
+                  offset: data.offsetUsers.users.length,
+                  limit: ITEMS_PER_LOAD,
+                },
+                updateQuery: (prevResult, {fetchMoreResult}) => {
+                  if (!fetchMoreResult) return prevResult
+                  /**
+                   * Apollo doesn't do work for you in case of updating query.
+                   * We need to manually extend previous data with new data
+                   * to make new object that will be returned as new data
+                   */
+                  return Object.assign({}, prevResult, {
+                    offsetUsers: Object.assign({}, prevResult.offsetUsers, {
+                      users: [
+                        ...prevResult.offsetUsers.users,
+                        ...fetchMoreResult.offsetUsers.users,
+                      ],
+                      limitReached: fetchMoreResult.offsetUsers.limitReached,
+                    }),
+                  })
+                },
+              })
+            }, 500);
           }}
+          hasMore={!data.offsetUsers.limitReached}
+          loader={<LoadingMore key={1} />}
         >
-          {data.offsetUsers.users.map(
-            ({id, avatar, screenname, gender, geo: {city}, actions}) => (
-              <User
-                key={id}
-                id={id}
-                avatar={avatar}
-                screenname={screenname}
-                gender={gender}
-                actions={actions}
-                city={city}
-              />
-            ),
-          )}
-        </UserList>
+          <UserList loading={loading}>
+            {data.offsetUsers.users.map(
+              ({id, avatar, screenname, gender, geo: {city}, actions}) => (
+                <User
+                  key={id}
+                  id={id}
+                  avatar={avatar}
+                  screenname={screenname}
+                  gender={gender}
+                  actions={actions}
+                  city={city}
+                />
+              ),
+            )}
+          </UserList>
+        </InfiniteScroll>
       )
+
+      // return (
+      //   <UserList
+      //     loading={loading}
+      //     limitReached={data.offsetUsers.limitReached}
+      //     onLoadMoreClick={(offset) => {
+      //       /**
+      //        * We don't place handler in separated functon
+      //        * due to need to pass 'fetchMore' function
+      //        * as param to handler.
+      //        */
+      //       fetchMore({
+      //         variables: {
+      //           offset,
+      //           limit: ITEMS_PER_LOAD,
+      //         },
+      //         updateQuery: (prevResult, {fetchMoreResult}) => {
+      //           if (!fetchMoreResult) return prevResult
+      //           /**
+      //            * Apollo doesn't do work for you in case of updating query.
+      //            * We need to manually extend previous data with new data
+      //            * to make new object that will be returned as new data
+      //            */
+      //           return Object.assign({}, prevResult, {
+      //             offsetUsers: Object.assign({}, prevResult.offsetUsers, {
+      //               users: [
+      //                 ...prevResult.offsetUsers.users,
+      //                 ...fetchMoreResult.offsetUsers.users,
+      //               ],
+      //               limitReached: fetchMoreResult.offsetUsers.limitReached,
+      //             }),
+      //           })
+      //         },
+      //       })
+      //     }}
+      //   >
+      //     {data.offsetUsers.users.map(
+      //       ({id, avatar, screenname, gender, geo: {city}, actions}) => (
+      //         <User
+      //           key={id}
+      //           id={id}
+      //           avatar={avatar}
+      //           screenname={screenname}
+      //           gender={gender}
+      //           actions={actions}
+      //           city={city}
+      //         />
+      //       ),
+      //     )}
+      //   </UserList>
+      // )
     }}
   </Query>
 )
