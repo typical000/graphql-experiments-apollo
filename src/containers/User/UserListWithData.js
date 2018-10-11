@@ -51,7 +51,7 @@ const UserListWithData = () => (
                   })
                 },
               })
-            }, 500);
+            }, 500)
           }}
           hasMore={!data.offsetUsers.limitReached}
           loader={<LoadingMore key={1} />}
@@ -73,57 +73,6 @@ const UserListWithData = () => (
           </UserList>
         </InfiniteScroll>
       )
-
-      // return (
-      //   <UserList
-      //     loading={loading}
-      //     limitReached={data.offsetUsers.limitReached}
-      //     onLoadMoreClick={(offset) => {
-      //       /**
-      //        * We don't place handler in separated functon
-      //        * due to need to pass 'fetchMore' function
-      //        * as param to handler.
-      //        */
-      //       fetchMore({
-      //         variables: {
-      //           offset,
-      //           limit: ITEMS_PER_LOAD,
-      //         },
-      //         updateQuery: (prevResult, {fetchMoreResult}) => {
-      //           if (!fetchMoreResult) return prevResult
-      //           /**
-      //            * Apollo doesn't do work for you in case of updating query.
-      //            * We need to manually extend previous data with new data
-      //            * to make new object that will be returned as new data
-      //            */
-      //           return Object.assign({}, prevResult, {
-      //             offsetUsers: Object.assign({}, prevResult.offsetUsers, {
-      //               users: [
-      //                 ...prevResult.offsetUsers.users,
-      //                 ...fetchMoreResult.offsetUsers.users,
-      //               ],
-      //               limitReached: fetchMoreResult.offsetUsers.limitReached,
-      //             }),
-      //           })
-      //         },
-      //       })
-      //     }}
-      //   >
-      //     {data.offsetUsers.users.map(
-      //       ({id, avatar, screenname, gender, geo: {city}, actions}) => (
-      //         <User
-      //           key={id}
-      //           id={id}
-      //           avatar={avatar}
-      //           screenname={screenname}
-      //           gender={gender}
-      //           actions={actions}
-      //           city={city}
-      //         />
-      //       ),
-      //     )}
-      //   </UserList>
-      // )
     }}
   </Query>
 )

@@ -31,14 +31,6 @@ const client = new ApolloClient({
 
   cache: new InMemoryCache({
     fragmentMatcher,
-    // dataIdFromObject: object => object.id,
-    dataIdFromObject: (obj) => {
-      if (obj.id) {
-        if (obj.__typename) return obj.__typename + obj.id
-        return obj.id
-      }
-      return null
-    },
   }),
 
   /**
@@ -51,7 +43,7 @@ const client = new ApolloClient({
    * Enable debugging on producton build.
    * But it steel doesn't work on both DEV and PROD envs, don't know why :D
    */
-  connectToDevTools: process.env.NODE_ENV === 'production',
+  connectToDevTools: true,
 
   addTypeName: true,
 })
